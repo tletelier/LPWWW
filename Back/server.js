@@ -3,13 +3,21 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
-const {merge, unary} = require('lodash');
+// const {merge, unary} = require('lodash');
 const User = require('./models/user');
 
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 dotenv.config();
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.c26hiue.mongodb.net/${process.env.MONGO_BD}`, {useNewUrlParser: true, usseUnifiedTopology: true});
+const URI = process.env.MONGO_URI;
+
+mongoose.connect(URI, {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
+  }, err => {
+    if(err) throw err;
+    console.log('Connected to MongoDB!!!')
+  });
 
 const typeDefs = gql`
 type User{
@@ -32,9 +40,9 @@ type Query{
   getUser(id: ID!): User
 }
 
-type Mutation {
+type Mutation{
   addUser(input: UserInput): User
-  updateUSer(id: ID!, input: UserInput) :  User
+  updateUser(id: ID!, input: UserInput) :  User
   deleteUser(id: ID!) : Alert
 }
 `;
@@ -45,6 +53,9 @@ const resolvers = {
       const users = await User.find();
       return users;
     },
+    // async getLibros(obj){
+    //   const libros = await
+    // },
     async getUser(obj, {id}){
       const user = await User.findById(id);
       return user;
