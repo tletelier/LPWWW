@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
-// const bodyParser = require('body-parse');
+const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
 // const {merge, unary} = require('lodash');
-const User = require('./models/user');
 
+// Models
+const Admin = require('./models/admin');
+const Cajero = require('./models/cajero');
+const Funcionario = require('./models/funcionario');
+const Informe = require('./models/informe');
+const Servicio = require('./models/servicio');
+const Sucursal = require('./models/sucursal');
+const Vale = require('./models/vale');
+
+// Variables de entorno
 const dotenv = require('dotenv')
 dotenv.config();
 
@@ -20,15 +29,89 @@ mongoose.connect(URI, {
   });
 
 const typeDefs = gql`
-type User{
+scalar DateTime
+
+type Admin {
   id: ID!
-  correo: String!
-  pass: String!
+  nombres: String,
+  apellidos: String,
+  codigoAdmin: Int,
+  pass: String,
 }
 
-input UserInput{
-  correo: String!
-  pass: String!
+type Cajero {
+  id: ID!
+  nombres: String,
+  apellidos: String,
+  turno: String,
+  sucursal: Sucursal,
+}
+
+type Funcionario {
+  id: ID!
+  nombres: String!,
+  apellidos: String!,
+  codigoFuncionario: Int!,
+  correo: String!,
+  pass: String!,
+  perfil: String!,
+  valesDisponibles: Int!,
+  valesUtilizados: Int!,
+  valesNoUtilizados: Int!,
+  sucursal: Sucursal,
+}
+
+type Informe {
+  id: ID!
+  fecha: DateTime,
+  cantidadValesUsados: Int,
+  cantidadValesNoUsados: Int,
+  autor: Admin,
+  vale: Vale,
+}
+
+type Servicio {
+  id: ID!
+  horario: String,
+  valor: Int,
+  perfil: String,
+}
+
+type Sucursal {
+  id: ID!
+  direccion: String,
+  codigoSucursal: Int,
+}
+
+type Vale {
+  id: ID!
+  fecha: DateTime!,
+  servicio: Servicio,
+  funcionario: Funcionario,
+  cajero: Cajero,
+  sucursal: Sucursal,
+}
+
+
+input FuncionarioInput{
+  nombres: String!,
+  apellidos: String!,
+  codigoFuncionario: Int!,
+  correo: String!,
+  pass: String!,
+  perfil: String!,
+  valesDisponibles: Int!,
+  valesUtilizados: Int!,
+  valesNoUtilizados: Int!,
+  sucursal: Sucursal,
+}
+
+input ValeInput{
+  fecha: DateTime!,
+  servicio: Servicio,
+  funcionario: Funcionario,
+  cajero: Cajero,
+  sucursal: Sucursal,
 }
 
 type Alert{
@@ -36,47 +119,55 @@ type Alert{
 }
 
 type Query{
-  getUsers: [User]
-  getUser(id: ID!): User
+  getFuncionarios: [Funcionario]
+  getFuncionario(id: ID!): Funcionario
+  getVales: [Vale]
 }
 
 type Mutation{
-  addUser(input: UserInput): User
-  updateUser(id: ID!, input: UserInput) :  User
-  deleteUser(id: ID!) : Alert
+  addFuncionario(input: FuncionarioInput): Funcionario
+  updateFuncionario(id: ID!, input: FuncionarioInput) :  Funcionario
+  deleteFuncionario(id: ID!) : Alert
+  addVale(input: ValeInput): Vale
 }
 `;
 
 const resolvers = {
   Query: {
-    async getUsers(obj){
-      const users = await User.find();
-      return users;
+    async getFuncionarios(obj){
+      const funcionarios = await Funcionario.find();
+      return funcionarios;
     },
-    // async getLibros(obj){
-    //   const libros = await
-    // },
-    async getUser(obj, {id}){
-      const user = await User.findById(id);
-      return user;
+    async getVales(obj){
+      const vales = await Vale.find();
+      return vales;
+    },
+    async getFuncionario(obj, {id}){
+      const funcionario = await Funcionario.findById(id);
+      return funcionario;
     }
   },
   Mutation: {
-    async addUser(obj, {input}){
-      const user = new User(input);
-      await user.save();
-      return user;
+    async addFuncionario(obj, {input}){
+      const funcionario = new Funcionario(input);
+      await funcionario.save();
+      return funcionario;
     },
-    async updateUser(obj, {id, input}){
-      const user = await User.findByIdAndUpdate(id, input);
-      return user;
+    async updateFuncionario(obj, {id, input}){
+      const funcionario = await Funcionario.findByIdAndUpdate(id, input);
+      return funcionario;
     },
-    async deleteUser(obj, {id}){
-      await User.deleteOne({_id: id});
+    async deleteFuncionario(obj, {id}){
+      await Funcionario.deleteOne({_id: id});
       return{
-        message:"User Eliminado" 
+        message:"Funcionario Eliminado" 
       }
-    }
+    },
+    async addVale(obj, {input}){
+      const vale = new Vale(input);
+      await vale.save();
+      return vale;
+    },
   }
 }
 
