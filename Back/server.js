@@ -39,6 +39,12 @@ type Admin {
   pass: String,
 }
 
+type Sucursal {
+  id: ID!
+  direccion: String,
+  codigoSucursal: Int,
+}
+
 type Cajero {
   id: ID!
   nombres: String,
@@ -77,12 +83,6 @@ type Servicio {
   perfil: String,
 }
 
-type Sucursal {
-  id: ID!
-  direccion: String,
-  codigoSucursal: Int,
-}
-
 type Vale {
   id: ID!
   fecha: DateTime!,
@@ -91,7 +91,6 @@ type Vale {
   cajero: Cajero,
   sucursal: Sucursal,
 }
-
 
 input FuncionarioInput{
   nombres: String!,
@@ -103,15 +102,10 @@ input FuncionarioInput{
   valesDisponibles: Int!,
   valesUtilizados: Int!,
   valesNoUtilizados: Int!,
-  sucursal: Sucursal,
 }
 
 input ValeInput{
   fecha: DateTime!,
-  servicio: Servicio,
-  funcionario: Funcionario,
-  cajero: Cajero,
-  sucursal: Sucursal,
 }
 
 type Alert{
