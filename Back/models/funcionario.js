@@ -10,7 +10,8 @@ const funcionarioSchema = new mongoose.Schema({
   valesDisponibles: Number,
   valesUtilizados: Number,
   valesNoUtilizados: Number,
-  sucursal: {type: mongoose.Schema.ObjectId, ref: 'sucursal'}
+  sucursal: {type: mongoose.Schema.ObjectId, ref: 'sucursal'},
+  token: String
 });
 
 module.exports = mongoose.model('Funcionario', funcionarioSchema);

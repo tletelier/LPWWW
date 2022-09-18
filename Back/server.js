@@ -3,7 +3,14 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
+
 // const {merge, unary} = require('lodash');
+
+// Middleware
+const auth = require("./middleware/auth");
+
+// Routes
+var r_funcionarios = require('./routes/funcionario.js');
 
 // Models
 const Admin = require('./models/admin');
@@ -183,6 +190,10 @@ startServer();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
+app.use("/funcionarios", r_funcionarios);
+
 app.listen(8090, function(){
   console.log("Servidor Iniciado");
 })
