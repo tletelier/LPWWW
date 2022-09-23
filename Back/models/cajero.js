@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const cajeroSchema = new mongoose.Schema({
+  codigoCajero: Number,
+  pass: String,
   nombres: String,
   apellidos: String,
   turno: String,

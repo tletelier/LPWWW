@@ -47,6 +47,8 @@ type Sucursal {
 
 type Cajero {
   id: ID!
+  codigoCajero: Int!,
+  pass: String!,
   nombres: String,
   apellidos: String,
   turno: String,
