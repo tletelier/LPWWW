@@ -111,6 +111,13 @@ input FuncionarioInput{
   valesNoUtilizados: Int!,
 }
 
+input AdminInput{
+  nombres: String,
+  apellidos: String,
+  codigoAdmin: Int,
+  pass: String,
+}
+
 input ValeInput{
   fecha: DateTime!,
 }
@@ -120,43 +127,141 @@ type Alert{
 }
 
 type Query{
+  getAdmins: [Admin]
+  getAdmin:(id: ID!): Admin
+
+  getCajeros: [Cajero]
+  getCajero:(id: ID!): Cajero
+
   getFuncionarios: [Funcionario]
   getFuncionario(id: ID!): Funcionario
+  
+  getInformes: [Informe]
+  getInforme:(id: ID!): Informe
+
+  getServicios: [Servicio]
+  getServicio:(id: ID!): Servicio
+
+  getSucursals: [Sucursal]
+  getSucursal:(id: ID!): Sucursal
+
   getVales: [Vale]
+  getVale:(id: ID!): Vale
 }
 
 type Mutation{
+  addAdmin(input AdminInput): Admin
+  updateAdmin(id: ID!, input: AdminInput): Admin
+  deleteAdmin(id: ID!): Alert
+
+  addCajero(input CajeroInput): Cajero
+  updateCajero(id: ID!, input: CajeroInput): Cajero
+  deleteCajero(id: ID!): Alert
+
   addFuncionario(input: FuncionarioInput): Funcionario
   updateFuncionario(id: ID!, input: FuncionarioInput) :  Funcionario
   deleteFuncionario(id: ID!) : Alert
-  addVale(input: ValeInput): Vale
+
+  addInforme(input InformeInput): Informe
+  updateInforme(id: ID!, input: InformeInput): Informe
+  deleteInforme(id: ID!): Alert
+
+  addServicio(input ServicioInput): Servicio
+  updateServicio(id: ID!, input: ServicioInput): Servicio
+  deleteServicio(id: ID!): Alert
+
+  addSucursal(input SucursalInput): Sucursal
+  updateSucursal(id: ID!, input: SucursalInput): Sucursal
+  deleteSucursal(id: ID!): Alert
+
+  addVale(input ValeInput): Vale
+  updateVale(id: ID!, input: ValeInput): Vale
+  deleteVale(id: ID!): Alert
 }
 `;
 
 const resolvers = {
   Query: {
-    async getFuncionarios(obj){
-      const funcionarios = await Funcionario.find();
-      return funcionarios;
+
+    async getAdmins(obj){
+      return await Admin.find();
     },
-    async getVales(obj){
-      const vales = await Vale.find();
-      return vales;
+    async getAdmin(obj, {id}){
+      return await Admin.findById(id);
+    },
+    async getCajeros(obj){
+      return await Cajero.find();
+    },
+    async getCajero(obj, {id}){
+      return await Cajero.findById(id);
+    },
+    async getFuncionarios(obj){
+      return await Funcionario.find();
     },
     async getFuncionario(obj, {id}){
-      const funcionario = await Funcionario.findById(id);
-      return funcionario;
+      return await Funcionario.findById(id);
+    },
+    async getInformes(obj){
+      return await Informe.find();
+    },
+    async getInforme(obj, {id}){
+      return await Informe.findById(id);
+    },
+    async getServicios(obj){
+      return await Servicio.find();
+    },
+    async getServicio(obj, {id}){
+      return await Servicio.findById(id);
+    },
+    async getSucursals(obj){
+      return await Sucursal.find();
+    },
+    async getSucursal(obj, {id}){
+      return await Sucursal.findById(id);
+    },
+    async getVales(obj){
+      return await Vale.find();
+    },
+    async getVale(obj, {id}){
+      return await Vale.findById(id);
     }
   },
   Mutation: {
+    async addAdmin(obj, {input}){
+      const temp = new Admin(input);
+      await temp.save();
+      return temp;
+    },
+    async updateAdmin(obj, {id, input}){
+      return await Admin.findByIdAndUpdate(id, input);
+    },
+    async deleteAdmin(obj, {id}){
+      await Admin.deleteOne({_id: id});
+      return{
+        message:"Admin Eliminado" 
+      }
+    },
+    async addCajero(obj, {input}){
+      const temp = new Cajero(input);
+      await temp.save();
+      return temp;
+    },
+    async updateCajero(obj, {id, input}){
+      return await Cajero.findByIdAndUpdate(id, input);
+    },
+    async deleteCajero(obj, {id}){
+      await Cajero.deleteOne({_id: id});
+      return{
+        message:"Cajero Eliminado" 
+      }
+    },
     async addFuncionario(obj, {input}){
-      const funcionario = new Funcionario(input);
-      await funcionario.save();
-      return funcionario;
+      const temp = new Funcionario(input);
+      await temp.save();
+      return temp;
     },
     async updateFuncionario(obj, {id, input}){
-      const funcionario = await Funcionario.findByIdAndUpdate(id, input);
-      return funcionario;
+      return await Funcionario.findByIdAndUpdate(id, input);
     },
     async deleteFuncionario(obj, {id}){
       await Funcionario.deleteOne({_id: id});
@@ -164,10 +269,61 @@ const resolvers = {
         message:"Funcionario Eliminado" 
       }
     },
+    async addInforme(obj, {input}){
+      const temp = new Informe(input);
+      await temp.save();
+      return temp;
+    },
+    async updateInforme(obj, {id, input}){
+      return await Informe.findByIdAndUpdate(id, input);
+    },
+    async deleteInforme(obj, {id}){
+      await Informe.deleteOne({_id: id});
+      return{
+        message:"Informe Eliminado" 
+      }
+    },
+    async addServicio(obj, {input}){
+      const temp = new Servicio(input);
+      await temp.save();
+      return temp;
+    },
+    async updateServicio(obj, {id, input}){
+      return await Servicio.findByIdAndUpdate(id, input);
+    },
+    async deleteServicio(obj, {id}){
+      await Servicio.deleteOne({_id: id});
+      return{
+        message:"Servicio Eliminado" 
+      }
+    },
+    async addSucursal(obj, {input}){
+      const temp = new Sucursal(input);
+      await temp.save();
+      return temp;
+    },
+    async updateSucursal(obj, {id, input}){
+      return await Sucursal.findByIdAndUpdate(id, input);
+    },
+    async deleteSucursal(obj, {id}){
+      await Sucursal.deleteOne({_id: id});
+      return{
+        message:"Sucursal Eliminado" 
+      }
+    },
     async addVale(obj, {input}){
-      const vale = new Vale(input);
-      await vale.save();
-      return vale;
+      const temp = new Vale(input);
+      await temp.save();
+      return temp;
+    },
+    async updateVale(obj, {id, input}){
+      return await Vale.findByIdAndUpdate(id, input);
+    },
+    async deleteVale(obj, {id}){
+      await Vale.deleteOne({_id: id});
+      return{
+        message:"Vale Eliminado" 
+      }
     },
   }
 }
