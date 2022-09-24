@@ -8,6 +8,9 @@ dotenv.config();
 // Models
 const Funcionario = require('../models/funcionario');
 
+// Middleware
+const auth = require("../middleware/auth");
+
 
 
 
@@ -126,11 +129,11 @@ router.delete("/", async (req, res) => {
 });
 
 // Test
-app.post("/test", auth, (req, res) => {
+router.post("/test", auth, (req, res) => {
   res.status(200).send("Habemus token.");
 });
 
-app.post("/test2", (req, res) => {
+router.post("/test2", (req, res) => {
   res.status(200).send("No necesitamus token.");
 });
 

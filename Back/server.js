@@ -3,14 +3,17 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
+const {ApolloServerPluginLandingPageLocalDefault,} = require('apollo-server-core');
+
+const { GraphQLScalarType, Kind } = require('graphql');
+//const { typeDefs } = require('./schema.js')
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // const {merge, unary} = require('lodash');
 
 // Middleware
 const auth = require("./middleware/auth");
-
-// Routes
-var r_funcionarios = require('./routes/funcionario.js');
 
 // Models
 const Admin = require('./models/admin');
@@ -40,121 +43,156 @@ scalar DateTime
 
 type Admin {
   id: ID!
-  nombres: String,
-  apellidos: String,
-  codigoAdmin: Int,
-  pass: String,
+  nombres: String!
+  apellidos: String!
+  codigoAdmin: Int!
+  pass: String!
 }
 
 type Sucursal {
   id: ID!
-  direccion: String,
-  codigoSucursal: Int,
+  direccion: String!
+  codigoSucursal: Int!
 }
 
 type Cajero {
   id: ID!
-  nombres: String,
-  apellidos: String,
-  turno: String,
-  sucursal: Sucursal,
+  nombres: String!
+  apellidos: String!
+  turno: String!
+  sucursal: Sucursal
 }
 
 type Funcionario {
   id: ID!
-  nombres: String!,
-  apellidos: String!,
-  codigoFuncionario: Int!,
-  correo: String!,
-  pass: String!,
-  perfil: String!,
-  valesDisponibles: Int!,
-  valesUtilizados: Int!,
-  valesNoUtilizados: Int!,
-  sucursal: Sucursal,
-}
-
-type Informe {
-  id: ID!
-  fecha: DateTime,
-  cantidadValesUsados: Int,
-  cantidadValesNoUsados: Int,
-  autor: Admin,
-  vale: Vale,
-}
-
-type Servicio {
-  id: ID!
-  horario: String,
-  valor: Int,
-  perfil: String,
+  nombres: String!
+  apellidos: String!
+  codigoFuncionario: Int!
+  correo: String!
+  pass: String!
+  perfil: String!
+  valesDisponibles: Int!
+  valesUtilizados: Int!
+  valesNoUtilizados: Int!
+  sucursal: Sucursal
 }
 
 type Vale {
   id: ID!
-  fecha: DateTime!,
-  servicio: Servicio,
-  funcionario: Funcionario,
-  cajero: Cajero,
-  sucursal: Sucursal,
+  fecha: DateTime
+  servicio: Servicio
+  funcionario: Funcionario
+  cajero: Cajero
+  sucursal: Sucursal
 }
 
-input FuncionarioInput{
-  nombres: String!,
-  apellidos: String!,
-  codigoFuncionario: Int!,
-  correo: String!,
-  pass: String!,
-  perfil: String!,
-  valesDisponibles: Int!,
-  valesUtilizados: Int!,
-  valesNoUtilizados: Int!,
+type Informe {
+  id: ID!
+  fecha: DateTime
+  cantidadValesUsados: Int!
+  cantidadValesNoUsados: Int!
+  autor: Admin
+  vale: Vale
 }
 
-input AdminInput{
-  nombres: String,
-  apellidos: String,
-  codigoAdmin: Int,
-  pass: String,
-}
-
-input ValeInput{
-  fecha: DateTime!,
+type Servicio {
+  id: ID!
+  horario: String!
+  valor: Int!
+  perfil: String!
 }
 
 type Alert{
-  message: String
+  message: String!
+}
+
+input AdminInput{
+  nombres: String!
+  apellidos: String!
+  codigoAdmin: Int!
+  pass: String!
+}
+
+input SucursalInput {
+  id: ID!
+  direccion: String!
+  codigoSucursal: Int!
+}
+
+input CajeroInput {
+  id: ID!
+  nombres: String!
+  apellidos: String!
+  turno: String!
+  sucursal: String!
+}
+
+input FuncionarioInput{
+  nombres: String!
+  apellidos: String!
+  codigoFuncionario: Int!
+  correo: String!
+  pass: String!
+  perfil: String!
+  valesDisponibles: Int!
+  valesUtilizados: Int!
+  valesNoUtilizados: Int!
+}
+
+input ValeInput {
+  id: ID!
+  fecha: DateTime
+  servicio: String!
+  funcionario: String!
+  cajero: String!
+  sucursal: String!
+}
+
+input InformeInput {
+  id: ID!
+  fecha: DateTime
+  cantidadValesUsados: Int!
+  cantidadValesNoUsados: Int!
+  autor: String!
+  vale: String!
+}
+
+input ServicioInput {
+  id: ID!
+  horario: String!
+  valor: Int!
+  perfil: String!
 }
 
 type Query{
-  getAdmins: [Admin]
-  getAdmin:(id: ID!): Admin
+  getAdmins : [Admin]
+  getAdmin(id: ID!) : Admin
 
   getCajeros: [Cajero]
-  getCajero:(id: ID!): Cajero
+  getCajero(id: ID!): Cajero
 
   getFuncionarios: [Funcionario]
   getFuncionario(id: ID!): Funcionario
   
   getInformes: [Informe]
-  getInforme:(id: ID!): Informe
+  getInforme(id: ID!): Informe
 
   getServicios: [Servicio]
-  getServicio:(id: ID!): Servicio
+  getServicio(id: ID!): Servicio
 
   getSucursals: [Sucursal]
-  getSucursal:(id: ID!): Sucursal
+  getSucursal(id: ID!): Sucursal
 
   getVales: [Vale]
-  getVale:(id: ID!): Vale
+  getVale(id: ID!): Vale
 }
 
 type Mutation{
-  addAdmin(input AdminInput): Admin
+  addAdmin(input: AdminInput): Admin
   updateAdmin(id: ID!, input: AdminInput): Admin
   deleteAdmin(id: ID!): Alert
 
-  addCajero(input CajeroInput): Cajero
+  addCajero(input: CajeroInput): Cajero
   updateCajero(id: ID!, input: CajeroInput): Cajero
   deleteCajero(id: ID!): Alert
 
@@ -162,19 +200,19 @@ type Mutation{
   updateFuncionario(id: ID!, input: FuncionarioInput) :  Funcionario
   deleteFuncionario(id: ID!) : Alert
 
-  addInforme(input InformeInput): Informe
+  addInforme(input: InformeInput): Informe
   updateInforme(id: ID!, input: InformeInput): Informe
   deleteInforme(id: ID!): Alert
 
-  addServicio(input ServicioInput): Servicio
+  addServicio(input: ServicioInput): Servicio
   updateServicio(id: ID!, input: ServicioInput): Servicio
   deleteServicio(id: ID!): Alert
 
-  addSucursal(input SucursalInput): Sucursal
+  addSucursal(input: SucursalInput): Sucursal
   updateSucursal(id: ID!, input: SucursalInput): Sucursal
   deleteSucursal(id: ID!): Alert
 
-  addVale(input ValeInput): Vale
+  addVale(input: ValeInput): Vale
   updateVale(id: ID!, input: ValeInput): Vale
   deleteVale(id: ID!): Alert
 }
@@ -324,7 +362,7 @@ const resolvers = {
       return{
         message:"Vale Eliminado" 
       }
-    },
+    }
   }
 }
 
@@ -347,8 +385,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-app.use("/funcionarios", r_funcionarios);
 
 app.listen(8090, function(){
   console.log("Servidor Iniciado");
