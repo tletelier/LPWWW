@@ -106,6 +106,12 @@ type Alert{
   message: String!
 }
 
+type Response{
+  message: String
+  token: String
+  code: Int!
+}
+
 input AdminInput{
   nombres: String!
   apellidos: String!
@@ -191,14 +197,17 @@ type Mutation{
   addAdmin(input: AdminInput): Admin
   updateAdmin(id: ID!, input: AdminInput): Admin
   deleteAdmin(id: ID!): Alert
+  loginAdmin(email: String!, password: String!): Response
 
   addCajero(input: CajeroInput): Cajero
   updateCajero(id: ID!, input: CajeroInput): Cajero
   deleteCajero(id: ID!): Alert
+  loginCajero(email: String!, password: String!): Response
 
   addFuncionario(input: FuncionarioInput): Funcionario
   updateFuncionario(id: ID!, input: FuncionarioInput) :  Funcionario
   deleteFuncionario(id: ID!) : Alert
+  loginFuncionario(email: String!, password: String!): Response
 
   addInforme(input: InformeInput): Informe
   updateInforme(id: ID!, input: InformeInput): Informe
@@ -266,7 +275,11 @@ const resolvers = {
   },
   Mutation: {
     async addAdmin(obj, {input}){
-      const temp = new Admin(input);
+      let temp = new Admin(input);
+
+      const password = await bcrypt.hash(input.password, 10);
+      temp.password = password;
+
       await temp.save();
       return temp;
     },
@@ -279,8 +292,52 @@ const resolvers = {
         message:"Admin Eliminado" 
       }
     },
+    async loginAdmin(obj, {email, password}){
+      // Validate data
+      if (!(email && password)) {
+        return {
+          message: "Missing data.",
+          code: 400
+        }
+      }
+
+      // Validate if register exist
+      const admin = await Admin.findOne({ "correo":email });
+
+      // Get token
+      if (admin && (await bcrypt.compare(password, admin.pass))) {
+        
+        const token = jwt.sign(
+          { type: "admin", code: admin.codigoAdmin },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "3h",
+          }
+        );
+
+        admin.token = token;
+
+        // Return token
+        return {
+          message: "Logged.",
+          token: token,
+          code: 200
+        }
+      }
+      return {
+        message: "Invalid email or password",
+        code: 400
+      }
+    },
+
+
+
     async addCajero(obj, {input}){
-      const temp = new Cajero(input);
+      let temp = new Cajero(input);
+
+      const password = await bcrypt.hash(input.password, 10);
+      temp.password = password;
+
       await temp.save();
       return temp;
     },
@@ -293,8 +350,52 @@ const resolvers = {
         message:"Cajero Eliminado" 
       }
     },
+    async loginCajero(obj, {email, password}){
+      // Validate data
+      if (!(email && password)) {
+        return {
+          message: "Missing data.",
+          code: 400
+        }
+      }
+
+      // Validate if register exist
+      const cajero = await Cajero.findOne({ "correo":email });
+
+      // Get token
+      if (cajero && (await bcrypt.compare(password, cajero.pass))) {
+        
+        const token = jwt.sign(
+          { type: "cajero", code: cajero.codigoCajero },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "3h",
+          }
+        );
+
+        cajero.token = token;
+
+        // Return token
+        return {
+          message: "Logged.",
+          token: token,
+          code: 200
+        }
+      }
+      return {
+        message: "Invalid email or password",
+        code: 400
+      }
+    },
+
+
+
     async addFuncionario(obj, {input}){
-      const temp = new Funcionario(input);
+      let temp = new Funcionario(input);
+
+      const password = await bcrypt.hash(input.password, 10);
+      temp.password = password;
+
       await temp.save();
       return temp;
     },
@@ -307,6 +408,45 @@ const resolvers = {
         message:"Funcionario Eliminado" 
       }
     },
+    async loginFuncionario(obj, {email, password}){
+      // Validate data
+      if (!(email && password)) {
+        return {
+          message: "Missing data.",
+          code: 400
+        }
+      }
+
+      // Validate if register exist
+      const funcionario = await Cajero.findOne({ "correo":email });
+
+      // Get token
+      if (funcionario && (await bcrypt.compare(password, funcionario.pass))) {
+        
+        const token = jwt.sign(
+          { type: "funcionario", code: funcionario.codigoCajero },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "3h",
+          }
+        );
+
+        cajero.token = token;
+
+        // Return token
+        return {
+          message: "Logged.",
+          token: token,
+          code: 200
+        }
+      }
+      return {
+        message: "Invalid email or password",
+        code: 400
+      }
+    },
+
+
     async addInforme(obj, {input}){
       const temp = new Informe(input);
       await temp.save();
