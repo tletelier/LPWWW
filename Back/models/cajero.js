@@ -5,7 +5,6 @@ const cajeroSchema = new mongoose.Schema({
   pass: String,
   nombres: String,
   apellidos: String,
-  turno: String,
   sucursal: {type: mongoose.Schema.ObjectId, ref: 'sucursal'}
 });
 

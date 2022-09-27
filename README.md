@@ -1,6 +1,5 @@
 # LPWWW
 
-<<<<<<< HEAD
 ## Equipo: Lynx
 Tema: Caso 18
 
