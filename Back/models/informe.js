@@ -5,7 +5,7 @@ const informeSchema = new mongoose.Schema({
   cantidadValesUsados: Number,
   cantidadValesNoUsados: Number,
   autor: {type: mongoose.Schema.ObjectId, ref: 'admin'},
-  vale: [{type: mongoose.Schema.ObjectId, ref: 'vale'}],
+  vale: [{type: mongoose.Schema.ObjectId, ref: 'vale', default: []}],
 });
 
 module.exports = mongoose.model('Informe', informeSchema);

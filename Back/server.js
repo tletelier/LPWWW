@@ -85,14 +85,14 @@ type Informe {
   cantidadValesUsados: Int,
   cantidadValesNoUsados: Int,
   autor: Admin,
-  vale: Vale,
+  vale: [Vale],
 }
 type Servicio {
   id: ID!
   nombre: String
   horarioInicio: String,
   horarioFin: String,
-  perfil: Perfil,
+  perfil: [Perfil],
 }
 type Vale {
   id: ID!
