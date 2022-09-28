@@ -21,6 +21,7 @@ const Informe = require('./models/informe');
 const Servicio = require('./models/servicio');
 const Sucursal = require('./models/sucursal');
 const Vale = require('./models/vale');
+const Perfil = require('./models/perfil');
 
 // Variables de entorno
 const dotenv = require('dotenv')
@@ -46,23 +47,25 @@ type Admin {
   codigoAdmin: Int,
   pass: String,
 }
-
+type Perfil {
+  id: ID!
+  nombre: String,
+  cantidadTurno: Int,
+  valor: Number,
+}
 type Sucursal {
   id: ID!
   direccion: String,
   codigoSucursal: Int,
 }
-
 type Cajero {
   id: ID!
   codigoCajero: Int!,
   pass: String!,
   nombres: String,
   apellidos: String,
-  turno: String,
   sucursal: Sucursal,
 }
-
 type Funcionario {
   id: ID!
   nombres: String!,
@@ -70,13 +73,12 @@ type Funcionario {
   codigoFuncionario: Int!,
   correo: String!,
   pass: String!,
-  perfil: String!,
+  perfil: Perfil,
   valesDisponibles: Int!,
   valesUtilizados: Int!,
   valesNoUtilizados: Int!,
   sucursal: Sucursal,
 }
-
 type Informe {
   id: ID!
   fecha: DateTime,
@@ -85,22 +87,24 @@ type Informe {
   autor: Admin,
   vale: Vale,
 }
-
 type Servicio {
   id: ID!
-  horario: String,
-  valor: Int,
-  perfil: String,
+  nombre: String
+  horarioInicio: String,
+  horarioFin: String,
+  perfil: Perfil,
 }
-
 type Vale {
   id: ID!
   fecha: DateTime!,
+  saldo: Int,
+  estado: String,
   servicio: Servicio,
   funcionario: Funcionario,
   cajero: Cajero,
   sucursal: Sucursal,
 }
+
 
 input FuncionarioInput{
   nombres: String!,
@@ -108,19 +112,27 @@ input FuncionarioInput{
   codigoFuncionario: Int!,
   correo: String!,
   pass: String!,
-  perfil: String!,
-  valesDisponibles: Int!,
-  valesUtilizados: Int!,
-  valesNoUtilizados: Int!,
+  valesDisponibles: Int,
+  valesUtilizados: Int,
+  valesNoUtilizados: Int,
 }
-
 input AdminInput{
   nombres: String,
   apellidos: String,
   codigoAdmin: Int,
   pass: String,
 }
-
+input CajeroInput{
+  nombre: String,
+  apellidos: String,
+  codigoAdmin: Int,
+  pass: String,
+}
+input PerfilInput{
+  nombre: String,
+  cantidadTurno: Int,
+  valor: Number,
+}
 input ValeInput{
   fecha: DateTime!,
 }
@@ -141,6 +153,9 @@ type Query{
   
   getInformes: [Informe]
   getInforme:(id: ID!): Informe
+
+  getPerfil: [Perfil]
+  getPerfil:(id: ID!): Perfil
 
   getServicios: [Servicio]
   getServicio:(id: ID!): Servicio
@@ -168,6 +183,10 @@ type Mutation{
   addInforme(input InformeInput): Informe
   updateInforme(id: ID!, input: InformeInput): Informe
   deleteInforme(id: ID!): Alert
+
+  addPerfil(input PerfilInput): Perfil
+  updatePerfil(id: ID!, input: PerfilInput): Perfil
+  deletePerfil(id: ID!): Alert
 
   addServicio(input ServicioInput): Servicio
   updateServicio(id: ID!, input: ServicioInput): Servicio
@@ -209,6 +228,12 @@ const resolvers = {
     },
     async getInforme(obj, {id}){
       return await Informe.findById(id);
+    },
+    async getPerfiles(obj){
+      return await Perfil.find();
+    },
+    async getPerfil(obj, {id}){
+      return await Perfil.findById(id);
     },
     async getServicios(obj){
       return await Servicio.find();
@@ -256,6 +281,20 @@ const resolvers = {
       await Cajero.deleteOne({_id: id});
       return{
         message:"Cajero Eliminado" 
+      }
+    },
+    async addPerfil(obj, {input}){
+      const temp = new Perfil(input);
+      await temp.save();
+      return temp;
+    },
+    async updatePerfil(obj, {id, input}){
+      return await Perfil.findByIdAndUpdate(id, input);
+    },
+    async deletePerfil(obj, {id}){
+      await Perfil.deleteOne({_id: id});
+      return{
+        message:"Perfil Eliminado" 
       }
     },
     async addFuncionario(obj, {input}){
@@ -351,7 +390,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/funcionarios", r_funcionarios);
+// app.use("/funcionarios", r_funcionarios);
 
 app.listen(8090, function(){
   console.log("Servidor Iniciado");
