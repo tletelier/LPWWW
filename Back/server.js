@@ -42,16 +42,17 @@ scalar DateTime
 
 type Admin {
   id: ID!
-  nombres: String,
-  apellidos: String,
-  codigoAdmin: Int,
-  pass: String,
+  nombres: String!,
+  apellidos: String!,
+  codigoAdmin: Int!,
+  pass: String!,
+  token: String,
 }
 type Perfil {
   id: ID!
-  nombre: String,
-  cantidadTurno: Int,
-  valor: Number,
+  nombre: String!,
+  cantidadTurno: Int!,
+  valor: Int!,
 }
 type Sucursal {
   id: ID!
@@ -62,8 +63,8 @@ type Cajero {
   id: ID!
   codigoCajero: Int!,
   pass: String!,
-  nombres: String,
-  apellidos: String,
+  nombres: String!,
+  apellidos: String!,
   sucursal: Sucursal,
 }
 type Funcionario {
@@ -78,6 +79,7 @@ type Funcionario {
   valesUtilizados: Int!,
   valesNoUtilizados: Int!,
   sucursal: Sucursal,
+  token: String,
 }
 type Informe {
   id: ID!
@@ -123,9 +125,9 @@ input AdminInput{
   pass: String,
 }
 input CajeroInput{
-  nombre: String,
+  nombres: String,
   apellidos: String,
-  codigoAdmin: Int,
+  codigoCajero: Int,
   pass: String,
 }
 input PerfilInput{
