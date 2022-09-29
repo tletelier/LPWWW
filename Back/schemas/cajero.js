@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Models
 const Cajero = require('../models/cajero');
 
-const CajeroSchema = `
+const cajeroSchema = `
 
 type Cajero {
   id: ID!
@@ -106,4 +106,4 @@ const cajeroResolvers = {
   }
 };
 
-module.exports = { CajeroSchema, cajeroResolvers};
+module.exports = { cajeroSchema, cajeroResolvers};

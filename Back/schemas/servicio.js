@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Servicio = require('../models/servicio');
 
-const ServicioSchema = `
+const servicioSchema = `
 
 type Servicio {
   id: ID!
@@ -59,4 +59,4 @@ const servicioResolvers = {
   }
 };
 
-module.exports = { ServicioSchema, servicioResolvers};
+module.exports = { servicioSchema, servicioResolvers};

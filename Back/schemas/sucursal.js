@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Sucursal = require('../models/sucursal');
 
-const SucursalSchema = `
+const sucursalSchema = `
 
 type Sucursal {
   id: ID!
@@ -57,4 +57,4 @@ const sucursalResolvers = {
   }
 };
 
-module.exports = { SucursalSchema, sucursalResolvers};
+module.exports = { sucursalSchema, sucursalResolvers};

@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Models
 const Funcionario = require('../models/funcionario');
 
-const FuncionarioSchema = `
+const funcionarioSchema = `
 
 type Funcionario {
   id: ID!
@@ -116,4 +116,4 @@ const funcionarioResolvers = {
   }
 };
 
-module.exports = { FuncionarioSchema, funcionarioResolvers};
+module.exports = { funcionarioSchema, funcionarioResolvers};

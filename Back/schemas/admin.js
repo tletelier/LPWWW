@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Models
 const Admin = require('../models/admin');
 
-const AdminSchema = `
+const adminSchema = `
 
  type Admin {
   id: ID!
@@ -107,4 +107,4 @@ const adminResolvers = {
   }
 };
 
-module.exports = { AdminSchema, adminResolvers};
+module.exports = { adminSchema, adminResolvers};

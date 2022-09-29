@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Vale = require('../models/vale');
 
-const ValeSchema = `
+const valeSchema = `
 
 type Vale {
   id: ID!
@@ -80,4 +80,4 @@ const valeResolvers = {
   }
 };
 
-module.exports = { ValeSchema, valeResolvers};
+module.exports = { valeSchema, valeResolvers};

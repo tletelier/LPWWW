@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Informe = require('../models/informe');
 
-const InformeSchema = `
+const informeSchema = `
 
 type Informe {
   id: ID!
@@ -63,4 +63,4 @@ const informeResolvers = {
   }
 };
 
-module.exports = { InformeSchema, informeResolvers};
+module.exports = { informeSchema, informeResolvers};

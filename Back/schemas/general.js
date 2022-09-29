@@ -1,4 +1,4 @@
-const General = `
+const generalSchema = `
 scalar DateTime
 
 type Alert{
@@ -13,4 +13,4 @@ type Response{
 
 `
 
-module.exports = { General };
+module.exports = { generalSchema };

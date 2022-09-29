@@ -3,48 +3,48 @@ const { merge } = require('lodash');
 
 // Schemas
 const { 
-  AdminSchema, 
+  adminSchema, 
   adminResolvers
 } = require('./admin');
 
 const { 
-  CajeroSchema, 
+  cajeroSchema, 
   cajeroResolvers,
 } = require('./cajero');
 
 const { 
-  FuncionarioSchema, 
+  funcionarioSchema, 
   funcionarioResolvers
 } = require('./funcionario');
 
 const { 
-  InformeSchema, 
+  informeSchema, 
   informeResolvers
 } = require('./informe');
 
 const { 
-  ServicioSchema, 
+  servicioSchema, 
   servicioResolvers
 } = require('./servicio');
 
 const { 
-  SucursalSchema, 
+  sucursalSchema, 
   sucursalResolvers
 } = require('./sucursal');
 
 const { 
-  ValeSchema, 
+  valeSchema, 
   valeResolvers
 } = require('./vale');
 
 const { 
-  General
+  generalSchema
 } = require('./general');
 
 
 const schema = makeExecutableSchema({
-  typeDefs: [adminSchema, cajeroSchema, funcionarioSchema],
-  resolvers: adminResolvers
+  typeDefs: [adminSchema, cajeroSchema, funcionarioSchema, informeSchema, servicioSchema, sucursalSchema, valeSchema, generalSchema],
+  resolvers: merge(adminResolvers, cajeroResolvers, funcionarioResolvers, informeResolvers, servicioResolvers, sucursalResolvers, valeResolvers)
 })
 
 module.exports = { schema }
