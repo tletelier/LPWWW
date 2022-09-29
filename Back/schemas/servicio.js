@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Servicio = require('../models/servicio');
 
-export const typeDef = `
+const ServicioSchema = `
 
 type Servicio {
   id: ID!
@@ -32,7 +32,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const servicioResolvers = {
   Query: {
     async getServicios(obj){
       return await Servicio.find();
@@ -58,3 +58,5 @@ export const resolvers = {
     }
   }
 };
+
+module.exports = { ServicioSchema, servicioResolvers};

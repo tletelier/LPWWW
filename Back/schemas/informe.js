@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Informe = require('../models/informe');
 
-export const typeDef = `
+const InformeSchema = `
 
 type Informe {
   id: ID!
@@ -36,7 +36,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const informeResolvers = {
   Query: {
     async getInformes(obj){
       return await Informe.find();
@@ -62,3 +62,5 @@ export const resolvers = {
     }
   }
 };
+
+module.exports = { InformeSchema, informeResolvers};

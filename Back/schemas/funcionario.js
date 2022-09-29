@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Models
 const Funcionario = require('../models/funcionario');
 
-export const typeDef = `
+const FuncionarioSchema = `
 
 type Funcionario {
   id: ID!
@@ -48,7 +48,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const funcionarioResolvers = {
   Query: {
     async getFuncionarios(obj){
       return await Funcionario.find();
@@ -115,3 +115,5 @@ export const resolvers = {
     }
   }
 };
+
+module.exports = { FuncionarioSchema, funcionarioResolvers};

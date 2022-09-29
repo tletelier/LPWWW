@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Models
 const Cajero = require('../models/cajero');
 
-export const typeDef = `
+const CajeroSchema = `
 
 type Cajero {
   id: ID!
@@ -38,7 +38,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const cajeroResolvers = {
   Query: {
     async getCajeros(obj){
       return await Cajero.find();
@@ -105,3 +105,5 @@ export const resolvers = {
     },
   }
 };
+
+module.exports = { CajeroSchema, cajeroResolvers};

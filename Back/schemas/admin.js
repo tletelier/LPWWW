@@ -7,21 +7,23 @@ const auth = require("../middleware/auth");
 // Models
 const Admin = require('../models/admin');
 
-export const typeDef = `
+const AdminSchema = `
 
  type Admin {
   id: ID!
   nombres: String!
   apellidos: String!
+  correo: String!
   codigoAdmin: Int!
-  pass: String!
+  password: String!
 }
 
 input AdminInput{
   nombres: String!
   apellidos: String!
+  correo: String!
   codigoAdmin: Int!
-  pass: String!
+  password: String!
 }
 
 type Query{
@@ -37,7 +39,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const adminResolvers = {
   Query: {
     async getAdmins(obj){
       return await Admin.find();
@@ -104,3 +106,5 @@ export const resolvers = {
     }
   }
 };
+
+module.exports = { AdminSchema, adminResolvers};

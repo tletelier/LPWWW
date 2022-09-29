@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Sucursal = require('../models/sucursal');
 
-export const typeDef = `
+const SucursalSchema = `
 
 type Sucursal {
   id: ID!
@@ -30,7 +30,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const sucursalResolvers = {
   Query: {
     async getSucursals(obj){
       return await Sucursal.find();
@@ -56,3 +56,5 @@ export const resolvers = {
     }
   }
 };
+
+module.exports = { SucursalSchema, sucursalResolvers};

@@ -1,17 +1,26 @@
 const jwt = require("jsonwebtoken");
 const config = process.env;
 
-const Auth = (req, res, next) => {
-  const token = req.body.token || req.query.token || req.headers["x-access-token"];
-
+const Auth = (token, access) => {
+  
   if (!token) {
-    return res.status(403).send("No token");
+    return {
+    	code: 403,
+    	message: "No token provided."
+    }
   }
   
-  const decoded = jwt.verify(token, config.TOKEN_KEY);
-  req.funcionario = decoded;
+  if(jwt.verify(token, config.TOKEN_KEY) == access){
+  	return {
+  		code: 200,
+  		message: "Acces garanted."
+  	}
+  }
 
-  return next();
+  return {
+  	code: 401,
+  	message: "Unauthorized"
+  }
 };
 
 module.exports = Auth;

@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Vale = require('../models/vale');
 
-export const typeDef = `
+const ValeSchema = `
 
 type Vale {
   id: ID!
@@ -38,7 +38,7 @@ type Mutation{
 }
 `;
 
-export const resolvers = {
+const valeResolvers = {
   Query: {
 
     async getVales(obj){
@@ -78,4 +78,6 @@ export const resolvers = {
       }
     }
   }
-}
+};
+
+module.exports = { ValeSchema, valeResolvers};

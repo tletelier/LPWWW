@@ -1,4 +1,4 @@
-export const typeDefs = `
+const General = `
 scalar DateTime
 
 type Alert{
@@ -12,3 +12,5 @@ type Response{
 }
 
 `
+
+module.exports = { General };

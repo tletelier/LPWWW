@@ -4,25 +4,12 @@ const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
 const {ApolloServerPluginLandingPageLocalDefault,} = require('apollo-server-core');
-
 const { GraphQLScalarType, Kind } = require('graphql');
-//const { typeDefs } = require('./schema.js')
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
-// const {merge, unary} = require('lodash');
+const { schema } = require("./schemas/schemas.js")
 
 // Middleware
 const auth = require("./middleware/auth");
-
-// Models
-const Admin = require('./models/admin');
-const Cajero = require('./models/cajero');
-const Funcionario = require('./models/funcionario');
-const Informe = require('./models/informe');
-const Servicio = require('./models/servicio');
-const Sucursal = require('./models/sucursal');
-const Vale = require('./models/vale');
 
 // Variables de entorno
 const dotenv = require('dotenv')
@@ -46,7 +33,7 @@ const corsOptions = {
 };
 
 async function startServer(){
-  const apolloServer = new ApolloServer({typeDefs, resolvers, corsOptions});
+  const apolloServer = new ApolloServer({schema, corsOptions});
   await apolloServer.start();
   apolloServer.applyMiddleware({app, cors:false});
 }
