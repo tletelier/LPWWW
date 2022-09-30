@@ -16,7 +16,6 @@ type Vale {
 }
 
 input ValeInput {
-  id: ID!
   fecha: DateTime
   servicio: String!
   funcionario: String!
@@ -49,20 +48,6 @@ const valeResolvers = {
     }
   },
   Mutation: {
-    async addSucursal(obj, {input}){
-      const temp = new Sucursal(input);
-      await temp.save();
-      return temp;
-    },
-    async updateSucursal(obj, {id, input}){
-      return await Sucursal.findByIdAndUpdate(id, input);
-    },
-    async deleteSucursal(obj, {id}){
-      await Sucursal.deleteOne({_id: id});
-      return{
-        message:"Sucursal Eliminado" 
-      }
-    },
     async addVale(obj, {input}){
       const temp = new Vale(input);
       await temp.save();

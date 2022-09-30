@@ -16,7 +16,6 @@ type Informe {
 }
 
 input InformeInput {
-  id: ID!
   fecha: DateTime
   cantidadValesUsados: Int!
   cantidadValesNoUsados: Int!

@@ -14,7 +14,6 @@ type Servicio {
 }
 
 input ServicioInput {
-  id: ID!
   horario: String!
   valor: Int!
   perfil: String!

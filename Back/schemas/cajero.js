@@ -13,16 +13,21 @@ type Cajero {
   id: ID!
   nombres: String!
   apellidos: String!
+  correo: String!
+  pass: String!
+  codigoCajero: Int!
   turno: String!
-  sucursal: Sucursal
+  sucursal: ID!
 }
 
 input CajeroInput {
-  id: ID!
   nombres: String!
   apellidos: String!
+  correo: String!
+  pass: String!
+  codigoCajero: Int!
   turno: String!
-  sucursal: String!
+  sucursal: ID!
 }
 
 type Query{
