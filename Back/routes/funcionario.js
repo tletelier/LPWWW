@@ -8,6 +8,9 @@ dotenv.config();
 // Models
 const Funcionario = require('../models/funcionario');
 
+// Middleware
+const auth = require("../middleware/auth");
+
 router.get("/", async (req, res) => {
 
   let resp_data
@@ -122,13 +125,13 @@ router.delete("/", async (req, res) => {
   return res.status(200).json(register);
 });
 
-// // Test
-// router.post("/test", auth, (req, res) => {
-//   res.status(200).send("Habemus token.");
-// });
+// Test
+router.post("/test", auth, (req, res) => {
+  res.status(200).send("Habemus token.");
+});
 
-// router.post("/test2", (req, res) => {
-//   res.status(200).send("No necesitamus token.");
-// });
+router.post("/test2", (req, res) => {
+  res.status(200).send("No necesitamus token.");
+});
 
 module.exports = router;
