@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
 // 
 cron.schedule('7 *', () => { //cada 7 dias
   transporter.sendMail({
-    from: 'Kidspace.cl',
+    from: 'librosdecacinosimpresos.cl',
     to: funcionario.email,
     subject: 'Aviso Semanal Vales', // Subject
     html: emailTemplate.format(i.valesDisponibles, i.valesUtilizados, funcionario.valesNoUtilizados),

@@ -13,20 +13,16 @@ type Cajero {
   id: ID!
   nombres: String!
   apellidos: String!
-  correo: String!
-  pass: String!
+  password: String!
   codigoCajero: Int!
-  turno: String!
   sucursal: ID!
 }
 
 input CajeroInput {
   nombres: String!
   apellidos: String!
-  correo: String!
-  pass: String!
+  password: String!
   codigoCajero: Int!
-  turno: String!
   sucursal: ID!
 }
 
@@ -39,7 +35,7 @@ type Mutation{
   addCajero(input: CajeroInput): Cajero
   updateCajero(id: ID!, input: CajeroInput): Cajero
   deleteCajero(id: ID!): Alert
-  loginCajero(email: String!, password: String!): Response
+  loginCajero(codigoCajero: String!, password: String!): Response
 }
 `;
 
@@ -71,9 +67,9 @@ const cajeroResolvers = {
         message:"Cajero Eliminado" 
       }
     },
-    async loginCajero(obj, {email, password}){
+    async loginCajero(obj, {codigoCajero, password}){
       // Validate data
-      if (!(email && password)) {
+      if (!(codigoCajero && password)) {
         return {
           message: "Missing data.",
           code: 400
@@ -81,10 +77,10 @@ const cajeroResolvers = {
       }
 
       // Validate if register exist
-      const cajero = await Cajero.findOne({ "correo":email });
+      const cajero = await Cajero.findOne({ "codigoCajero":codigoCajero });
 
       // Get token
-      if (cajero && (await bcrypt.compare(password, cajero.pass))) {
+      if (cajero && (await bcrypt.compare(password, cajero.password))) {
         
         const token = jwt.sign(
           { type: "cajero", code: cajero.codigoCajero },

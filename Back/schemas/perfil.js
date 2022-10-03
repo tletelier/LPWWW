@@ -11,6 +11,7 @@ type Perfil {
   nombre: String!
   cantidadTurno: Int!
   valor: Int!
+  servicios: [Servicio]
 }
 
 input PerfilInput {
@@ -31,7 +32,7 @@ type Mutation{
 }
 `;
 
-const sucursalResolvers = {
+const perfilResolvers = {
   Query: {
     async getPerfiles(obj){
       return await Perfil.find();

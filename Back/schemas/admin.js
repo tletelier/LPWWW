@@ -13,7 +13,6 @@ const adminSchema = `
   id: ID!
   nombres: String!
   apellidos: String!
-  correo: String!
   codigoAdmin: Int!
   password: String!
 }
@@ -21,7 +20,6 @@ const adminSchema = `
 input AdminInput{
   nombres: String!
   apellidos: String!
-  correo: String!
   codigoAdmin: Int!
   password: String!
 }
@@ -35,7 +33,7 @@ type Mutation{
   addAdmin(input: AdminInput): Admin
   updateAdmin(id: ID!, input: AdminInput): Admin
   deleteAdmin(id: ID!): Alert
-  loginAdmin(email: String!, password: String!): Response
+  loginAdmin(codigoAdmin: String!, password: String!): Response
 }
 `;
 
@@ -67,9 +65,9 @@ const adminResolvers = {
         message:"Admin Eliminado" 
       }
     },
-    async loginAdmin(obj, {email, password}){
+    async loginAdmin(obj, {codigoAdmin, password}){
       // Validate data
-      if (!(email && password)) {
+      if (!(codigoAdmin && password)) {
         return {
           message: "Missing data.",
           code: 400
@@ -77,10 +75,10 @@ const adminResolvers = {
       }
 
       // Validate if register exist
-      const admin = await Admin.findOne({ "correo":email });
+      const admin = await Admin.findOne({ "codigoAdmin":codigoAdmin });
 
       // Get token
-      if (admin && (await bcrypt.compare(password, admin.pass))) {
+      if (admin && (await bcrypt.compare(password, admin.password))) {
         
         const token = jwt.sign(
           { type: "admin", code: admin.codigoAdmin },

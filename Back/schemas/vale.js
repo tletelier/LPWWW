@@ -9,10 +9,14 @@ const valeSchema = `
 type Vale {
   id: ID!
   fecha: DateTime
+  saldo: Int!
+  estado: Int!
   servicio: Servicio
   funcionario: Funcionario
   cajero: Cajero
-  sucursal: Sucursal
+  sucursal: ID!
+  perfilName: String!
+  servicioName: String!
 }
 
 input ValeInput {
@@ -20,7 +24,9 @@ input ValeInput {
   servicio: String!
   funcionario: String!
   cajero: String!
-  sucursal: String!
+  sucursal: ID!
+  perfilName: String!
+  servicioName: String!
 }
 
 type Query{

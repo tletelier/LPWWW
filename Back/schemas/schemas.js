@@ -22,6 +22,12 @@ const {
   informeResolvers
 } = require('./informe');
 
+
+const { 
+  perfilSchema, 
+  perfilResolvers
+} = require('./perfil');
+
 const { 
   servicioSchema, 
   servicioResolvers
@@ -43,8 +49,8 @@ const {
 
 
 const schema = makeExecutableSchema({
-  typeDefs: [adminSchema, cajeroSchema, funcionarioSchema, informeSchema, servicioSchema, sucursalSchema, valeSchema, generalSchema],
-  resolvers: merge(adminResolvers, cajeroResolvers, funcionarioResolvers, informeResolvers, servicioResolvers, sucursalResolvers, valeResolvers)
+  typeDefs: [adminSchema, cajeroSchema, funcionarioSchema, informeSchema, perfilSchema, servicioSchema, sucursalSchema, valeSchema, generalSchema],
+  resolvers: merge(adminResolvers, cajeroResolvers, funcionarioResolvers, informeResolvers, perfilResolvers, servicioResolvers, sucursalResolvers, valeResolvers)
 })
 
 module.exports = { schema }

@@ -15,12 +15,11 @@ type Funcionario {
   apellidos: String!
   codigoFuncionario: Int!
   correo: String!
-  pass: String!
-  perfil: String!
+  password: String!
+  perfil: Perfil
   valesDisponibles: Int!
   valesUtilizados: Int!
   valesNoUtilizados: Int!
-  sucursal: Sucursal
 }
 
 input FuncionarioInput{
@@ -28,8 +27,8 @@ input FuncionarioInput{
   apellidos: String!
   codigoFuncionario: Int!
   correo: String!
-  pass: String!
-  perfil: String!
+  password: String!
+  perfil: ID!
   valesDisponibles: Int!
   valesUtilizados: Int!
   valesNoUtilizados: Int!
@@ -44,7 +43,7 @@ type Mutation{
   addFuncionario(input: FuncionarioInput): Funcionario
   updateFuncionario(id: ID!, input: FuncionarioInput) :  Funcionario
   deleteFuncionario(id: ID!) : Alert
-  loginFuncionario(email: String!, password: String!): Response
+  loginFuncionario(codigoFuncionario: String!, password: String!): Response
 }
 `;
 
@@ -76,9 +75,9 @@ const funcionarioResolvers = {
         message:"Funcionario Eliminado" 
       }
     },
-    async loginFuncionario(obj, {email, password}){
+    async loginFuncionario(obj, {codigoFuncionario, password}){
       // Validate data
-      if (!(email && password)) {
+      if (!(codigoFuncionario && password)) {
         return {
           message: "Missing data.",
           code: 400
@@ -86,13 +85,13 @@ const funcionarioResolvers = {
       }
 
       // Validate if register exist
-      const funcionario = await Cajero.findOne({ "correo":email });
+      const funcionario = await Cajero.findOne({ "codigoFuncionario":codigoFuncionario });
 
       // Get token
       if (funcionario && (await bcrypt.compare(password, funcionario.pass))) {
         
         const token = jwt.sign(
-          { type: "funcionario", code: funcionario.codigoCajero },
+          { type: "funcionario", code: funcionario.codigoFuncionario },
           process.env.TOKEN_KEY,
           {
             expiresIn: "3h",
