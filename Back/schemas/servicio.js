@@ -1,5 +1,6 @@
 // Middleware
 const auth = require("../middleware/auth");
+const Perfil = require("../models/perfil");
 
 // Models
 const Servicio = require('../models/servicio');
@@ -13,6 +14,7 @@ type Servicio {
   horarioFin: String!
   valor: Int!
   maxValesTurno: Int!
+  perfil: Perfil
 }
 
 input ServicioInput {
@@ -21,6 +23,7 @@ input ServicioInput {
   horarioFin: String!
   valor: Int!
   maxValesTurno: Int!
+  perfil: String
 }
 
 type Query{
@@ -38,14 +41,30 @@ type Mutation{
 const servicioResolvers = {
   Query: {
     async getServicios(obj){
-      return await Servicio.find();
+      return await Servicio.find().populate('perfil');
     },
     async getServicio(obj, {id}){
-      return await Servicio.findById(id);
+      return await Servicio.findById(id).populate('perfil');
     }
   },
   Mutation: {
     async addServicio(obj, {input}){
+      let {nombre, horarioInicio, horarioFin, valor, maxValesTurno, perfil} = input
+      let perfilBuscar = await Perfil.findById(perfil)
+      if(perfilBuscar === null){
+
+      } else {
+        const servicio = new Servicio(
+          {
+          nombre: nombre, 
+          horarioInicio: horarioInicio, 
+          horarioFin: horarioFin, 
+          valor: valor, 
+          maxValesTurno: maxValesTurno, 
+          perfil: perfilBuscar._id
+        })
+        return servicio;
+      }
       const temp = new Servicio(input);
       await temp.save();
       return temp;

@@ -50,11 +50,14 @@ type Mutation{
 const funcionarioResolvers = {
   Query: {
     async getFuncionarios(obj){
-      return await Funcionario.find();
+      return await Funcionario.find().populate('perfil');
     },
     async getFuncionario(obj, {id}){
-      return await Funcionario.findById(id);
-    }
+      return await Funcionario.findById(id).populate('perfil');
+    },
+    // async getEmailFuncionarios(obj){
+    //   return await Funcionario.find({}, correo);
+    // },
   },
   Mutation: {
     async addFuncionario(obj, {input}){
