@@ -8,20 +8,18 @@ const informeSchema = `
 
 type Informe {
   id: ID!
-  fecha: DateTime
+  fecha: DateTime!
   cantidadValesUsados: Int!
   cantidadValesNoUsados: Int!
-  autor: Admin
-  vale: Vale
+  autor: ID!
+  vale: [Vale]
 }
 
 input InformeInput {
-  id: ID!
-  fecha: DateTime
+  fecha: DateTime!
   cantidadValesUsados: Int!
   cantidadValesNoUsados: Int!
-  autor: String!
-  vale: String!
+  autor: ID!
 }
 
 type Query{

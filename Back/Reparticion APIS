@@ -1,0 +1,36 @@
+- Informes requieren editar INPUT type (Agregar vales)
+- Perfiles requieren editar INPUT type (Agregar servicios)
+
+================================= APIs =======================================
+
+Login Admin Funcionario Cajero - Retorna Token (Bruno)
+Registro Funcionario Cajero    - Retorna Registro (Bruno)
+
+// Permiso funcionario Bruno
+Obtener datos funcionario      - Retorna getFuncionario(id) => Perfil => [Servicios]
+Crear Vale                     - Retorna vale creado 
+	- Crear codigo random
+	- Servicio segun horario
+	- Perfil obtenido a priori - 
+	- IMPORTANTE Update a funcionario! +1 NoUtilizados, -1 Disponibles
+	- estado 0
+
+// Permiso cajero Fernanda
+Obtener datos vale             - getVale(id)
+	- Update saldo a vale
+	- estado += 1 a vale 
+	- Update cajero a vale 
+	- Update sucursal a vale
+	- Update -1 NoUtilizados, +1 Utilizados a funcionario
+
+// Permiso admin PocketDango
+Obtener datos perfiles         - getPerfiles() //Incluye servicios
+CRUD Servicio                  - Dah 
+	- Agregar valor, maxValesTurno
+CRUD Perfil                    - Dah 
+CRUD Informes                  - Dah 
+	- Agregar vales por fecha
+Obtener correos                - getFuncionarios().correos y enviar sus datos relevantes
+	- Disponibles
+	- Utilizados
+	- No utilizados

@@ -8,16 +8,19 @@ const servicioSchema = `
 
 type Servicio {
   id: ID!
-  horario: String!
+  nombre: String!
+  horarioInicio: String!
+  horarioFin: String!
   valor: Int!
-  perfil: String!
+  maxValesTurno: Int!
 }
 
 input ServicioInput {
-  id: ID!
-  horario: String!
+  nombre: String!
+  horarioInicio: String!
+  horarioFin: String!
   valor: Int!
-  perfil: String!
+  maxValesTurno: Int!
 }
 
 type Query{

@@ -13,13 +13,12 @@ type Sucursal {
 }
 
 input SucursalInput {
-  id: ID!
   direccion: String!
   codigoSucursal: Int!
 }
 
 type Query{
-  getSucursals: [Sucursal]
+  getSucursales: [Sucursal]
   getSucursal(id: ID!): Sucursal
 }
 
@@ -32,7 +31,7 @@ type Mutation{
 
 const sucursalResolvers = {
   Query: {
-    async getSucursals(obj){
+    async getSucursales(obj){
       return await Sucursal.find();
     },
     async getSucursal(obj, {id}){
