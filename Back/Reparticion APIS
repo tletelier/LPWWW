@@ -27,10 +27,10 @@ Obtener datos vale             - getVale(id)
 Obtener datos perfiles         - getPerfiles() //Incluye servicios
 ++++ CRUD Servicio                  - Dah 
 	- Agregar valor, maxValesTurno
-+ CRUD Perfil                    - Dah 
-+ CRUD Informes                  - Dah 
+++ CRUD Perfil                    - Dah 
+++ CRUD Informes                  - Dah 
 	- Agregar vales por fecha
-Obtener correos                - getFuncionarios().correos y enviar sus datos relevantes
++ Obtener correos                - getFuncionarios().correos y enviar sus datos relevantes
 	- Disponibles
 	- Utilizados
 	- No utilizados
