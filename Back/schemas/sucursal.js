@@ -10,11 +10,13 @@ type Sucursal {
   id: ID!
   direccion: String!
   codigoSucursal: Int!
+  cajero: Cajero
 }
 
 input SucursalInput {
   direccion: String!
   codigoSucursal: Int!
+  cajero: String
 }
 
 type Query{

@@ -3,6 +3,7 @@ const auth = require("../middleware/auth");
 
 // Models
 const Vale = require('../models/vale');
+const Funcionario = require('../models/funcionario');
 
 const valeSchema = `
 
@@ -11,19 +12,18 @@ type Vale {
   fecha: DateTime
   saldo: Int!
   estado: Int!
-  servicio: Servicio
   funcionario: Funcionario
   cajero: Cajero
-  sucursal: ID!
+  sucursal: Sucursal
   perfilName: String!
   servicioName: String!
 }
 
 input ValeInput {
   fecha: DateTime
-  servicio: String!
-  funcionario: String!
-  cajero: String!
+  saldo: Int!
+  funcionario: ID!
+  cajero: ID!
   sucursal: ID!
   perfilName: String!
   servicioName: String!
@@ -46,8 +46,8 @@ type Mutation{
 const valeResolvers = {
   Query: {
 
-    async getVales(obj){
-      return await Vale.find();
+    async getVales(obj, {date}){
+      return await Vale.find({fecha: {$gt:date}});
     },
     async getVale(obj, {id}){
       return await Vale.findById(id);
@@ -55,8 +55,16 @@ const valeResolvers = {
   },
   Mutation: {
     async addVale(obj, {input}){
+
+      input.estado = 0;
       const temp = new Vale(input);
       await temp.save();
+
+      await Funcionario.updateOne(
+        {_id: input.funcionario},
+        {$inc: {valesNoUtilizados: 1, valesDisponibles: -1}}
+      )
+
       return temp;
     },
     async updateVale(obj, {id, input}){      
