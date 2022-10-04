@@ -47,10 +47,14 @@ const valeResolvers = {
   Query: {
 
     async getVales(obj, {date}){
-      return await Vale.find({fecha: {$gt:date}});
+      if(date){
+        return await Vale.find({fecha: {$gt:date}}).populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
+      }else{
+        return await Vale.find().populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
+      }
     },
     async getVale(obj, {id}){
-      return await Vale.findById(id);
+      return await Vale.findById(id).populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
     }
   },
   Mutation: {
