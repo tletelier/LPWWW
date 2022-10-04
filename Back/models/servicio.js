@@ -6,7 +6,7 @@ const servicioSchema = new mongoose.Schema({
   horarioFin: String,
   valor: Number,
   maxValesTurno: Number,
-  perfil: {type: mongoose.Schema.ObjectId, ref: 'perfil'},
+  perfil: {type: mongoose.Schema.ObjectId, ref: 'Perfil'},
 });
 
 module.exports = mongoose.model('Servicio', servicioSchema);

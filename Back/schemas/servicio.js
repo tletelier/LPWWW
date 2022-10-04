@@ -23,7 +23,7 @@ input ServicioInput {
   horarioFin: String!
   valor: Int!
   maxValesTurno: Int!
-  perfil: String
+  perfil: ID!
 }
 
 type Query{
@@ -63,6 +63,7 @@ const servicioResolvers = {
           maxValesTurno: maxValesTurno, 
           perfil: perfilBuscar._id
         })
+        await servicio.save();
         return servicio;
       }
       const temp = new Servicio(input);
