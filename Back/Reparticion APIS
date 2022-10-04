@@ -25,7 +25,7 @@ Obtener datos vale             - getVale(id)
 
 // Permiso admin PocketDango
 Obtener datos perfiles         - getPerfiles() //Incluye servicios
-+ CRUD Servicio                  - Dah 
+++++ CRUD Servicio                  - Dah 
 	- Agregar valor, maxValesTurno
 + CRUD Perfil                    - Dah 
 + CRUD Informes                  - Dah 

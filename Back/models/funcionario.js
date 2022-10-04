@@ -6,7 +6,7 @@ const funcionarioSchema = new mongoose.Schema({
   codigoFuncionario: Number,
   correo: String,
   password: String,
-  perfil: {type: mongoose.Schema.ObjectId, ref: 'perfil'},
+  perfil: {type: mongoose.Schema.ObjectId, ref: 'Perfil'},
   valesDisponibles: Number,
   valesUtilizados: Number,
   valesNoUtilizados: Number,

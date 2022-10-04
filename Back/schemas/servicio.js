@@ -18,12 +18,12 @@ type Servicio {
 }
 
 input ServicioInput {
-  nombre: String!
-  horarioInicio: String!
-  horarioFin: String!
-  valor: Int!
-  maxValesTurno: Int!
-  perfil: ID!
+  nombre: String
+  horarioInicio: String
+  horarioFin: String
+  valor: Int
+  maxValesTurno: Int
+  perfil: String
 }
 
 type Query{
@@ -52,7 +52,7 @@ const servicioResolvers = {
       let {nombre, horarioInicio, horarioFin, valor, maxValesTurno, perfil} = input
       let perfilBuscar = await Perfil.findById(perfil)
       if(perfilBuscar === null){
-
+        return null
       } else {
         const servicio = new Servicio(
           {
@@ -66,9 +66,6 @@ const servicioResolvers = {
         await servicio.save();
         return servicio;
       }
-      const temp = new Servicio(input);
-      await temp.save();
-      return temp;
     },
     async updateServicio(obj, {id, input}){
       return await Servicio.findByIdAndUpdate(id, input);
