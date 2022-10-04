@@ -46,8 +46,8 @@ type Mutation{
 const valeResolvers = {
   Query: {
 
-    async getVales(obj){
-      return await Vale.find();
+    async getVales(obj, {date}){
+      return await Vale.find({fecha: {$gt:date}});
     },
     async getVale(obj, {id}){
       return await Vale.findById(id);
