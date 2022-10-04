@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 // Models
 const Vale = require('../models/vale');
 const Funcionario = require('../models/funcionario');
+const Servicio = require('../models/servicio');
 
 const valeSchema = `
 
@@ -80,7 +81,7 @@ const valeResolvers = {
       } else{//si el vale es válido
         let estado = valeGet.estado;
         let saldo = valeGet.saldo;               
-        let servicioGet = await Servicio.findById(servicio);           
+        let servicioGet = await Servicio.findById(input.servicioName);           
         if(saldo!=0){
           estado +=1; //se registra un uso
           input.estado=estado;
