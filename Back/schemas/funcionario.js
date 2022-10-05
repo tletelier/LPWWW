@@ -30,7 +30,7 @@ String.format = function() {
   return s;
 };
 
-cron.schedule('5 8 * * Sun', async () => { //cada semana, lo enviara el 7=sunday
+cron.schedule('5 8 * * Sun', async () => { //cada semana, lo enviara a las 8:05 de Sunday
   const funcionarios = await Funcionario.find();
   for (var i = 0; i < funcionarios.length; i++){
     try {
