@@ -42,10 +42,10 @@ type Mutation{
 const cajeroResolvers = {
   Query: {
     async getCajeros(obj){
-      return await Cajero.find();
+      return await Cajero.find().populate('sucursal');
     },
     async getCajero(obj, {id}){
-      return await Cajero.findById(id);
+      return await Cajero.findById(id).populate('sucursal');
     }
   },
   Mutation: {
