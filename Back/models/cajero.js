@@ -5,7 +5,7 @@ const cajeroSchema = new mongoose.Schema({
   apellidos: String,
   password: String,
   codigoCajero: Number,
-  sucursal: {type: mongoose.Schema.ObjectId, ref: 'sucursal'}
+  sucursal: {type: mongoose.Schema.ObjectId, ref: 'Sucursal'}
 });
 
 module.exports = mongoose.model('Cajero', cajeroSchema);

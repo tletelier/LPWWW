@@ -37,10 +37,12 @@ type Mutation{
 const informeResolvers = {
   Query: {
     async getInformes(obj){
-      return await Informe.find();
+      return await Informe.find().populate('admin').populate(
+        { path: 'vales', populate: { path: 'vale' } });
     },
     async getInforme(obj, {id}){
-      return await Informe.findById(id);
+      return await Informe.findById(id).populate('admin').populate(
+        { path: 'vales', populate: { path: 'vale' } });
     }
   },
   Mutation: {

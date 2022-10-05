@@ -1,5 +1,55 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fs = require('fs');
+const dotenv = require('dotenv')
+const cron = require('node-cron');
+dotenv.config();
+
+// Mailer
+const nodemailer = require('nodemailer');
+
+const emailTemplate =  fs.readFileSync('./assets/email/index.html').toString();
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+String.format = function() {
+  var s = arguments[0];
+  for (var i = 0; i < arguments.length - 1; i += 1) {
+      var reg = new RegExp('\\{' + i + '\\}', 'gm');
+      s = s.replace(reg, arguments[i + 1]);
+  }
+  return s;
+};
+
+cron.schedule('5 8 * * sun', async () => { //cada semana, lo enviara el 7=sunday
+  const funcionarios = await Funcionario.find();
+  for (var i = 0; i < funcionarios.length; i++){
+    try {
+      transporter.sendMail({
+        from: 'librosImpresos-ServicioCasino.cl',
+        to: funcionarios[i].correo,
+        subject: 'Aviso Semanal Vales', // Subject
+        html: String.format(emailTemplate, 
+                            funcionarios[i].valesDisponibles, 
+                            funcionarios[i].valesUtilizados, 
+                            funcionarios[i].valesNoUtilizados),
+      });
+      console.log('Ok');
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+});
 
 // Middleware
 const auth = require("../middleware/auth");
@@ -28,7 +78,7 @@ input FuncionarioInput{
   codigoFuncionario: Int!
   correo: String!
   password: String!
-  perfil: ID!
+  perfil: String!
   valesDisponibles: Int!
   valesUtilizados: Int!
   valesNoUtilizados: Int!
@@ -50,11 +100,13 @@ type Mutation{
 const funcionarioResolvers = {
   Query: {
     async getFuncionarios(obj){
-      return await Funcionario.find();
+      const funcionarios = await Funcionario.find();
+      // console.log(funcionarios);
+      return funcionarios;
     },
     async getFuncionario(obj, {id}){
-      return await Funcionario.findById(id);
-    }
+      return await Funcionario.findById(id).populate('perfil');
+    },
   },
   Mutation: {
     async addFuncionario(obj, {input}){
