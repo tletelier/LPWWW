@@ -35,7 +35,10 @@ type Mutation{
 const perfilResolvers = {
   Query: {
     async getPerfiles(obj){
-      return await Perfil.find();
+      return await Perfil.find().populate([
+        'servicio',
+        { path: 'servicios', populate: { path: 'servicio' } },
+    ]);
     },
     async getPerfil(obj, {id}){
       return await Perfil.findById(id);
