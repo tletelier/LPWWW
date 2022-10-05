@@ -80,21 +80,20 @@ const valeResolvers = {
         }
       } else{//si el vale es válido
         let estado = valeGet.estado;
-        let saldo = valeGet.saldo;               
-        let servicioGet = await Servicio.findById(input.servicioName);           
+        let saldo = valeGet.saldo;
+        let servicioGet = await Servicio.findById(input.servicioName);                      
         if(saldo!=0){
           estado +=1; //se registra un uso
           input.estado=estado;
           if(servicioGet.valor===saldo){//se usa todo el saldo
-            saldo=0;  //si se usa todo el vale cuenta como utilizado
-            input.saldo=0;
+            input.saldo=0;  //si se usa todo el vale cuenta como utilizado            
             await Funcionario.updateOne(
               {_id: input.funcionario},
               {$inc: {valesNoUtilizados: -1, valesUtilizados: 1}}
             )      
           }
           else if(servicioGet.valor<saldo){//queda saldo a favor
-            saldo = saldo - servicio.valor; //se resta el saldo según valor del servicio
+            saldo = saldo - servicioGet.valor; //se resta el saldo según valor del servicio
             input.saldo=saldo;
           }      
           else{//falta saldo para la compra
@@ -106,7 +105,7 @@ const valeResolvers = {
               {$inc: {valesNoUtilizados: -1, valesUtilizados: 1}}
             )
             return{
-              message:"Se debe pagar la diferencia de " + (servicio.valor-saldoTemp) 
+              message:"Se debe pagar la diferencia de " + (servicioGet.valor-saldoTemp) 
             }
           }  
 
