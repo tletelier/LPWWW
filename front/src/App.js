@@ -6,7 +6,7 @@ import { esES } from '@mui/x-data-grid';
 import { esES as coreesES } from '@mui/material/locale';
 // import axios from 'axios';
 import './App.css';
-import Layout from './components/Layout';
+import ResponsiveDrawer from './components/ResponsiveDrawer';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import CajeroView from './views/CajeroView';
@@ -42,6 +42,32 @@ const theme = createTheme(
       allVariants: {
         color: '#3D4748'
       }
+    },
+    components: {
+      MuiButton: {
+        variants: [
+          {
+            props: { variant: 'oscuro' },
+            style: {
+              backgroundColor: '#3D4748',
+              color: '#FFFFFF',
+              borderRadius: 20,
+              maxWidth: 200,
+              textTransform: 'none'
+            }
+          },
+          {
+            props: { variant: 'claro' },
+            style: {
+              backgroundColor: '#CEB99E',
+              color: '#FFFFFF',
+              borderRadius: 10,
+              minWidth: 200,
+              textTransform: 'none'
+            }
+          }
+        ]
+      }
     }
   },
   esES, // x-data-grid translations
@@ -64,10 +90,10 @@ function App() {
       <Router>
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route element={<Layout />}>
+            <Route path="/login" element={<LoginView />} />
+            <Route path="/register" element={<RegisterView />} />
+            <Route element={<ResponsiveDrawer />}>
               <Route path="/" element={<ValesView />} />
-              <Route path="/login" element={<LoginView />} />
-              <Route path="/register" element={<RegisterView />} />
               <Route path="/funcionario" element={<FuncionarioView />} />
               <Route path="/cajero" element={<CajeroView />} />
               <Route path="/vales" element={<ValesView />} />

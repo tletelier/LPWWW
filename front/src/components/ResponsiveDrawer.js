@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
+import { AppBar, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -9,29 +10,36 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
 import MenuIcon from '@mui/icons-material/Menu';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import GroupsIcon from '@mui/icons-material/Groups';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import EmailIcon from '@mui/icons-material/Email';
+
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import HomeIcon from '@mui/icons-material/Home';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { NavLink, Link, useMatch, useNavigate } from 'react-router-dom';
-// import { Theme } from '@mui/material/styles';
+import { NavLink, Link, useMatch } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Menu, MenuItem } from '@mui/material';
+
+import { Outlet } from 'react-router-dom';
 // import axios from 'axios';
-// import _ from 'lodash';
+
 // import { useAuth } from '../hooks/useAuth';
 
-import logo from '../assets/logo.png';
+import logo from '../assets/logo2.png';
 
 const drawerWidth = 250;
 
-const ResponsiveDrawer = () => {
+const ResponsiveDrawer = (props) => {
+  // const children = prps
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   // const { user, logout } = useAuth();
-  const user = { nombres: 'Skylar', apellidos: 'Cirrus' };
+  const user = { nombres: 'Skylar', apellidos: 'Cirrus', codigo: 265 };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -41,41 +49,46 @@ const ResponsiveDrawer = () => {
     {
       uid: 1,
       text: 'Gestionar Vales',
-      icon: <HomeIcon />,
+      icon: <ReceiptIcon />,
       path: '/vales',
       visible: true
     },
     {
       uid: 2,
       text: 'Gestionar Perfiles',
-      icon: <HomeIcon />,
+      icon: <GroupsIcon />,
       path: '/perfiles',
       visible: true
     },
     {
       uid: 3,
       text: 'Gestionar Servicios',
-      icon: <HomeIcon />,
+      icon: <FoodBankIcon />,
       path: '/servicios',
       visible: true
     },
     {
       uid: 4,
       text: 'Gestionar Auditoria',
-      icon: <HomeIcon />,
+      icon: <SummarizeIcon />,
       path: '/auditoria',
+      visible: true
+    },
+    {
+      uid: 5,
+      text: 'Informe Vales',
+      icon: <EmailIcon />,
+      path: '/correo',
       visible: true
     }
   ];
 
-  let seccionActual = 'Pagina no encontrada';
-
   const drawer = (
     <>
-      <Link to="/">
+      <Link to="/vales">
         <img src={logo} alt="logo" width={drawerWidth - 10} />
       </Link>
-      <Divider />
+      {/* <Divider /> */}
       <List
         sx={{
           // selected and (selected + hover) states
@@ -84,17 +97,17 @@ const ResponsiveDrawer = () => {
           },
           // hover states
           '& .MuiListItemButton-root:hover': {
-            bgcolor: (theme) => theme.palette.secondary.light
+            bgcolor: (theme) => theme.palette.secondary.light,
+            color: '#FFFFFF'
           }
         }}>
         {items.map(({ uid, text, icon, path, visible }) => {
           const active = useMatch({ path: `${path}/*` }) !== null;
-          if (active) seccionActual = text;
           if (!visible) return '';
           return (
             <ListItem disablePadding button component={NavLink} to={path} key={uid}>
               <ListItemButton selected={active}>
-                <ListItemIcon sx={{ color: (theme) => theme.palette.primary.contrastText }}>
+                <ListItemIcon sx={{ color: (theme) => theme.palette.tertiary.main }}>
                   {icon}
                 </ListItemIcon>
                 <ListItemText>
@@ -117,13 +130,6 @@ const ResponsiveDrawer = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const handleLogout = async () => {
     console.log('logout fake');
     // try {
@@ -140,11 +146,14 @@ const ResponsiveDrawer = () => {
       <AppBar
         position="fixed"
         sx={{
+          alignItems: 'center',
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` }
+          ml: { sm: `${drawerWidth}px` },
+          backgroundColor: (theme) => theme.palette.primary.main,
+          color: (theme) => theme.palette.primary.contrastText
         }}
         color="inherit"
-        elevation={3}>
+        elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -154,16 +163,8 @@ const ResponsiveDrawer = () => {
             sx={{ mr: 2, display: { sm: 'none' } }}>
             <MenuIcon />
           </IconButton>
-
-          <IconButton color="inherit" edge="start" onClick={handleBack}>
-            <ArrowBackIcon />
-          </IconButton>
-
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {seccionActual}
-          </Typography>
           <>
-            <Typography>{`${user?.nombres} ${user?.apellidos}`}</Typography>
+            <Typography>{`(${user?.codigo}) ${user?.nombres} ${user?.apellidos}`}</Typography>
             <IconButton onClick={handleClick}>
               <AccountCircle />
             </IconButton>
@@ -191,6 +192,7 @@ const ResponsiveDrawer = () => {
             </MenuItem>
           </Menu>
         </Toolbar>
+        <Divider />
       </AppBar>
       <Box
         component="nav"
@@ -236,7 +238,7 @@ const ResponsiveDrawer = () => {
         component="main"
         sx={{ flexGrow: 1, p: 0, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
-        {/* {children} */}
+        <Outlet />
       </Box>
     </Box>
   );
