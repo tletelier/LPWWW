@@ -65,6 +65,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route element={<Layout />}>
+              <Route path="/" element={<ValesView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
               <Route path="/funcionario" element={<FuncionarioView />} />

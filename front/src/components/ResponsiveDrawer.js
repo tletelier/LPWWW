@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -23,7 +24,9 @@ import { Menu, MenuItem } from '@mui/material';
 
 import logo from '../assets/logo.png';
 
-const ResponsiveDrawer = (drawerWidth, children) => {
+const drawerWidth = 250;
+
+const ResponsiveDrawer = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -72,6 +75,7 @@ const ResponsiveDrawer = (drawerWidth, children) => {
       <Link to="/">
         <img src={logo} alt="logo" width={drawerWidth - 10} />
       </Link>
+      <Divider />
       <List
         sx={{
           // selected and (selected + hover) states
@@ -232,7 +236,7 @@ const ResponsiveDrawer = (drawerWidth, children) => {
         component="main"
         sx={{ flexGrow: 1, p: 0, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
-        {children}
+        {/* {children} */}
       </Box>
     </Box>
   );

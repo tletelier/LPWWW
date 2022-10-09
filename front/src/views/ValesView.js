@@ -1,5 +1,5 @@
 import React from 'react';
 
-const ValesView = () => <>hu</>;
+const ValesView = () => <>huuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu</>;
 
 export default ValesView;
