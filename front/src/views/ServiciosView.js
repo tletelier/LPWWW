@@ -25,7 +25,6 @@ const ServiciosView = () => {
         </Typography>
       </Box>
       <Stack sx={{ px: 4, py: 2 }}>
-        hi
         <ServiciosTable rows={data} />
       </Stack>
     </Stack>
