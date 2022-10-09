@@ -52,8 +52,11 @@ const theme = createTheme(
               backgroundColor: '#3D4748',
               color: '#FFFFFF',
               borderRadius: 20,
-              maxWidth: 200,
-              textTransform: 'none'
+              minWidth: 200,
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#7C898B'
+              }
             }
           },
           {
@@ -63,7 +66,10 @@ const theme = createTheme(
               color: '#FFFFFF',
               borderRadius: 10,
               minWidth: 200,
-              textTransform: 'none'
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#e2d4c3'
+              }
             }
           }
         ]

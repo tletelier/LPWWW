@@ -93,12 +93,13 @@ const ResponsiveDrawer = (props) => {
         sx={{
           // selected and (selected + hover) states
           '&& .Mui-selected, && .Mui-selected:hover': {
+            color: '#FFFFFF',
             bgcolor: (theme) => theme.palette.secondary.main
           },
           // hover states
           '& .MuiListItemButton-root:hover': {
-            bgcolor: (theme) => theme.palette.secondary.light,
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            bgcolor: (theme) => theme.palette.secondary.light
           }
         }}>
         {items.map(({ uid, text, icon, path, visible }) => {
