@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import * as Constants from '../constants';
+import ServiciosTable from '../components/ServiciosTable';
 
 const ServiciosView = () => {
   const [data, setData] = useState([]);
@@ -11,9 +12,7 @@ const ServiciosView = () => {
         query: Constants.GET_SERVICIOS_QUERY
       });
       const result = queryData.data.data;
-      console.log(queryData);
-      console.log(result);
-      setData(result);
+      setData(result.getServicios);
     };
     fetchData();
   }, []);
@@ -25,7 +24,10 @@ const ServiciosView = () => {
           <b>Servicios existentes:</b>
         </Typography>
       </Box>
-      <Stack sx={{ px: 4, py: 2 }}>hi</Stack>
+      <Stack sx={{ px: 4, py: 2 }}>
+        hi
+        <ServiciosTable rows={data} />
+      </Stack>
     </Stack>
   );
 };

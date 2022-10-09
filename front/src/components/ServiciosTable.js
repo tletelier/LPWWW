@@ -3,20 +3,20 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
-import { Button, Theme, Box, Typography } from '@mui/material';
+import { Button, Theme, Stack, Box, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCrown } from '@fortawesome/free-solid-svg-icons';
 // import axios from 'axios';
 // import { useAuth } from '../hooks/useAuth';
-import SinActividades from './SinActividades';
+// import SinActividades from './SinActividades';
 // import { useAuth } from '../hooks/useAuth';
 
 const ServiciosTable = ({ rows }) => {
   // const { logout } = useAuth();
+  console.log(rows);
+  console.log(Object.values(rows));
   const navigate = useNavigate();
   const handleEditar = () => {
     console.log('editao');
@@ -38,7 +38,7 @@ const ServiciosTable = ({ rows }) => {
       flex: 1
     },
     {
-      field: 'acción',
+      // field: 'acción',
       headerName: 'Acción',
       flex: 1,
       sortable: false,
@@ -59,10 +59,11 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        <SinActividades
-          mainmsg="Sin servicios."
-          submsg="Cuando hayan claro, estos aparecerán aquí."
-        />
+        // <SinActividades
+        //   mainmsg="Sin servicios."
+        //   submsg="Cuando hayan claro, estos aparecerán aquí."
+        // />
+        <Stack> nada por aqui</Stack>
       ) : (
         <DataGrid
           density="comfortable"
@@ -71,7 +72,6 @@ const ServiciosTable = ({ rows }) => {
           hideFooter
           columns={cols}
           rows={Object.values(rows)}
-          getRowId={(row) => row._id}
           disableSelectionOnClick
           sx={{ borderRadius: 5 }}
         />
