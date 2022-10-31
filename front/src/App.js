@@ -23,11 +23,11 @@ const theme = createTheme(
   {
     palette: {
       primary: {
-        main: '#F6F4F1',
-        contrastText: '#3D4748'
+        main: '#7C898B',
+        contrastText: '#F6F4F1'
       },
       secondary: {
-        main: '#7C898B'
+        main: '#3D4748'
       },
       tertiary: palette.augmentColor({ color: { main: '#CEB99E' } }),
       quaternary: palette.augmentColor({ color: { main: '#784141' } }),

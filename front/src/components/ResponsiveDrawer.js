@@ -94,7 +94,7 @@ const ResponsiveDrawer = (props) => {
           // selected and (selected + hover) states
           '&& .Mui-selected, && .Mui-selected:hover': {
             // color: '#FFFFFF',
-            bgcolor: (theme) => theme.palette.secondary.main
+            bgcolor: (theme) => theme.palette.primary.main
           }
         }}>
         {items.map(({ uid, text, icon, path, visible }) => {
@@ -110,8 +110,8 @@ const ResponsiveDrawer = (props) => {
                   <Typography
                     sx={{
                       color: active
-                        ? (theme) => theme.palette.primary.main
-                        : (theme) => theme.palette.primary.contrastText
+                        ? (theme) => theme.palette.primary.contrastText
+                        : (theme) => theme.palette.secondary.main
                     }}>
                     {text}
                   </Typography>
@@ -150,8 +150,8 @@ const ResponsiveDrawer = (props) => {
           alignItems: 'flex-end',
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          backgroundColor: (theme) => theme.palette.primary.main,
-          color: (theme) => theme.palette.primary.contrastText
+          backgroundColor: (theme) => theme.palette.primary.contrastText,
+          color: (theme) => theme.palette.secondary.main
         }}
         color="inherit"
         elevation={0}>
@@ -211,8 +211,8 @@ const ResponsiveDrawer = (props) => {
           }}
           PaperProps={{
             sx: {
-              backgroundColor: (theme) => theme.palette.primary.main,
-              color: (theme) => theme.palette.primary.contrastText
+              backgroundColor: (theme) => theme.palette.primary.contrastText,
+              color: (theme) => theme.palette.secondary.main
             }
           }}>
           {drawer}
@@ -226,8 +226,8 @@ const ResponsiveDrawer = (props) => {
           open
           PaperProps={{
             sx: {
-              backgroundColor: (theme) => theme.palette.primary.main,
-              color: (theme) => theme.palette.primary.contrastText
+              backgroundColor: (theme) => theme.palette.primary.contrastText,
+              color: (theme) => theme.palette.secondary.main
             }
           }}>
           {drawer}

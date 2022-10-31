@@ -22,22 +22,28 @@ const ServiciosTable = ({ rows }) => {
     {
       field: 'nombre',
       headerName: 'Nombre',
-      flex: 1
+      flex: 1,
+      minWidth: 150
     },
     {
       field: 'horarioInicio',
       headerName: 'Comienzo',
-      flex: 1
+      flex: 1,
+      minWidth: 100
     },
     {
       field: 'horarioFin',
       headerName: 'Finaliza',
-      flex: 1
+      flex: 1,
+      minWidth: 100
     },
     {
       field: 'acción',
       headerName: 'Acción',
+      align: 'center',
+      headerAlign: 'center',
       flex: 1,
+      minWidth: 150,
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
@@ -58,7 +64,7 @@ const ServiciosTable = ({ rows }) => {
       {rows.length === 0 ? (
         // <SinActividades
         //   mainmsg="Sin servicios."
-        //   submsg="Cuando hayan claro, estos aparecerán aquí."
+        //   submsg="Cuando hayan, estos aparecerán aquí."
         // />
         <Stack> nada por aqui</Stack>
       ) : (

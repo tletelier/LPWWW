@@ -24,7 +24,7 @@ const ServiciosView = () => {
           <b>Servicios existentes:</b>
         </Typography>
       </Box>
-      <Stack sx={{ px: 4, py: 2 }}>
+      <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <ServiciosTable rows={data} />
       </Stack>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
