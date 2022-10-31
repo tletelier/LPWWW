@@ -21,14 +21,14 @@ import ServiciosTable from '../components/ServiciosTable';
 import logo from '../assets/logo2.png';
 
 const LoginView = () => {
-  const [username, setUsername] = useState({});
+  const [codigo, setCodigo] = useState({});
   const [password, setPassword] = useState({});
   const [tipo, setTipo] = useState('Funcionario');
   const [correct, setCorrect] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleCodigoChange = (event) => {
+    setCodigo(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -87,7 +87,7 @@ const LoginView = () => {
                 </Select>
               </FormControl>
               <Stack spacing={2}>
-                <TextField required label="Código" onChange={handleUsernameChange} />
+                <TextField required label="Código" onChange={handleCodigoChange} />
                 <TextField
                   required
                   type="password"
