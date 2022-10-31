@@ -9,7 +9,7 @@ const perfilSchema = `
 type Perfil {
   id: ID!
   nombre: String!
-  servicios: [Servicio]
+  servicios_array: [Servicio]
 }
 
 input PerfilInput {
@@ -32,11 +32,11 @@ const perfilResolvers = {
   Query: {
     async getPerfiles(obj){
       return await Perfil.find().populate(
-        { path: 'servicios', populate: { path: 'servicio' } });
+        { path: 'servicios_array', populate: { path: 'servicio' }});
     },
     async getPerfil(obj, {id}){
       return await Perfil.findById(id).populate(
-        { path: 'servicios', populate: { path: 'servicio' } });
+        { path: 'servicios_array', populate: { path: 'servicio' } });
     }
   },
   Mutation: {

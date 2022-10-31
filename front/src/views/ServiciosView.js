@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import * as Constants from '../constants';
 import ServiciosTable from '../components/ServiciosTable';
@@ -26,6 +26,9 @@ const ServiciosView = () => {
       </Box>
       <Stack sx={{ px: 4, py: 2 }}>
         <ServiciosTable rows={data} />
+      </Stack>
+      <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
+        <Button variant="oscuro">Agregar Servicio</Button>
       </Stack>
     </Stack>
   );

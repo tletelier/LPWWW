@@ -15,9 +15,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 const ServiciosTable = ({ rows }) => {
   // const { logout } = useAuth();
-  console.log(rows);
-  console.log(Object.values(rows));
-  const navigate = useNavigate();
   const handleEditar = () => {
     console.log('editao');
   };
@@ -38,7 +35,7 @@ const ServiciosTable = ({ rows }) => {
       flex: 1
     },
     {
-      // field: 'acción',
+      field: 'acción',
       headerName: 'Acción',
       flex: 1,
       sortable: false,

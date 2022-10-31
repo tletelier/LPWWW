@@ -62,7 +62,7 @@ const theme = createTheme(
           {
             props: { variant: 'claro' },
             style: {
-              backgroundColor: '#CEB99E',
+              backgroundColor: '#ccb394',
               color: '#FFFFFF',
               borderRadius: 20,
               minWidth: 100,

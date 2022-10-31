@@ -93,13 +93,8 @@ const ResponsiveDrawer = (props) => {
         sx={{
           // selected and (selected + hover) states
           '&& .Mui-selected, && .Mui-selected:hover': {
-            color: '#FFFFFF',
+            // color: '#FFFFFF',
             bgcolor: (theme) => theme.palette.secondary.main
-          },
-          // hover states
-          '& .MuiListItemButton-root:hover': {
-            color: '#FFFFFF',
-            bgcolor: (theme) => theme.palette.secondary.light
           }
         }}>
         {items.map(({ uid, text, icon, path, visible }) => {
@@ -112,7 +107,12 @@ const ResponsiveDrawer = (props) => {
                   {icon}
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography sx={{ color: (theme) => theme.palette.primary.contrastText }}>
+                  <Typography
+                    sx={{
+                      color: active
+                        ? (theme) => theme.palette.primary.main
+                        : (theme) => theme.palette.primary.contrastText
+                    }}>
                     {text}
                   </Typography>
                 </ListItemText>
@@ -147,7 +147,7 @@ const ResponsiveDrawer = (props) => {
       <AppBar
         position="fixed"
         sx={{
-          alignItems: 'center',
+          alignItems: 'flex-end',
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           backgroundColor: (theme) => theme.palette.primary.main,
@@ -164,12 +164,10 @@ const ResponsiveDrawer = (props) => {
             sx={{ mr: 2, display: { sm: 'none' } }}>
             <MenuIcon />
           </IconButton>
-          <>
-            <Typography>{`(${user?.codigo}) ${user?.nombres} ${user?.apellidos}`}</Typography>
-            <IconButton onClick={handleClick}>
-              <AccountCircle />
-            </IconButton>
-          </>
+          <Typography>{`(${user?.codigo}) ${user?.nombres} ${user?.apellidos}`}</Typography>
+          <IconButton onClick={handleClick}>
+            <AccountCircle />
+          </IconButton>
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"

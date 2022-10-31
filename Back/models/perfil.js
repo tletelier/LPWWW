@@ -6,7 +6,7 @@ var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const perfilSchema = new mongoose.Schema({
   nombre: String,
-  servicios: [{type: mongoose.Schema.ObjectId, ref: 'Servicio', default: []}],
+  servicios_array: [{type: mongoose.Schema.ObjectId, ref: 'Servicio', default: []}],
 });
 
 perfilSchema.plugin(deepPopulate);
