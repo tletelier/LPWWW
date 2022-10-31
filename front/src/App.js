@@ -6,6 +6,7 @@ import { esES } from '@mui/x-data-grid';
 import { esES as coreesES } from '@mui/material/locale';
 // import axios from 'axios';
 import './App.css';
+import Appbar from './components/Appbar';
 import ResponsiveDrawer from './components/ResponsiveDrawer';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
@@ -98,10 +99,12 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginView />} />
             <Route path="/register" element={<RegisterView />} />
+            <Route element={<Appbar />}>
+              <Route path="/cajero" element={<CajeroView />} />
+              <Route path="/funcionario" element={<FuncionarioView />} />
+            </Route>
             <Route element={<ResponsiveDrawer />}>
               <Route path="/" element={<ValesView />} />
-              <Route path="/funcionario" element={<FuncionarioView />} />
-              <Route path="/cajero" element={<CajeroView />} />
               <Route path="/vales" element={<ValesView />} />
               <Route path="/perfiles" element={<PerfilesView />} />
               <Route path="/servicios" element={<ServiciosView />} />
