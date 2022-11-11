@@ -59,12 +59,17 @@ const ValesView = () => {
       </Box>
       {data.map((servicio, id) => (
         <Box key={id} sx={{ marginTop: 5 }}>
-          <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-            <Button variant="oscuro">Anadir perfil a vale {servicio.nombre}</Button>
+          <Stack direction="row" sx={{ px: 4 }}>
+            <Typography align="center" sx={{ marginLeft: 1 }}>
+              <b>Servicio: {servicio.nombre}</b>
+            </Typography>
+            <Box
+              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
+              <Button justifyContent="flex-end" variant="oscuro">
+                Anadir perfil a vale {servicio.nombre}
+              </Button>
+            </Box>
           </Stack>
-          <Typography align="center">
-            <b>{servicio.nombre}</b>
-          </Typography>
           <Stack sx={{ px: 4, py: 2, width: 1 }}>
             <ValesTable rows={servicio.perfiles} />
           </Stack>
