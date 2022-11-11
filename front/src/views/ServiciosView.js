@@ -4,6 +4,7 @@ import { Box, Stack, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import * as Constants from '../constants';
 import ServiciosTable from '../components/ServiciosTable';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
   {
@@ -38,6 +39,10 @@ const ServiciosView = () => {
   //   };
   //   fetchData();
   // }, []);
+  const navigate = useNavigate();
+  const handleCrear = () => {
+    navigate('/servicios/crearServicio');
+  };
   console.log(data);
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
@@ -47,7 +52,9 @@ const ServiciosView = () => {
         </Typography>
       </Box>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-        <Button variant="oscuro">Crear Servicio</Button>
+        <Button variant="oscuro" onClick={handleCrear}>
+          Crear Servicio
+        </Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <ServiciosTable rows={data} />

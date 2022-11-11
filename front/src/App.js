@@ -18,6 +18,7 @@ import ServiciosView from './views/ServiciosView';
 import AuditoriaView from './views/AuditoriaView';
 import CorreoView from './views/CorreoView';
 import NotFoundView from './views/NotFoundView';
+import ServiciosEdiiting from './editing/ServiciosEditing';
 
 const { palette } = createTheme();
 const theme = createTheme(
@@ -109,6 +110,11 @@ function App() {
               <Route path="/vales" element={<ValesView />} />
               <Route path="/perfiles" element={<PerfilesView />} />
               <Route path="/servicios" element={<ServiciosView />} />
+              <Route
+                path="/servicios/:nservicioId/:nservicio/:nhorarioInicial/:nhorarioFinal"
+                element={<ServiciosEdiiting />}
+              />
+              <Route path="/servicios/crearServicio" element={<ServiciosEdiiting />} />
               <Route path="/auditoria" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />
             </Route>
