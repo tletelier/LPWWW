@@ -14,7 +14,7 @@ import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
 const PerfilesTable = ({ rows }) => {
-  // const { logout } = useAuth();
+  const navigate = useNavigate();
   const handleEditar = () => {
     console.log('editao');
   };
@@ -60,18 +60,21 @@ const PerfilesTable = ({ rows }) => {
       minWidth: 250,
       sortable: false,
       renderCell: (params) => {
-        const onClick = (e) => {
-          handleEditar(params.row._id);
+        const handleEditClick = () => {
+          navigate(`/perfiles/${params.row._id}/${params.row.nombre}`);
+        };
+        const handleDeleteClick = () => {
+          navigate(`/perfiles/${params.row._id}/${params.row.nombre}`);
         };
         return (
           <Stack direction="row">
             <Button
               variant="outlined"
               sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: 'red', m: 1 }}
-              onClick={() => onClick(params)}>
+              onClick={() => handleDeleteClick(params)}>
               Eliminar
             </Button>
-            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1, width: 100 }}>
+            <Button variant="claro" onClick={() => handleEditClick()} sx={{ m: 1, width: 100 }}>
               Editar
             </Button>
           </Stack>

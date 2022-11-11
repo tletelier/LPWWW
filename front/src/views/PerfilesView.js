@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Stack, Typography, Button } from '@mui/material';
 import PerfilesTable from '../components/PerfilesTable';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
   {
@@ -40,6 +41,11 @@ const data = [
 ];
 
 const PerfilesView = () => {
+  const navigate = useNavigate();
+  const handleCrear = () => {
+    navigate('/perfiles/crearPerfil');
+  };
+  console.log(data);
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
@@ -48,7 +54,9 @@ const PerfilesView = () => {
         </Typography>
       </Box>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-        <Button variant="oscuro">Crear Perfil</Button>
+        <Button variant="oscuro" onClick={handleCrear}>
+          Crear Perfil
+        </Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <PerfilesTable rows={data} />
