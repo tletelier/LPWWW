@@ -11,15 +11,24 @@ const data = [
     funcionarios: [
       {
         _id: 'asdfasd',
-        nombre: 'Jen Jen'
+        nombre: 'Jen Jen',
+        apellido: 'Alvarado',
+        codigo: '1249',
+        email: 'jen.alvarado@dominio.kr'
       },
       {
         _id: 'adfgsdfasd',
-        nombre: 'Giselle'
+        nombre: 'Giselle',
+        apellido: 'Skull',
+        codigo: '0782',
+        email: 'giselle.skull@dominio.kr'
       },
       {
         _id: 'asddfgfsdfasd',
-        nombre: 'Ning Ning'
+        nombre: 'Ning Ning',
+        apellido: 'Vilu',
+        codigo: '1408',
+        email: 'ning.vilu@dominio.cl'
       }
     ]
   },
@@ -30,11 +39,17 @@ const data = [
     funcionarios: [
       {
         _id: 'asdsdfsasd',
-        nombre: 'Chan Chan'
+        nombre: 'Chan Chan',
+        apellido: 'Verek',
+        codigo: '2121',
+        email: 'chan.verek@dominio.eu'
       },
       {
         _id: 'adfgsdfasdfssd',
-        nombre: 'Lix Lix'
+        nombre: 'Lix Lix',
+        apellido: 'Turing',
+        codigo: '0420',
+        email: 'lix.turing@dominio.eu'
       }
     ]
   }
@@ -74,7 +89,7 @@ const PerfilesView = () => {
           color="inherit"
           sx={{ marginRight: 2, borderRadius: 5 }}>
           {' '}
-          Cancelar{' '}
+          Volver{' '}
         </Button>
       </Stack>
     </Stack>

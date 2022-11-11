@@ -15,9 +15,10 @@ import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
 const ServiciosTable = ({ rows }) => {
+  const navigate = useNavigate();
   // const { logout } = useAuth();
-  const handleEditar = () => {
-    console.log('editao');
+  const handleVer = (id) => {
+    navigate(`/auditoria/${id}`);
   };
   const cols = [
     {
@@ -48,7 +49,7 @@ const ServiciosTable = ({ rows }) => {
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
-          handleEditar(params.row._id);
+          handleVer(params.row._id);
         };
         return (
           <div>
@@ -71,12 +72,9 @@ const ServiciosTable = ({ rows }) => {
       minWidth: 150,
       sortable: false,
       renderCell: (params) => {
-        const onClick = (e) => {
-          handleEditar(params.row._id);
-        };
         return (
           <div>
-            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1 }}>
+            <Button variant="claro" sx={{ m: 1 }}>
               Descargar
             </Button>
           </div>

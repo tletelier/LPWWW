@@ -13,33 +13,43 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
-const PerfilesTable = ({ rows }) => {
+const AuditoriaTable = ({ rows }) => {
   const navigate = useNavigate();
-  const handleVer = (nombre) => {
-    navigate(`/perfil/${nombre}`);
-  };
+
   const cols = [
     {
-      field: 'nombre',
-      headerName: 'Nombre',
+      field: '_id',
+      headerName: 'ID',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'apellido',
-      headerName: 'Apellido',
+      field: 'funcionario',
+      headerName: 'Funcionario',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'codigo',
-      headerName: 'Codigo',
+      field: 'fecha',
+      headerName: 'Fecha',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'email',
-      headerName: 'Correo',
+      field: 'saldo',
+      headerName: 'Saldo',
+      flex: 1,
+      minWidth: 150
+    },
+    {
+      field: 'cajero',
+      headerName: 'Cajero',
+      flex: 1,
+      minWidth: 150
+    },
+    {
+      field: 'sucursal',
+      headerName: 'Sucursal',
       flex: 1,
       minWidth: 150
     },
@@ -49,16 +59,12 @@ const PerfilesTable = ({ rows }) => {
       flex: 1,
       minWidth: 150,
       renderCell: (params) => {
-        const onVerClick = (e) => {
-          handleVer(params.row.nombre);
-        };
         return (
           <div>
             <Button
               variant="outlined"
-              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
-              onClick={() => onVerClick(params)}>
-              Activo
+              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}>
+              Emitido
             </Button>
           </div>
         );
@@ -67,7 +73,7 @@ const PerfilesTable = ({ rows }) => {
   ];
   return (
     <Box sx={{ width: '100%' }}>
-      {rows.length === 0 ? (
+      {rows.vales.length === 0 ? (
         <SinContenido mainmsg="Sin perfiles." submsg="Cuando hayan, estos aparecerán aquí." />
       ) : (
         <DataGrid
@@ -77,7 +83,7 @@ const PerfilesTable = ({ rows }) => {
           hideFooter
           columns={cols}
           getRowId={(row) => row._id}
-          rows={Object.values(rows)}
+          rows={Object.values(rows.vales)}
           disableSelectionOnClick
           sx={{ borderRadius: 5, paadingLeft: 2, paddingRight: 2 }}
         />
@@ -86,4 +92,4 @@ const PerfilesTable = ({ rows }) => {
   );
 };
 
-export default PerfilesTable;
+export default AuditoriaTable;
