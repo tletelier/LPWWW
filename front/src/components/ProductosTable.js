@@ -31,17 +31,20 @@ const ProductoTable = ({ rows }) => {
       flex: 1,
       minWidth: 150
     },
-    {
-      field: 'servicio',
-      headerName: 'Servicio',
-      flex: 1,
-      minWidth: 150
-    },
+    // {
+    //   field: 'servicio',
+    //   headerName: 'Servicio',
+    //   flex: 1,
+    //   minWidth: 150
+    // },
     {
       field: 'precio',
       headerName: 'Precio',
       flex: 1,
-      minWidth: 100
+      minWidth: 100,
+      renderCell: (params) => {
+        <div>${params.row.precio}</div>;
+      }
     }
   ];
   return (
@@ -58,7 +61,7 @@ const ProductoTable = ({ rows }) => {
           getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
-          sx={{ borderRadius: 5 }}
+          sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
         />
       )}
     </Box>

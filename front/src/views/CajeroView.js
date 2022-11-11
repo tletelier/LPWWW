@@ -15,6 +15,28 @@ import {
   Card,
   InputLabel
 } from '@mui/material';
+import ProductosTable from '../components/ProductosTable';
+
+const data = [
+  {
+    _id: 'sdfsd',
+    id: 165,
+    producto: 'Manzana',
+    precio: 350
+  },
+  {
+    _id: 'sdfsxdfgsdd',
+    id: 16155,
+    producto: 'Galletas Crakers',
+    precio: 550
+  },
+  {
+    _id: 'sddfgdfgfsd',
+    id: 15,
+    producto: 'Té Ceylan',
+    precio: 300
+  }
+];
 
 const CajeroView = () => {
   const [vale, setVale] = useState(1350);
@@ -55,8 +77,7 @@ const CajeroView = () => {
               </Stack>
             </Card>
             <Stack sx={{ py: 2, minWidth: 300 }}>
-              tabla
-              {/* <ServiciosTable rows={data} /> */}
+              <ProductosTable rows={data} />
             </Stack>
           </Stack>
         </Stack>
