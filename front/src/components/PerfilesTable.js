@@ -43,7 +43,7 @@ const PerfilesTable = ({ rows }) => {
           <div>
             <Button
               variant="outlined"
-              sx={{ width: 200, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
+              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
               onClick={() => onClick(params)}>
               Ver
             </Button>
@@ -54,27 +54,27 @@ const PerfilesTable = ({ rows }) => {
     {
       field: 'acción',
       headerName: 'Acción',
-      align: 'center',
+      // align: 'center',
       headerAlign: 'center',
       flex: 1,
-      minWidth: 150,
+      minWidth: 250,
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           handleEditar(params.row._id);
         };
         return (
-          <div>
+          <Stack direction="row">
             <Button
               variant="outlined"
-              sx={{ width: 200, borderRadius: 20, textTransform: 'none', color: 'red', m: 1 }}
+              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: 'red', m: 1 }}
               onClick={() => onClick(params)}>
               Eliminar
             </Button>
-            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1 }}>
+            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1, width: 100 }}>
               Editar
             </Button>
-          </div>
+          </Stack>
         );
       }
     }
@@ -93,7 +93,7 @@ const PerfilesTable = ({ rows }) => {
           getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
-          sx={{ borderRadius: 5 }}
+          sx={{ borderRadius: 5, paadingLeft: 2, paddingRight: 2 }}
         />
       )}
     </Box>
