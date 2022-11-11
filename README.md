@@ -9,6 +9,13 @@ Tema: Caso 18
 * Fernanda Rubio
 * Bruno Vega
 
+## Entrega Front-End
+
+Desde el Login se puede acceder a las interfaces de los 3 tipos de usuarios, como no hay integracion de usuarios solo se deben llenar los campos, la redirección será en base al tipo seleccionado.
+
+#### Figma con prototipos de vistas
+https://www.figma.com/file/BuALYn2y9zFXsBjzPB81d0/LPWWW?node-id=0%3A1
+
 #### MIRO con analisis
 https://miro.com/app/board/uXjVPdax94E=/?share_link_id=665536220436
 
