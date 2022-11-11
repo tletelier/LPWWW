@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
@@ -20,21 +21,27 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
-const ServiciosEditing = () => {
+const ServiciosEditing = ({ estado }) => {
   const navigate = useNavigate();
   const params = useParams();
   const { servicioId, nservicio, nhorarioInicial, nhorarioFinal } = params;
-  console.log(nservicio);
-  const [editingServicio, setEditingServicio] = useState(false);
+  // console.log(nservicio);
   const [nombre, setNombre] = useState(nservicio);
   const [horarioInicial, setHorarioInicial] = useState(nhorarioInicial);
   const [horarioFinal, setHorarioFinal] = useState(nhorarioFinal);
-  const [nuevo, setNuevo] = useState(nservicio);
-  console.log(nuevo);
+  const [editingServicio, setEditingServicio] = useState(false);
+  const [nuevo, setNuevo] = useState(false);
+  if (servicioId) {
+    console.log(nuevo);
+  }
   useEffect(() => {
-    if (!nservicio) {
+    if (estado === 'nuevo') {
       setEditingServicio(true);
       setNuevo(true);
+      console.log(servicioId);
+      console.log(editingServicio);
+    } else {
+      console.log('ole');
     }
   }, []);
 
@@ -60,7 +67,6 @@ const ServiciosEditing = () => {
   const handleHorarioFinalChange = (e) => {
     setHorarioFinal(e.target.default);
   };
-
   return (
     <Stack padding={4}>
       <Typography variant="h4">Datos del servicio :</Typography>
@@ -68,7 +74,7 @@ const ServiciosEditing = () => {
         <CardContent>
           <Stack direction="row" justifyContent="space-between">
             <Typography>Datos del servicio:</Typography>
-            {nuevo ? (
+            {!nuevo ? (
               <Button
                 startIcon={<EditIcon />}
                 onClick={() => {
@@ -84,7 +90,7 @@ const ServiciosEditing = () => {
           <Stack spacing={3} direction="column" py={5}>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={3}>
-                <Typography variant="subtitle2" px={4}>
+                <Typography variant="subtitle2" px={5}>
                   Nombre
                 </Typography>
               </Grid>
@@ -138,11 +144,15 @@ const ServiciosEditing = () => {
                       onClick={handleCancelarClick}
                       variant="contained"
                       color="inherit"
-                      sx={{ marginRight: 2 }}>
+                      sx={{ marginRight: 2, borderRadius: 5 }}>
                       {' '}
                       Cancelar{' '}
                     </Button>
-                    <Button onClick={handleGuardarClick} variant="contained" color="quaternary">
+                    <Button
+                      onClick={handleGuardarClick}
+                      variant="contained"
+                      color="quaternary"
+                      sx={{ borderRadius: 5 }}>
                       <Typography variant="button" color="white">
                         Guardar
                       </Typography>

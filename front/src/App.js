@@ -112,9 +112,12 @@ function App() {
               <Route path="/servicios" element={<ServiciosView />} />
               <Route
                 path="/servicios/:nservicioId/:nservicio/:nhorarioInicial/:nhorarioFinal"
-                element={<ServiciosEdiiting />}
+                element={<ServiciosEdiiting estado="nonuevo" />}
               />
-              <Route path="/servicios/crearServicio" element={<ServiciosEdiiting />} />
+              <Route
+                path="/servicios/crearServicio"
+                element={<ServiciosEdiiting estado="nuevo" />}
+              />
               <Route path="/auditoria" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />
             </Route>

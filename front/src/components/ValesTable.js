@@ -3,7 +3,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
-import { Button, Theme, Stack, Box, Typography } from '@mui/material';
+import { Button, Theme, Stack, Box, Typography, Card } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -63,7 +63,12 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        <SinContenido mainmsg="Sin servicios." submsg="Cuando hayan, estos aparecerán aquí." />
+        <Card elevation={2} sx={{ p: 2, borderRadius: 5 }}>
+          <SinContenido
+            mainmsg="Sin perfiles asociados."
+            submsg="Cuando hayan, estos aparecerán aquí."
+          />
+        </Card>
       ) : (
         <DataGrid
           density="comfortable"
