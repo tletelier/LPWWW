@@ -48,7 +48,7 @@ const PerfilesView = () => {
         </Typography>
       </Box>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-        <Button variant="oscuro">Generar Nueva Auditoria</Button>
+        <Button variant="oscuro">Crear Perfil</Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <PerfilesTable rows={data} />

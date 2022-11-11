@@ -10,23 +10,24 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
 // import { useAuth } from '../hooks/useAuth';
-// import SinActividades from './SinActividades';
+import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
 const ServiciosTable = ({ rows }) => {
   // const { logout } = useAuth();
+  console.log(rows);
   const handleEditar = () => {
     console.log('editao');
   };
   const cols = [
     {
-      field: 'perfil',
+      field: 'nombre',
       headerName: 'Perfil',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'vales',
+      field: 'valesPorTurno',
       headerName: 'Vales/Turno',
       flex: 1,
       minWidth: 100
@@ -62,11 +63,7 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        // <SinActividades
-        //   mainmsg="Sin servicios."
-        //   submsg="Cuando hayan, estos aparecerán aquí."
-        // />
-        <Stack> nada por aqui</Stack>
+        <SinContenido mainmsg="Sin servicios." submsg="Cuando hayan, estos aparecerán aquí." />
       ) : (
         <DataGrid
           density="comfortable"
@@ -74,16 +71,19 @@ const ServiciosTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
+          getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{
-            borderRadius: 5,
-            '.MuiDataGrid-columnSeparator': {
-              display: 'none'
-            },
-            '&.MuiDataGrid-root': {
-              border: 'none'
-            }
+            paddingLeft: 2,
+            paddingRight: 2,
+            borderRadius: 5
+            // '.MuiDataGrid-columnSeparator': {
+            //   display: 'none'
+            // },
+            // '&.MuiDataGrid-root': {
+            //   border: 'none'
+            // }
           }}
         />
       )}

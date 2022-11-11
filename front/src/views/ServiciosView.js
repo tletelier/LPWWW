@@ -47,7 +47,7 @@ const ServiciosView = () => {
         </Typography>
       </Box>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-        <Button variant="oscuro">Agregar Servicio</Button>
+        <Button variant="oscuro">Crear Servicio</Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <ServiciosTable rows={data} />

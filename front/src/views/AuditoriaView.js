@@ -76,7 +76,7 @@ const AuditoriaView = () => {
         </Typography>
       </Box>
       <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
-        <Button variant="oscuro">Generar Nueva Auditoria</Button>
+        <Button variant="oscuro">Generar Auditoria</Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <InformesTable rows={data} />
