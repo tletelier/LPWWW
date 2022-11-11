@@ -97,20 +97,20 @@ function App() {
       <Router>
         <ThemeProvider theme={theme}>
           <Routes>
+            <Route path="/" element={<LoginView />} />
             <Route path="/login" element={<LoginView />} />
             <Route path="/register" element={<RegisterView />} />
+            <Route path="/*" element={<NotFoundView />} />
             <Route element={<Appbar />}>
               <Route path="/cajero" element={<CajeroView />} />
               <Route path="/funcionario" element={<FuncionarioView />} />
             </Route>
             <Route element={<ResponsiveDrawer />}>
-              <Route path="/" element={<ValesView />} />
               <Route path="/vales" element={<ValesView />} />
               <Route path="/perfiles" element={<PerfilesView />} />
               <Route path="/servicios" element={<ServiciosView />} />
               <Route path="/auditoria" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />
-              <Route path="/*" element={<NotFoundView />} />
             </Route>
           </Routes>
         </ThemeProvider>

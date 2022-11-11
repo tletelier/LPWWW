@@ -21,26 +21,41 @@ import ServiciosTable from '../components/ServiciosTable';
 import logo from '../assets/logo2.png';
 
 const LoginView = () => {
-  const [codigo, setCodigo] = useState({});
-  const [password, setPassword] = useState({});
+  const navigate = useNavigate();
+  const [codigo, setCodigo] = useState(null);
+  const [password, setPassword] = useState(null);
   const [tipo, setTipo] = useState('Funcionario');
   const [correct, setCorrect] = useState(false);
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   const handleTipoChange = (event) => {
     setTipo(event.target.value);
   };
   const handleClick = async (event) => {
     event.preventDefault();
-    console.log('login');
+  };
+  const handleLogin = () => {
+    if (password !== null && codigo != null) {
+      console.log(tipo);
+      switch (tipo) {
+        case 'Funcionario':
+          navigate('/funcionario');
+          break;
+        case 'Cajero':
+          navigate('/cajero');
+          break;
+        case 'Administrador':
+          navigate('/vales');
+          break;
+      }
+    } else {
+      //
+    }
   };
   return (
     <Grid
@@ -98,7 +113,11 @@ const LoginView = () => {
               {correct && <Alert severity="success">Sesión Iniciada</Alert>}
               {error && <Alert severity="error">Usuario o Contraseña Incorrecta</Alert>}
               <Stack spacing={1}>
-                <Button variant="oscuro" sx={{ width: 150, alignSelf: 'center' }} type="submit">
+                <Button
+                  variant="oscuro"
+                  sx={{ width: 150, alignSelf: 'center' }}
+                  type="submit"
+                  onClick={handleLogin}>
                   Iniciar sesion
                 </Button>
                 <Button

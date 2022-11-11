@@ -15,6 +15,54 @@ import {
   Card,
   InputLabel
 } from '@mui/material';
+import ServiciosDisponiblesTable from '../components/ServiciosDisponiblesTable';
+
+const data = [
+  {
+    _id: 'sdfsd',
+    horarioFin: '2:00',
+    horarioInicio: '5:00',
+    nombre: 'almuerzo',
+    perfiles: [
+      {
+        _id: 'sdfsd',
+        cantidad: 3,
+        nombre: 'Obrero',
+        valesPorTurno: 1,
+        valor: 5000,
+        funcionario: [
+          {
+            _id: 'asdfasd',
+            nombre: 'Jen Jen',
+            valesUsados: 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    _id: 'sdfsd',
+    horarioFin: '2:00',
+    horarioInicio: '5:00',
+    nombre: 'desayuno',
+    perfiles: [
+      {
+        _id: 'sdfsd',
+        cantidad: 3,
+        nombre: 'Obrero',
+        valesPorTurno: 1,
+        valor: 2000,
+        funcionario: [
+          {
+            _id: 'asdfasd',
+            nombre: 'Jen Jen',
+            valesUsados: 0
+          }
+        ]
+      }
+    ]
+  }
+];
 
 const FuncionarioView = () => {
   const [vale, setVale] = useState(1350);
@@ -47,8 +95,7 @@ const FuncionarioView = () => {
               <Typography align="right">Fecha: {fecha}</Typography>
             </Stack>
             <Stack sx={{ py: 2, minWidth: 300 }}>
-              tabla
-              {/* <ServiciosTable rows={data} /> */}
+              <ServiciosDisponiblesTable rows={data} />
             </Stack>
           </Stack>
         </Stack>
@@ -73,7 +120,7 @@ const FuncionarioView = () => {
                 <b>FUNCIONARIO</b> : {user.nombres} {user.apellidos}
               </Typography>
               <Typography sx={{ color: '#000' }}>
-                <b>SERVICIO</b> : {user.Servicios}
+                <b>SERVICIO</b> : {user.servicios}
               </Typography>
               <Typography sx={{ color: '#000' }}>
                 <b>PERFIL</b> : {user.perfil}

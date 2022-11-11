@@ -15,6 +15,9 @@ import SinContenido from './SinContenido';
 
 const ServiciosDisponiblesTable = ({ rows }) => {
   // const { logout } = useAuth();
+  console.log(rows);
+  console.log(rows[0].perfiles[0].funcionario[0].valesUsados);
+  console.log(rows[0].perfiles[0].valesPorTurno);
   const handleEditar = () => {
     console.log('editao');
   };
@@ -26,10 +29,16 @@ const ServiciosDisponiblesTable = ({ rows }) => {
       minWidth: 150
     },
     {
-      field: 'horarioInicio',
+      // field: 'cantidad',
       headerName: 'Cantidad',
       flex: 1,
-      minWidth: 100
+      minWidth: 100,
+      renderCell: (params) => {
+        <div>
+          1/1
+          {/* {params.row.perfiles[0].funcionario[0].valesUsados}/{params.row.perfiles[0].valesPorTurno} */}
+        </div>;
+      }
     },
     {
       field: 'acción',
@@ -70,7 +79,7 @@ const ServiciosDisponiblesTable = ({ rows }) => {
           getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
-          sx={{ borderRadius: 5 }}
+          sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
         />
       )}
     </Box>
