@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
 // import { useAuth } from '../hooks/useAuth';
-// import SinActividades from './SinActividades';
+import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
 const ServiciosDisponiblesTable = ({ rows }) => {
@@ -56,11 +56,10 @@ const ServiciosDisponiblesTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        // <SinActividades
-        //   mainmsg="Sin servicios."
-        //   submsg="Cuando hayan, estos aparecerán aquí."
-        // />
-        <Stack> nada por aqui</Stack>
+        <SinContenido
+          mainmsg="Sin servicios disponibles."
+          submsg="Cuando hayan, estos aparecerán aquí."
+        />
       ) : (
         <DataGrid
           density="comfortable"

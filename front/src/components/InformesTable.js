@@ -8,6 +8,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import SinContenido from './SinContenido';
 // import axios from 'axios';
 // import { useAuth } from '../hooks/useAuth';
 // import SinActividades from './SinActividades';
@@ -53,7 +54,7 @@ const ServiciosTable = ({ rows }) => {
           <div>
             <Button
               variant="outlined"
-              sx={{ width: 200, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
+              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
               onClick={() => onClick(params)}>
               Ver
             </Button>
@@ -86,11 +87,7 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        // <SinActividades
-        //   mainmsg="Sin servicios."
-        //   submsg="Cuando hayan, estos aparecerán aquí."
-        // />
-        <Stack> nada por aqui</Stack>
+        <SinContenido mainmsg="Sin servicios." submsg="Cuando hayan, estos aparecerán aquí." />
       ) : (
         <DataGrid
           density="comfortable"
@@ -101,7 +98,7 @@ const ServiciosTable = ({ rows }) => {
           getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
-          sx={{ borderRadius: 5 }}
+          sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
         />
       )}
     </Box>
