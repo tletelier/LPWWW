@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Stack, Typography, Button } from '@mui/material';
 import ValesTable from '../components/ValesTable';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
   {
@@ -50,6 +51,10 @@ const data = [
 ];
 
 const ValesView = () => {
+  const navigate = useNavigate();
+  const handleCrear = () => {
+    navigate('/vales/crear');
+  };
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
@@ -65,7 +70,7 @@ const ValesView = () => {
             </Typography>
             <Box
               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
-              <Button justifyContent="flex-end" variant="oscuro">
+              <Button justifyContent="flex-end" variant="oscuro" onClick={handleCrear}>
                 Anadir perfil a vale {servicio.nombre}
               </Button>
             </Box>

@@ -13,7 +13,8 @@ import {
   Stack,
   Typography,
   Grid,
-  Box
+  Box,
+  MenuItem
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -21,11 +22,13 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
+const perfiles = ['Obrero', 'Gerente', 'Secretario', 'Auxliar'];
+
 const ValesEditing = ({ estado }) => {
   const navigate = useNavigate();
   const params = useParams();
   const { nvalesId, nperfil, nvalesPorTurno, nvalor } = params;
-  const [nombre, setNombre] = useState(nperfil);
+  const [perfil, setPerfil] = useState(nperfil);
   const [valesPorTurno, setValesPorTurno] = useState(nvalesPorTurno);
   const [valor, setValor] = useState(nvalor);
   const [editingVale, setEditingVale] = useState(false);
@@ -54,8 +57,8 @@ const ValesEditing = ({ estado }) => {
     //
   };
 
-  const handleNombreChange = (e) => {
-    setNombre(e.target.default);
+  const handlePerfilChange = (e) => {
+    setPerfil(e.target.default);
   };
   const handleValesPorTurnoChange = (e) => {
     setValesPorTurno(e.target.default);
@@ -87,17 +90,26 @@ const ValesEditing = ({ estado }) => {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="subtitle2" px={5}>
-                  Nombre
+                  Perfil
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <TextField
+                  select
                   size="small"
                   disabled={!editingVale}
-                  value={nombre}
-                  onChange={handleNombreChange}
-                  sx={{ borderRadius: 10 }}
-                />
+                  id="select-peril"
+                  sx={{ minWidth: '230px' }}
+                  value={perfil}
+                  defaultValue="Perfil"
+                  onChange={handlePerfilChange}
+                  required>
+                  {perfiles.map((perfil) => (
+                    <MenuItem key={perfil} value={perfil}>
+                      {perfil}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
             <Grid container spacing={1}>
