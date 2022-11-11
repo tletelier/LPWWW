@@ -94,6 +94,7 @@ const PerfilesTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
+          getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{ borderRadius: 5 }}
