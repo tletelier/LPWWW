@@ -101,7 +101,7 @@ const ValesEditing = ({ estado }) => {
                   id="select-peril"
                   sx={{ minWidth: '230px' }}
                   value={perfil}
-                  defaultValue="Perfil"
+                  // defaultValue="Perfil"
                   onChange={handlePerfilChange}
                   required>
                   {perfiles.map((perfil) => (
