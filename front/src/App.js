@@ -15,6 +15,7 @@ import FuncionarioView from './views/FuncionarioView';
 import ValesView from './views/ValesView';
 import PerfilesView from './views/PerfilesView';
 import ServiciosView from './views/ServiciosView';
+import AuditoriasView from './views/AuditoriasView';
 import AuditoriaView from './views/AuditoriaView';
 import CorreoView from './views/CorreoView';
 import NotFoundView from './views/NotFoundView';
@@ -132,7 +133,8 @@ function App() {
                 path="/servicios/crearServicio"
                 element={<ServiciosEditing estado="nuevo" />}
               />
-              <Route path="/auditoria" element={<AuditoriaView />} />
+              <Route path="/auditoria" element={<AuditoriasView />} />
+              <Route path="/auditoria/:auditoriaId" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />
             </Route>
           </Routes>
