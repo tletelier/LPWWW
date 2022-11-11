@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable max-len */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
-import { Button, Theme, Stack, Box, Typography, TextField } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import React, { useState } from 'react';
+import { Button, Box, Card } from '@mui/material';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 // import axios from 'axios';
 import SinContenido from './SinContenido';
 
@@ -59,7 +54,9 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        <SinContenido mainmsg="Sin perfiles." submsg="Cuando hayan, estos aparecerán aquí." />
+        <Card elevation={2} sx={{ p: 2, borderRadius: 5 }}>
+          <SinContenido mainmsg="Sin perfiles." submsg="Cuando hayan, estos aparecerán aquí." />
+        </Card>
       ) : (
         <DataGrid
           density="comfortable"

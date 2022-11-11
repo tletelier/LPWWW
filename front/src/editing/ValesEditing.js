@@ -21,37 +21,35 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
-const ServiciosEditing = ({ estado }) => {
+const ValesEditing = ({ estado }) => {
   const navigate = useNavigate();
   const params = useParams();
-  const { nservicioId, nservicio, nhorarioInicial, nhorarioFinal } = params;
-  // console.log(nservicio);
-  const [nombre, setNombre] = useState(nservicio);
-  const [horarioInicial, setHorarioInicial] = useState(nhorarioInicial);
-  const [horarioFinal, setHorarioFinal] = useState(nhorarioFinal);
-  const [editingServicio, setEditingServicio] = useState(false);
+  const { nvalesId, nperfil, nvalesPorTurno, nvalor } = params;
+  const [nombre, setNombre] = useState(nperfil);
+  const [valesPorTurno, setValesPorTurno] = useState(nvalesPorTurno);
+  const [valor, setValor] = useState(nvalor);
+  const [editingVale, setEditingVale] = useState(false);
   const [nuevo, setNuevo] = useState(false);
-
   useEffect(() => {
     if (estado === 'nuevo') {
-      setEditingServicio(true);
+      setEditingVale(true);
       setNuevo(true);
-      console.log(nservicioId);
-      console.log(editingServicio);
+      console.log(nvalesId);
+      console.log(editingVale);
     } else {
       console.log('ole');
     }
   }, []);
 
   const handleCancelarClick = () => {
-    if (!nservicio) {
-      navigate('/servicios');
+    if (!nvalesId) {
+      navigate('/vales');
     }
-    setEditingServicio(false);
+    setEditingVale(false);
   };
 
   const handleGuardarClick = async () => {
-    setEditingServicio(false);
+    setEditingVale(false);
     setNuevo(false);
     //
   };
@@ -59,24 +57,24 @@ const ServiciosEditing = ({ estado }) => {
   const handleNombreChange = (e) => {
     setNombre(e.target.default);
   };
-  const handleHorarioInicialChange = (e) => {
-    setHorarioInicial(e.target.default);
+  const handleValesPorTurnoChange = (e) => {
+    setValesPorTurno(e.target.default);
   };
-  const handleHorarioFinalChange = (e) => {
-    setHorarioFinal(e.target.default);
+  const handleValorChange = (e) => {
+    setValor(e.target.default);
   };
   return (
     <Stack padding={4}>
-      <Typography variant="h4">Datos del servicio :</Typography>
+      <Typography variant="h4">Datos del vale :</Typography>
       <Card elevation={4} sx={{ borderRadius: '20px', marginTop: 2 }}>
         <CardContent>
           <Stack direction="row" justifyContent="space-between">
-            <Typography>Datos del servicio:</Typography>
+            <Typography>Datos del vale:</Typography>
             {!nuevo ? (
               <Button
                 startIcon={<EditIcon />}
                 onClick={() => {
-                  setEditingServicio(true);
+                  setEditingVale(true);
                 }}>
                 Editar
               </Button>
@@ -95,7 +93,7 @@ const ServiciosEditing = ({ estado }) => {
               <Grid item xs={12} sm={6} md={7}>
                 <TextField
                   size="small"
-                  disabled={!editingServicio}
+                  disabled={!editingVale}
                   value={nombre}
                   onChange={handleNombreChange}
                   sx={{ borderRadius: 10 }}
@@ -105,15 +103,15 @@ const ServiciosEditing = ({ estado }) => {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="subtitle2" px={4}>
-                  Horario Inicial
+                  Vales Por Turno
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <TextField
                   size="small"
-                  disabled={!editingServicio}
-                  value={horarioInicial}
-                  onChange={handleHorarioInicialChange}
+                  disabled={!editingVale}
+                  value={valesPorTurno}
+                  onChange={handleValesPorTurnoChange}
                   sx={{ borderRadius: 10 }}
                 />
               </Grid>
@@ -121,22 +119,22 @@ const ServiciosEditing = ({ estado }) => {
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="subtitle2" px={4}>
-                  Horario Final
+                  Valor
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <TextField
                   size="small"
-                  disabled={!editingServicio}
-                  value={horarioFinal}
-                  onChange={handleHorarioFinalChange}
+                  disabled={!editingVale}
+                  value={valor}
+                  onChange={handleValorChange}
                   sx={{ borderRadius: 10 }}
                 />
               </Grid>
             </Grid>
             <Stack direction="row">
               <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                {editingServicio && (
+                {editingVale && (
                   <Stack direction="row">
                     <Button
                       onClick={handleCancelarClick}
@@ -166,4 +164,4 @@ const ServiciosEditing = ({ estado }) => {
   );
 };
 
-export default ServiciosEditing;
+export default ValesEditing;

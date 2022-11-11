@@ -18,7 +18,8 @@ import ServiciosView from './views/ServiciosView';
 import AuditoriaView from './views/AuditoriaView';
 import CorreoView from './views/CorreoView';
 import NotFoundView from './views/NotFoundView';
-import ServiciosEdiiting from './editing/ServiciosEditing';
+import ServiciosEditing from './editing/ServiciosEditing';
+import ValesEditing from './editing/ValesEditing';
 
 const { palette } = createTheme();
 const theme = createTheme(
@@ -108,15 +109,20 @@ function App() {
             </Route>
             <Route element={<ResponsiveDrawer />}>
               <Route path="/vales" element={<ValesView />} />
+              <Route
+                path="/vales/:nvalesId/:nperfil/:nvalesPorTurno/:nvalor"
+                element={<ValesEditing estado="nonuevo" />}
+              />
+              <Route path="/vales/crear" element={<ValesEditing estado="nuevo" />} />
               <Route path="/perfiles" element={<PerfilesView />} />
               <Route path="/servicios" element={<ServiciosView />} />
               <Route
                 path="/servicios/:nservicioId/:nservicio/:nhorarioInicial/:nhorarioFinal"
-                element={<ServiciosEdiiting estado="nonuevo" />}
+                element={<ServiciosEditing estado="nonuevo" />}
               />
               <Route
                 path="/servicios/crearServicio"
-                element={<ServiciosEdiiting estado="nuevo" />}
+                element={<ServiciosEditing estado="nuevo" />}
               />
               <Route path="/auditoria" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />

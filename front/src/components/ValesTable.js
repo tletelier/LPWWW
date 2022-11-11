@@ -14,11 +14,7 @@ import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
 const ServiciosTable = ({ rows }) => {
-  // const { logout } = useAuth();
-  console.log(rows);
-  const handleEditar = () => {
-    console.log('editao');
-  };
+  const navigate = useNavigate();
   const cols = [
     {
       field: 'nombre',
@@ -47,12 +43,14 @@ const ServiciosTable = ({ rows }) => {
       minWidth: 150,
       sortable: false,
       renderCell: (params) => {
-        const onClick = (e) => {
-          handleEditar(params.row._id);
+        const handleEditClick = () => {
+          navigate(
+            `/vales/${params.row._id}/${params.row.nombre}/${params.row.valesPorTurno}/${params.row.valor}`
+          );
         };
         return (
           <div>
-            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1 }}>
+            <Button variant="claro" onClick={() => handleEditClick()} sx={{ m: 1 }}>
               Editar
             </Button>
           </div>
