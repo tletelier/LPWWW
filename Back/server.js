@@ -1,18 +1,16 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
-// const {merge, unary} = require('lodash');
+const {ApolloServerPluginLandingPageLocalDefault,} = require('apollo-server-core');
+const { GraphQLScalarType, Kind } = require('graphql');
 
-// Models
-const Admin = require('./models/admin');
-const Cajero = require('./models/cajero');
-const Funcionario = require('./models/funcionario');
-const Informe = require('./models/informe');
-const Servicio = require('./models/servicio');
-const Sucursal = require('./models/sucursal');
-const Vale = require('./models/vale');
+const { schema } = require("./schemas/schemas.js")
+
+// Middleware
+const auth = require("./middleware/auth");
 
 // Variables de entorno
 const dotenv = require('dotenv')
@@ -28,6 +26,7 @@ mongoose.connect(URI, {
     console.log('Connected to MongoDB!!!')
   });
 
+<<<<<<< HEAD
 const typeDefs = gql`
 scalar DateTime
 
@@ -268,6 +267,8 @@ const resolvers = {
   }
 }
 
+=======
+>>>>>>> vistas
 let apolloServer = null;
 
 const corsOptions = {
@@ -276,7 +277,7 @@ const corsOptions = {
 };
 
 async function startServer(){
-  const apolloServer = new ApolloServer({typeDefs, resolvers, corsOptions});
+  const apolloServer = new ApolloServer({schema, corsOptions});
   await apolloServer.start();
   apolloServer.applyMiddleware({app, cors:false});
 }
@@ -286,6 +287,8 @@ startServer();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
 app.listen(8090, function(){
   console.log("Servidor Iniciado");
 })

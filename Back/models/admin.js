@@ -4,7 +4,7 @@ const adminSchema = new mongoose.Schema({
   nombres: String,
   apellidos: String,
   codigoAdmin: Number,
-  pass: String,
+  password: String,
 });
 
 module.exports = mongoose.model('Admin', adminSchema);

@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const servicioSchema = new mongoose.Schema({
-  tipo: String,
-  horario: String,
+  nombre: String,
+  horarioInicio: String,
+  horarioFin: String,
   valor: Number,
-  perfil: String,
+  maxValesTurno: Number,
+  perfil: {type: mongoose.Schema.ObjectId, ref: 'Perfil'},
 });
 
 module.exports = mongoose.model('Servicio', servicioSchema);

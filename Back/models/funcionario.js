@@ -5,12 +5,11 @@ const funcionarioSchema = new mongoose.Schema({
   apellidos: String,
   codigoFuncionario: Number,
   correo: String,
-  pass: String,
-  perfil: String,
+  password: String,
+  perfil: {type: mongoose.Schema.ObjectId, ref: 'Perfil'},
   valesDisponibles: Number,
   valesUtilizados: Number,
   valesNoUtilizados: Number,
-  sucursal: {type: mongoose.Schema.ObjectId, ref: 'sucursal'}
 });
 
 module.exports = mongoose.model('Funcionario', funcionarioSchema);
