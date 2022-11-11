@@ -21,6 +21,7 @@ import NotFoundView from './views/NotFoundView';
 import ServiciosEditing from './editing/ServiciosEditing';
 import ValesEditing from './editing/ValesEditing';
 import PerfilesEditing from './editing/PerfilesEditing';
+import PerfilView from './views/PerfilView.js';
 
 const { palette } = createTheme();
 const theme = createTheme(
@@ -116,6 +117,7 @@ function App() {
               />
               <Route path="/vales/crear" element={<ValesEditing estado="nuevo" />} />
               <Route path="/perfiles" element={<PerfilesView />} />
+              <Route path="/perfil/:perfil" element={<PerfilView />} />
               <Route
                 path="/perfiles/:perfilId/:nombre"
                 element={<PerfilesEditing estado="nonuevo" />}

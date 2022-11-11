@@ -26,13 +26,7 @@ const PerfilesTable = ({ rows }) => {
       minWidth: 150
     },
     {
-      field: 'cantidad',
-      headerName: 'Cantidad',
-      flex: 1,
-      minWidth: 100
-    },
-    {
-      field: 'personas',
+      field: '.',
       headerName: 'Personas',
       flex: 1,
       renderCell: (params) => {
@@ -45,39 +39,9 @@ const PerfilesTable = ({ rows }) => {
               variant="outlined"
               sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
               onClick={() => onVerClick(params)}>
-              Ver
+              .
             </Button>
           </div>
-        );
-      }
-    },
-    {
-      field: 'acción',
-      headerName: 'Acción',
-      // align: 'center',
-      headerAlign: 'center',
-      flex: 1,
-      minWidth: 250,
-      sortable: false,
-      renderCell: (params) => {
-        const handleEditClick = () => {
-          navigate(`/perfiles/${params.row._id}/${params.row.nombre}`);
-        };
-        const handleDeleteClick = () => {
-          navigate(`/perfiles/${params.row._id}/${params.row.nombre}`);
-        };
-        return (
-          <Stack direction="row">
-            <Button
-              variant="outlined"
-              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: 'red', m: 1 }}
-              onClick={() => handleDeleteClick(params)}>
-              Eliminar
-            </Button>
-            <Button variant="claro" onClick={() => handleEditClick()} sx={{ m: 1, width: 100 }}>
-              Editar
-            </Button>
-          </Stack>
         );
       }
     }
