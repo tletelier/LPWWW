@@ -112,14 +112,14 @@ const PerfilesEditing = ({ estado }) => {
                 {editingPerfil && (
                   <Stack direction="row">
                     <Button
-                      onClick={() => setOpen(true)}
+                      onClick={handleCancelarClick}
                       variant="contained"
                       color="inherit"
                       sx={{ marginRight: 2, borderRadius: 5 }}>
                       {' '}
                       Cancelar{' '}
                     </Button>
-                    <Modal
+                    {/* <Modal
                       open={open}
                       onClose={() => setOpen(false)}
                       aria-labelledby="modal-modal-title"
@@ -146,7 +146,7 @@ const PerfilesEditing = ({ estado }) => {
                           </Button>
                         </Stack>
                       </Box>
-                    </Modal>
+                    </Modal> */}
                     <Button
                       onClick={handleGuardarClick}
                       variant="contained"

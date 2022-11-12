@@ -32,8 +32,7 @@ import logo from '../assets/logo2.png';
 
 const drawerWidth = 250;
 
-const ResponsiveDrawer = (props) => {
-  // const children = prps
+const ResponsiveDrawer = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 

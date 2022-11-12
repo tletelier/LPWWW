@@ -9,9 +9,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
-// import { useAuth } from '../hooks/useAuth';
 import SinContenido from './SinContenido';
-// import { useAuth } from '../hooks/useAuth';
 
 const AuditoriaTable = ({ rows }) => {
   const navigate = useNavigate();
@@ -20,8 +18,8 @@ const AuditoriaTable = ({ rows }) => {
     {
       field: '_id',
       headerName: 'ID',
-      flex: 1,
-      minWidth: 150
+      flex: 0.5,
+      minWidth: 100
     },
     {
       field: 'funcionario',

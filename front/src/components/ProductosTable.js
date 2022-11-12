@@ -9,15 +9,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
-// import { useAuth } from '../hooks/useAuth';
 import SinContenido from './SinContenido';
-// import { useAuth } from '../hooks/useAuth';
 
 const ProductoTable = ({ rows }) => {
-  // const { logout } = useAuth();
-  const handleEditar = () => {
-    console.log('editao');
-  };
   const cols = [
     {
       field: 'id',

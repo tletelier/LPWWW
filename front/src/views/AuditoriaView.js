@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Stack, Typography, Button } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import AuditoriaTable from '../components/AuditoriaTable';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const data = [
   {
@@ -69,7 +69,6 @@ const data = [
 ];
 
 const AuditoriaView = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const { auditoriaId } = params;
   console.log(auditoriaId);
@@ -82,10 +81,6 @@ const AuditoriaView = () => {
     }
   });
 
-  const handleCancelarClick = () => {
-    navigate('/auditoria');
-  };
-  console.log(data);
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
@@ -110,16 +105,6 @@ const AuditoriaView = () => {
       </Box>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
         <AuditoriaTable rows={auditoria} />
-      </Stack>
-      <Stack direction="row">
-        <Button
-          onClick={handleCancelarClick}
-          variant="contained"
-          color="inherit"
-          sx={{ marginRight: 2, borderRadius: 5 }}>
-          {' '}
-          Volver{' '}
-        </Button>
       </Stack>
     </Stack>
   );
