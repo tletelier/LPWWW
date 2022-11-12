@@ -13,7 +13,8 @@ import {
   Stack,
   Typography,
   Grid,
-  Box
+  Box,
+  Modal
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -54,6 +55,20 @@ const PerfilesEditing = ({ estado }) => {
   const handleNombreChange = (e) => {
     setNombrePerfil(e.target.default);
   };
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4
+  };
+
+  const [open, setOpen] = useState(false);
 
   return (
     <Stack padding={4}>
@@ -97,13 +112,41 @@ const PerfilesEditing = ({ estado }) => {
                 {editingPerfil && (
                   <Stack direction="row">
                     <Button
-                      onClick={handleCancelarClick}
+                      onClick={() => setOpen(true)}
                       variant="contained"
                       color="inherit"
                       sx={{ marginRight: 2, borderRadius: 5 }}>
                       {' '}
                       Cancelar{' '}
                     </Button>
+                    <Modal
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description">
+                      <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                          CANCELAR
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          ¿Estás seguro de que deseas cancelar este registro? Tus datos se perderán.
+                        </Typography>
+                        <Stack direction="row">
+                          <Button
+                            variant="claro"
+                            sx={{ m: 1, width: 100 }}
+                            onClick={handleCancelarClick}>
+                            Sí
+                          </Button>
+                          <Button
+                            variant="claro"
+                            sx={{ m: 1, width: 100 }}
+                            onClick={() => setOpen(false)}>
+                            Seguir editando
+                          </Button>
+                        </Stack>
+                      </Box>
+                    </Modal>
                     <Button
                       onClick={handleGuardarClick}
                       variant="contained"
