@@ -131,16 +131,16 @@ const PerfilesEditing = ({ estado }) => {
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                           ¿Estás seguro de que deseas cancelar este registro? Tus datos se perderán.
                         </Typography>
-                        <Stack direction="row">
+                        <Stack direction="row" justifyContent="flex-end">
                           <Button
-                            variant="claro"
-                            sx={{ m: 1, width: 100 }}
+                            color="inherit"
+                            sx={{ m: 1, width: 100, color: 'inherit' }}
                             onClick={handleCancelarClick}>
                             Sí
                           </Button>
                           <Button
-                            variant="claro"
-                            sx={{ m: 1, width: 100 }}
+                            color="quaternary"
+                            sx={{ m: 1, width: 200, color: 'quaternary' }}
                             onClick={() => setOpen(false)}>
                             Seguir editando
                           </Button>
