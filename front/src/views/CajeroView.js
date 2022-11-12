@@ -144,12 +144,25 @@ const CajeroView = () => {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   ¿Estás seguro de que deseas registrar esta venta?
                 </Typography>
-                <Stack direction="row">
-                  <Button variant="claro" sx={{ m: 1, width: 100 }}>
-                    Sí
-                  </Button>
+                <Stack direction="row" justifyContent="flex-end">
                   <Button variant="claro" sx={{ m: 1, width: 100 }} onClick={() => setOpen(false)}>
                     Cancelar
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      m: 1,
+                      width: 150,
+                      backgroundColor: '#3D4748',
+                      color: '#FFFFFF',
+                      borderRadius: 20,
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#7C898B',
+                        color: '#FFFFFF'
+                      }
+                    }}>
+                    Registrar Venta
                   </Button>
                 </Stack>
               </Box>
