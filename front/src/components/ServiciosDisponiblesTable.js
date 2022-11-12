@@ -9,15 +9,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
-// import { useAuth } from '../hooks/useAuth';
 import SinContenido from './SinContenido';
-// import { useAuth } from '../hooks/useAuth';
 
 const ServiciosDisponiblesTable = ({ rows }) => {
-  // const { logout } = useAuth();
-  console.log(rows);
-  console.log(rows[0].perfiles[0].funcionario[0].valesUsados);
-  console.log(rows[0].perfiles[0].valesPorTurno);
   const handleEditar = () => {
     console.log('editao');
   };
@@ -29,15 +23,17 @@ const ServiciosDisponiblesTable = ({ rows }) => {
       minWidth: 150
     },
     {
-      // field: 'cantidad',
+      field: 'cantidad',
       headerName: 'Cantidad',
       flex: 1,
       minWidth: 100,
       renderCell: (params) => {
-        <div>
-          1/1
-          {/* {params.row.perfiles[0].funcionario[0].valesUsados}/{params.row.perfiles[0].valesPorTurno} */}
-        </div>;
+        return (
+          <div>
+            {params.row.perfiles[0].funcionario[0].valesUsados} /{' '}
+            {params.row.perfiles[0].valesPorTurno}
+          </div>
+        );
       }
     },
     {

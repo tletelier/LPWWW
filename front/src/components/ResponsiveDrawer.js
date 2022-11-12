@@ -20,14 +20,13 @@ import EmailIcon from '@mui/icons-material/Email';
 
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { NavLink, Link, useMatch } from 'react-router-dom';
+import { NavLink, Link, useMatch, Navigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Menu, MenuItem } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 // import axios from 'axios';
-
-// import { useAuth } from '../hooks/useAuth';
 
 import logo from '../assets/logo2.png';
 
@@ -38,7 +37,6 @@ const ResponsiveDrawer = (props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // const { user, logout } = useAuth();
   const user = { nombres: 'Skylar', apellidos: 'Cirrus', codigo: 265 };
 
   const handleDrawerToggle = () => {
@@ -131,15 +129,11 @@ const ResponsiveDrawer = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const navigate = useNavigate();
   const handleLogout = async () => {
     console.log('logout fake');
-    // try {
-    //   const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/logout`);
-    //   console.log(res);
-    //   logout();
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    navigate('/login');
+    //
   };
 
   return (

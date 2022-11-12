@@ -23,37 +23,22 @@ import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import logo from '../assets/logo2.png';
-import { Outlet } from 'react-router-dom';
-
-const pages = ['Cerrar Sesión'];
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Appbar = () => {
-  // const { user, logout } = useAuth();
   const user = { nombres: 'Skylar', apellidos: 'Cirrus', codigo: 265 };
-  const handleLogout = async () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
     console.log('logout fake');
-    // try {
-    //   const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/logout`);
-    //   console.log(res);
-    //   logout();
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    navigate('/login');
   };
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
+  const [anchorEl, setAnchorEl] = useState(false);
   const handleClick = () => {
-    console.log('logout');
+    setAnchorEl(true);
   };
-
+  const handleClose = () => {
+    setAnchorEl(false);
+  };
   return (
     <Box>
       <AppBar
@@ -73,42 +58,6 @@ const Appbar = () => {
               }}
             />
             <Box
-              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                // color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' }
-                }}>
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Box
               sx={{
                 flexGrow: 1,
                 display: { xs: 'none', md: 'flex' },
@@ -119,6 +68,28 @@ const Appbar = () => {
               <IconButton onClick={handleClick}>
                 <AccountCircle />
               </IconButton>
+              <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    handleLogout();
+                  }}>
+                  Cerrar Sesión
+                </MenuItem>
+              </Menu>
             </Box>
           </Toolbar>
         </Container>
