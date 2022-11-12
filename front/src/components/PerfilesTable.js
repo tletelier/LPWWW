@@ -80,7 +80,14 @@ const PerfilesTable = ({ rows }) => {
           <Stack direction="row">
             <Button
               variant="outlined"
-              sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: 'red', m: 1 }}
+              sx={{
+                width: 100,
+                borderRadius: 20,
+                borderColor: 'red',
+                textTransform: 'none',
+                color: 'red',
+                m: 1
+              }}
               onClick={handleDeleteClick}>
               Eliminar
             </Button>
@@ -96,15 +103,26 @@ const PerfilesTable = ({ rows }) => {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   ¿Estás seguro de que deseas eliminar este registro?
                 </Typography>
-                <Stack direction="row">
-                  <Button
-                    variant="claro"
-                    sx={{ m: 1, width: 100 }}
-                    onClick={() => handleDeleteClick(params)}>
-                    Sí
-                  </Button>
+                <Stack direction="row" justifyContent="flex-end">
                   <Button variant="claro" sx={{ m: 1, width: 100 }} onClick={() => setOpen(false)}>
                     Cancelar
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      m: 1,
+                      width: 100,
+                      backgroundColor: '#EA6A6A',
+                      color: '#FFFFFF',
+                      borderRadius: 20,
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#f9b3b3',
+                        color: '#FFFFFF'
+                      }
+                    }}
+                    onClick={() => handleDeleteClick(params)}>
+                    Eliminar
                   </Button>
                 </Stack>
               </Box>
