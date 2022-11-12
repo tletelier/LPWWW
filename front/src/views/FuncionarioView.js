@@ -41,7 +41,7 @@ const data = [
     ]
   },
   {
-    _id: 'sdfsd',
+    _id: 'sdfdrfgfdgsd',
     horarioFin: '2:00',
     horarioInicio: '5:00',
     nombre: 'desayuno',
@@ -79,12 +79,20 @@ const FuncionarioView = () => {
   };
   const [sucursal, setSucursal] = useState('(02) Azucenas');
   const [total, setTotal] = useState(350);
+  const [dataValeId, setDataValeId] = useState();
   const handleValeChange = (event) => {
     setVale(event.target.value);
   };
   const handleItemChange = (event) => {
     setItem(event.target.value);
   };
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('rowVale'));
+    if (items) {
+      setDataValeId(items);
+    }
+  }, []);
+  console.log(dataValeId);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} sm={6} md={7}>

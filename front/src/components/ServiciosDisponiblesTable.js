@@ -5,16 +5,13 @@
 /* eslint-disable no-underscore-dangle */
 import { Button, Theme, Stack, Box, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
 import SinContenido from './SinContenido';
 
 const ServiciosDisponiblesTable = ({ rows }) => {
-  const handleEditar = () => {
-    console.log('editao');
-  };
   const cols = [
     {
       field: 'nombre',
@@ -45,12 +42,29 @@ const ServiciosDisponiblesTable = ({ rows }) => {
       minWidth: 150,
       sortable: false,
       renderCell: (params) => {
-        const onClick = (e) => {
-          handleEditar(params.row._id);
+        const handleVer = (e) => {
+          const [dataVale] = useState(JSON.stringify(params.row));
+          console.log(dataVale);
+          useEffect(() => {
+            localStorage.setItem('dataVale', dataVale);
+          }, [dataVale]);
         };
         return (
           <div>
-            <Button variant="claro" onClick={() => onClick(params)} sx={{ m: 1 }}>
+            <Button
+              variant="outlined"
+              disabled={
+                params.row.perfiles[0].funcionario[0].valesUsados !==
+                params.row.perfiles[0].valesPorTurno
+              }
+              onClick={handleVer}
+              sx={{
+                m: 1,
+                color: '#784141',
+                textTransform: 'none',
+                borderRadius: 5,
+                borderColor: '#784141'
+              }}>
               Ver Vale
             </Button>
           </div>

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // import axios from 'axios';
 import SinContenido from './SinContenido';
+
 const style = {
   position: 'absolute',
   top: '50%',

@@ -10,13 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import SinContenido from './SinContenido';
 // import axios from 'axios';
-// import { useAuth } from '../hooks/useAuth';
-// import SinActividades from './SinActividades';
-// import { useAuth } from '../hooks/useAuth';
 
 const ServiciosTable = ({ rows }) => {
   const navigate = useNavigate();
-  // const { logout } = useAuth();
   const handleVer = (id) => {
     navigate(`/auditoria/${id}`);
   };
