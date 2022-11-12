@@ -15,11 +15,14 @@ import FuncionarioView from './views/FuncionarioView';
 import ValesView from './views/ValesView';
 import PerfilesView from './views/PerfilesView';
 import ServiciosView from './views/ServiciosView';
+import AuditoriasView from './views/AuditoriasView';
 import AuditoriaView from './views/AuditoriaView';
 import CorreoView from './views/CorreoView';
 import NotFoundView from './views/NotFoundView';
 import ServiciosEditing from './editing/ServiciosEditing';
 import ValesEditing from './editing/ValesEditing';
+import PerfilesEditing from './editing/PerfilesEditing';
+import PerfilView from './views/PerfilView.js';
 
 const { palette } = createTheme();
 const theme = createTheme(
@@ -115,6 +118,12 @@ function App() {
               />
               <Route path="/vales/crear" element={<ValesEditing estado="nuevo" />} />
               <Route path="/perfiles" element={<PerfilesView />} />
+              <Route path="/perfil/:perfil" element={<PerfilView />} />
+              <Route
+                path="/perfiles/:perfilId/:nombre"
+                element={<PerfilesEditing estado="nonuevo" />}
+              />
+              <Route path="/perfiles/crearPerfil" element={<PerfilesEditing estado="nuevo" />} />
               <Route path="/servicios" element={<ServiciosView />} />
               <Route
                 path="/servicios/:nservicioId/:nservicio/:nhorarioInicial/:nhorarioFinal"
@@ -124,7 +133,8 @@ function App() {
                 path="/servicios/crearServicio"
                 element={<ServiciosEditing estado="nuevo" />}
               />
-              <Route path="/auditoria" element={<AuditoriaView />} />
+              <Route path="/auditoria" element={<AuditoriasView />} />
+              <Route path="/auditoria/:auditoriaId" element={<AuditoriaView />} />
               <Route path="/correo" element={<CorreoView />} />
             </Route>
           </Routes>

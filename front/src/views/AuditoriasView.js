@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Stack, Typography, Button } from '@mui/material';
-import AuditoriaTable from '../components/AuditoriaTable';
-import { useNavigate, useParams } from 'react-router-dom';
+import InformesTable from '../components/InformesTable';
 
 const data = [
   {
@@ -69,57 +68,18 @@ const data = [
 ];
 
 const AuditoriaView = () => {
-  const navigate = useNavigate();
-  const params = useParams();
-  const { auditoriaId } = params;
-  console.log(auditoriaId);
-  let auditoria;
-
-  data.map((key) => {
-    if (key._id == auditoriaId) {
-      console.log('Finded');
-      auditoria = key;
-    }
-  });
-
-  const handleCancelarClick = () => {
-    navigate('/auditoria');
-  };
-  console.log(data);
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
         <Typography variant="h4">
-          <b>Auditoria:</b>
-        </Typography>
-        <Typography variant="h6">
-          <b>Administrador: {auditoria.administrador}</b>
-        </Typography>
-        <Typography variant="h6">
-          <b>Fecha: {auditoria.fecha}</b>
-        </Typography>
-        <Typography variant="h6">
-          <b>Vales emitidos: {auditoria.cantidad}</b>
-        </Typography>
-        <Typography variant="h6">
-          <b>Vales usados: {auditoria.cantidad}</b>
-        </Typography>
-        <Typography variant="h6">
-          <b>Vales no usados: {0}</b>
+          <b>Auditorias:</b>
         </Typography>
       </Box>
-      <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
-        <AuditoriaTable rows={auditoria} />
+      <Stack direction="row" justifyContent="flex-end" sx={{ px: 4 }}>
+        <Button variant="oscuro">Generar Auditoria</Button>
       </Stack>
-      <Stack direction="row">
-        <Button
-          onClick={handleCancelarClick}
-          variant="contained"
-          color="inherit"
-          sx={{ marginRight: 2, borderRadius: 5 }}>
-          {' '}
-          Volver{' '}
-        </Button>
+      <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
+        <InformesTable rows={data} />
       </Stack>
     </Stack>
   );

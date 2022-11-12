@@ -8,74 +8,57 @@ import CheckIcon from '@mui/icons-material/Check';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import SinContenido from './SinContenido';
 // import axios from 'axios';
 // import { useAuth } from '../hooks/useAuth';
-// import SinActividades from './SinActividades';
+import SinContenido from './SinContenido';
 // import { useAuth } from '../hooks/useAuth';
 
-const ServiciosTable = ({ rows }) => {
+const PerfilesTable = ({ rows }) => {
   const navigate = useNavigate();
-  // const { logout } = useAuth();
-  const handleVer = (id) => {
-    navigate(`/auditoria/${id}`);
+  const handleVer = (nombre) => {
+    navigate(`/perfil/${nombre}`);
   };
   const cols = [
     {
-      field: 'id',
-      headerName: 'ID',
+      field: 'nombre',
+      headerName: 'Nombre',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'administrador',
-      headerName: 'Administrador',
+      field: 'apellido',
+      headerName: 'Apellido',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'fecha',
-      headerName: 'Fecha',
+      field: 'codigo',
+      headerName: 'Codigo',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'archivo',
-      headerName: 'Archivo',
-      align: 'center',
-      headerAlign: 'center',
+      field: 'email',
+      headerName: 'Correo',
+      flex: 1,
+      minWidth: 150
+    },
+    {
+      field: 'estado',
+      headerName: 'Estado',
       flex: 1,
       minWidth: 150,
-      sortable: false,
       renderCell: (params) => {
-        const onClick = (e) => {
-          handleVer(params.row._id);
+        const onVerClick = (e) => {
+          handleVer(params.row.nombre);
         };
         return (
           <div>
             <Button
               variant="outlined"
               sx={{ width: 100, borderRadius: 20, textTransform: 'none', color: '#7C898B', m: 1 }}
-              onClick={() => onClick(params)}>
-              Ver
-            </Button>
-          </div>
-        );
-      }
-    },
-    {
-      field: 'acción',
-      headerName: 'Acción',
-      align: 'center',
-      headerAlign: 'center',
-      flex: 1,
-      minWidth: 150,
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <div>
-            <Button variant="claro" sx={{ m: 1 }}>
-              Descargar
+              onClick={() => onVerClick(params)}>
+              Activo
             </Button>
           </div>
         );
@@ -85,7 +68,7 @@ const ServiciosTable = ({ rows }) => {
   return (
     <Box sx={{ width: '100%' }}>
       {rows.length === 0 ? (
-        <SinContenido mainmsg="Sin servicios." submsg="Cuando hayan, estos aparecerán aquí." />
+        <SinContenido mainmsg="Sin perfiles." submsg="Cuando hayan, estos aparecerán aquí." />
       ) : (
         <DataGrid
           density="comfortable"
@@ -96,11 +79,11 @@ const ServiciosTable = ({ rows }) => {
           getRowId={(row) => row._id}
           rows={Object.values(rows)}
           disableSelectionOnClick
-          sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
+          sx={{ borderRadius: 5, paadingLeft: 2, paddingRight: 2 }}
         />
       )}
     </Box>
   );
 };
 
-export default ServiciosTable;
+export default PerfilesTable;

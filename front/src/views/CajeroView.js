@@ -13,7 +13,9 @@ import {
   SelectChangeEvent,
   FormControl,
   Card,
-  InputLabel
+  InputLabel,
+  Modal,
+  Box
 } from '@mui/material';
 import ProductosTable from '../components/ProductosTable';
 
@@ -37,6 +39,17 @@ const data = [
     precio: 300
   }
 ];
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
 
 const CajeroView = () => {
   const [vale, setVale] = useState(1350);
@@ -51,6 +64,7 @@ const CajeroView = () => {
   const handleItemChange = (event) => {
     setItem(event.target.value);
   };
+  const [open, setOpen] = useState(false);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} sm={6} md={6}>
@@ -115,7 +129,31 @@ const CajeroView = () => {
             <Button variant="outlined" sx={{ width: 200, borderRadius: 20, textTransform: 'none' }}>
               Cancelar
             </Button>
-            <Button variant="oscuro">Registrar Venta</Button>
+            <Button variant="oscuro" onClick={() => setOpen(true)}>
+              Registrar Venta
+            </Button>
+            <Modal
+              open={open}
+              onClose={() => setOpen(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description">
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  REGISTRAR VENTA
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  ¿Estás seguro de que deseas registrar esta venta?
+                </Typography>
+                <Stack direction="row">
+                  <Button variant="claro" sx={{ m: 1, width: 100 }}>
+                    Sí
+                  </Button>
+                  <Button variant="claro" sx={{ m: 1, width: 100 }} onClick={() => setOpen(false)}>
+                    Cancelar
+                  </Button>
+                </Stack>
+              </Box>
+            </Modal>
           </Stack>
         </Stack>
       </Grid>
