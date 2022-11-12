@@ -181,7 +181,7 @@ const ResponsiveDrawer = (props) => {
                 handleClose();
                 handleLogout();
               }}>
-              Logout
+              Cerrar Sesión
             </MenuItem>
           </Menu>
         </Toolbar>
