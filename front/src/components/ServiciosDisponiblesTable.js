@@ -52,6 +52,7 @@ const ServiciosDisponiblesTable = ({ rows }) => {
       renderCell: (params) => {
         const [open, setOpen] = React.useState(false);
         const handleVerClick = () => setOpen(true);
+        console.log(params.row);
         return (
           <div>
             <Modal
@@ -85,14 +86,14 @@ const ServiciosDisponiblesTable = ({ rows }) => {
                     <Typography sx={{ color: '#000' }}>
                       <b>PERFIL</b> :{/* {params.row.user.perfil} */}
                     </Typography>
-                    <Typography
-                      variant="h6"
-                      align="center"
-                      sx={{ color: '#000', m: 2, marginBottom: 3 }}>
+                    <Typography variant="h6" align="center" sx={{ color: '#000', m: 2 }}>
                       <b>VALOR</b> :{/* {params.row.cantidad} */}
                     </Typography>
                   </Stack>
-                  <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ justifyContent: 'center', marginTop: 5 }}>
                     <Button variant="claro" onClick={() => setOpen(false)}>
                       Cancelar
                     </Button>
