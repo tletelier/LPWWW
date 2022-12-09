@@ -30,25 +30,25 @@ type Mutation{
 
 const perfilResolvers = {
   Query: {
-    async getPerfiles(obj){
+    async getPerfiles(obj, params, context, info){
       return await Perfil.find().populate(
         { path: 'servicios_array', populate: { path: 'servicio' }});
     },
-    async getPerfil(obj, {id}){
+    async getPerfil(obj, {id}, context, info){
       return await Perfil.findById(id).populate(
         { path: 'servicios_array', populate: { path: 'servicio' } });
     }
   },
   Mutation: {
-    async addPerfil(obj, {input}){
+    async addPerfil(obj, {input}, context, info){
       const temp = new Perfil(input);
       await temp.save();
       return temp;
     },
-    async updatePerfil(obj, {id, input}){
+    async updatePerfil(obj, {id, input}, context, info){
       return await Perfil.findByIdAndUpdate(id, input);
     },
-    async deletePerfil(obj, {id}){
+    async deletePerfil(obj, {id}, context, info){
       await Perfil.deleteOne({_id: id});
       return{
         message:"Perfil Eliminado" 

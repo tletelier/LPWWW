@@ -99,17 +99,18 @@ type Mutation{
 
 const funcionarioResolvers = {
   Query: {
-    async getFuncionarios(obj){
+    async getFuncionarios(obj, params, context, info){
       const funcionarios = await Funcionario.find();
       // console.log(funcionarios);
       return funcionarios;
     },
-    async getFuncionario(obj, {id}){
+    async getFuncionario(obj, {id}, context, info){
       return await Funcionario.findById(id).populate('perfil');
     },
   },
   Mutation: {
-    async addFuncionario(obj, {input}){
+    async addFuncionario(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       let temp = new Funcionario(input);
 
       const password = await bcrypt.hash(input.password, 10);
@@ -118,16 +119,18 @@ const funcionarioResolvers = {
       await temp.save();
       return temp;
     },
-    async updateFuncionario(obj, {id, input}){
+    async updateFuncionario(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       return await Funcionario.findByIdAndUpdate(id, input);
     },
-    async deleteFuncionario(obj, {id}){
+    async deleteFuncionario(obj, {id}, context, info){
+      if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Funcionario.deleteOne({_id: id});
       return{
         message:"Funcionario Eliminado" 
       }
     },
-    async loginFuncionario(obj, {codigoFuncionario, password}){
+    async loginFuncionario(obj, {codigoFuncionario, password}, context, info){
       // Validate data
       if (!(codigoFuncionario && password)) {
         return {

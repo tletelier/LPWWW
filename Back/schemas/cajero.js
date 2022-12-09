@@ -41,15 +41,16 @@ type Mutation{
 
 const cajeroResolvers = {
   Query: {
-    async getCajeros(obj){
+    async getCajeros(obj, params, context, info){
       return await Cajero.find().populate('sucursal');
     },
-    async getCajero(obj, {id}){
+    async getCajero(obj, {id}, context, info){
       return await Cajero.findById(id).populate('sucursal');
     }
   },
   Mutation: {
-    async addCajero(obj, {input}){
+    async addCajero(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       let temp = new Cajero(input);
 
       const password = await bcrypt.hash(input.password, 10);
@@ -58,16 +59,18 @@ const cajeroResolvers = {
       await temp.save();
       return temp;
     },
-    async updateCajero(obj, {id, input}){
+    async updateCajero(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       return await Cajero.findByIdAndUpdate(id, input);
     },
     async deleteCajero(obj, {id}){
+      if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Cajero.deleteOne({_id: id});
       return{
         message:"Cajero Eliminado" 
       }
     },
-    async loginCajero(obj, {codigoCajero, password}){
+    async loginCajero(obj, {codigoCajero, password}, context, info){
       // Validate data
       if (!(codigoCajero && password)) {
         return {

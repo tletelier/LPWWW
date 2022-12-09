@@ -33,23 +33,26 @@ type Mutation{
 
 const sucursalResolvers = {
   Query: {
-    async getSucursales(obj){
+    async getSucursales(obj, params, context, info){
       return await Sucursal.find();
     },
-    async getSucursal(obj, {id}){
+    async getSucursal(obj, {id}, context, info){
       return await Sucursal.findById(id);
     }
   },
   Mutation: {
-    async addSucursal(obj, {input}){
+    async addSucursal(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       const temp = new Sucursal(input);
       await temp.save();
       return temp;
     },
-    async updateSucursal(obj, {id, input}){
+    async updateSucursal(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       return await Sucursal.findByIdAndUpdate(id, input);
     },
-    async deleteSucursal(obj, {id}){
+    async deleteSucursal(obj, {id}, context, info){
+      if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Sucursal.deleteOne({_id: id});
       return{
         message:"Sucursal Eliminado" 
