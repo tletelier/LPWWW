@@ -44,7 +44,8 @@ async function startServer(){
     schema, 
     corsOptions,
     context: ({ req }) => ({
-      user: getUser(req.headers.authorization)
+      user: getUser(req.headers.authorization),
+      data: req.body.variables.data
     })
   });
   await apolloServer.start();
