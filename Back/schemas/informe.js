@@ -36,25 +36,25 @@ type Mutation{
 
 const informeResolvers = {
   Query: {
-    async getInformes(obj){
+    async getInformes(obj, args, context, info){
       return await Informe.find().populate('admin').populate(
         { path: 'vales', populate: { path: 'vale' } });
     },
-    async getInforme(obj, {id}){
+    async getInforme(obj, {id}, context, info){
       return await Informe.findById(id).populate('admin').populate(
         { path: 'vales', populate: { path: 'vale' } });
     }
   },
   Mutation: {
-    async addInforme(obj, {input}){
+    async addInforme(obj, {input}, context, info){
       const temp = new Informe(input);
       await temp.save();
       return temp;
     },
-    async updateInforme(obj, {id, input}){
+    async updateInforme(obj, {id, input}, context, info){
       return await Informe.findByIdAndUpdate(id, input);
     },
-    async deleteInforme(obj, {id}){
+    async deleteInforme(obj, {id}, context, info){
       await Informe.deleteOne({_id: id});
       return{
         message:"Informe Eliminado" 

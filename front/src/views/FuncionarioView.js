@@ -80,70 +80,17 @@ const FuncionarioView = () => {
   const [sucursal, setSucursal] = useState('(02) Azucenas');
   const [total, setTotal] = useState(350);
   const [dataValeId, setDataValeId] = useState();
-  const handleValeChange = (event) => {
-    setVale(event.target.value);
-  };
-  const handleItemChange = (event) => {
-    setItem(event.target.value);
-  };
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('rowVale'));
-    if (items) {
-      setDataValeId(items);
-    }
-  }, []);
-  console.log(dataValeId);
+  // console.log(data);
   return (
-    <Grid container spacing={0}>
-      <Grid item xs={12} sm={6} md={7}>
-        <Stack direction="column" spacing={2}>
-          <Stack spacing={3} sx={{ px: 3 }}>
-            <Stack direction="row" spacing={5} sx={{ justifyContent: 'center' }}>
-              <Typography align="left">Sucursal: {sucursal}</Typography>
-              <Typography align="right">Fecha: {fecha}</Typography>
-            </Stack>
-            <Stack sx={{ py: 2, minWidth: 300 }}>
-              <ServiciosDisponiblesTable rows={data} />
-            </Stack>
-          </Stack>
-        </Stack>
-      </Grid>
-      <Grid item xs={12} sm={6} md={5}>
-        <Stack spacing={3} sx={{ px: 3, mr: 5 }}>
-          <Card sx={{ backgroundColor: '#F6F4F1', p: 4, borderRadius: 5 }}>
-            <Stack spacing={2}>
-              <Typography variant="h4" align="center" sx={{ color: '#000', m: 3 }}>
-                <b>N° Vale: {vale}</b>
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>FECHA</b> : {fecha}
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>HORA</b> : {hora}
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>CODIGO</b> : {user.codigo}
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>FUNCIONARIO</b> : {user.nombres} {user.apellidos}
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>SERVICIO</b> : {user.servicios}
-              </Typography>
-              <Typography sx={{ color: '#000' }}>
-                <b>PERFIL</b> : {user.perfil}
-              </Typography>
-              <Typography variant="h6" align="center" sx={{ color: '#000', m: 2 }}>
-                <b>VALOR</b> : {cantidad}
-              </Typography>
-            </Stack>
-          </Card>
-          <Stack direction="row" sx={{ justifyContent: 'center' }}>
-            <Button variant="oscuro">Emitir Vale</Button>
-          </Stack>
-        </Stack>
-      </Grid>
-    </Grid>
+    <Stack spacing={3} sx={{ px: 3, alignContent: 'center', m: 2 }}>
+      <Stack direction="row" spacing={5} sx={{ justifyContent: 'center' }}>
+        <Typography align="left">Sucursal: {sucursal}</Typography>
+        <Typography align="right">Fecha: {fecha}</Typography>
+      </Stack>
+      <Stack sx={{ py: 2, minWidth: 800, maxWidth: 1000, alignSelf: 'center' }}>
+        <ServiciosDisponiblesTable rows={data} />
+      </Stack>
+    </Stack>
   );
 };
 

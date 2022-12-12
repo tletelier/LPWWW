@@ -40,15 +40,16 @@ type Mutation{
 
 const servicioResolvers = {
   Query: {
-    async getServicios(obj){
+    async getServicios(obj, params, context, info){
       return await Servicio.find().populate('perfil');
     },
-    async getServicio(obj, {id}){
+    async getServicio(obj, {id}, context, info){
       return await Servicio.findById(id).populate('perfil');
     }
   },
   Mutation: {
-    async addServicio(obj, {input}){
+    async addServicio(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       let {nombre, horarioInicio, horarioFin, valor, maxValesTurno, perfil} = input
       let perfilBuscar = await Perfil.findById(perfil)
       if(perfilBuscar === null){
@@ -67,10 +68,12 @@ const servicioResolvers = {
         return servicio;
       }
     },
-    async updateServicio(obj, {id, input}){
+    async updateServicio(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return [];
       return await Servicio.findByIdAndUpdate(id, input);
     },
-    async deleteServicio(obj, {id}){
+    async deleteServicio(obj, {id}, context, info){
+      if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Servicio.deleteOne({_id: id});
       return{
         message:"Servicio Eliminado" 

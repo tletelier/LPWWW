@@ -6,6 +6,7 @@ const cors = require('cors');
 const {ApolloServer, gql} = require ('apollo-server-express');
 const {ApolloServerPluginLandingPageLocalDefault,} = require('apollo-server-core');
 const { GraphQLScalarType, Kind } = require('graphql');
+const jwt = require("jsonwebtoken");
 
 const { schema } = require("./schemas/schemas.js")
 
@@ -33,8 +34,20 @@ const corsOptions = {
   credentials: false
 };
 
+function getUser(token){
+  if(typeof(token) == "undefined") return null
+  return jwt.verify(token, process.env.SECRET_KEY);
+}
+
 async function startServer(){
-  const apolloServer = new ApolloServer({schema, corsOptions});
+  const apolloServer = new ApolloServer({
+    schema, 
+    corsOptions,
+    context: ({ req }) => ({
+      user: getUser(req.headers.authorization),
+      data: req.body.variables.data
+    })
+  });
   await apolloServer.start();
   apolloServer.applyMiddleware({app, cors:false});
 }

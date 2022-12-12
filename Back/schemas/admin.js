@@ -7,6 +7,10 @@ const auth = require("../middleware/auth");
 // Models
 const Admin = require('../models/admin');
 
+// Variables de entorno
+const dotenv = require('dotenv');
+dotenv.config();
+
 const adminSchema = `
 
  type Admin {
@@ -39,15 +43,15 @@ type Mutation{
 
 const adminResolvers = {
   Query: {
-    async getAdmins(obj){
+    async getAdmins(obj, params, context, info){
       return await Admin.find();
     },
-    async getAdmin(obj, {id}){
+    async getAdmin(obj, {id}, context, info){
       return await Admin.findById(id);
     }
   },
   Mutation: {
-    async addAdmin(obj, {input}){
+    async addAdmin(obj, {input}, context, info){
       let temp = new Admin(input);
 
       const password = await bcrypt.hash(input.password, 10);
@@ -56,16 +60,16 @@ const adminResolvers = {
       await temp.save();
       return temp;
     },
-    async updateAdmin(obj, {id, input}){
+    async updateAdmin(obj, {id, input}, context, info){
       return await Admin.findByIdAndUpdate(id, input);
     },
-    async deleteAdmin(obj, {id}){
+    async deleteAdmin(obj, {id}, context, info){
       await Admin.deleteOne({_id: id});
       return{
         message:"Admin Eliminado" 
       }
     },
-    async loginAdmin(obj, {codigoAdmin, password}){
+    async loginAdmin(obj, {codigoAdmin, password}, context, info){
       // Validate data
       if (!(codigoAdmin && password)) {
         return {
@@ -82,7 +86,7 @@ const adminResolvers = {
         
         const token = jwt.sign(
           { type: "admin", code: admin.codigoAdmin },
-          process.env.TOKEN_KEY,
+          process.env.SECRET_KEY,
           {
             expiresIn: "3h",
           }
