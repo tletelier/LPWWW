@@ -38,7 +38,7 @@ const ServiciosTable = ({ rows }) => {
       renderCell: (params) => {
         const handleEditClick = () => {
           navigate(
-            `/servicios/${params.row._id}/${params.row.nombre}/${params.row.horarioInicio}/${params.row.horarioFin}`
+            `/servicios/${params.row.id}/${params.row.nombre}/${params.row.horarioInicio}/${params.row.horarioFin}`
           );
         };
         return (
