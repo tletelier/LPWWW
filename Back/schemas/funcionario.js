@@ -5,6 +5,9 @@ const dotenv = require('dotenv')
 const cron = require('node-cron');
 dotenv.config();
 
+// Models
+const Funcionario = require('../models/funcionario');
+
 // Mailer
 const nodemailer = require('nodemailer');
 
@@ -51,12 +54,6 @@ cron.schedule('5 8 * * Sun', async () => { //cada semana, lo enviara a las 8:05 
   }
 });
 
-// Middleware
-const auth = require("../middleware/auth");
-
-// Models
-const Funcionario = require('../models/funcionario');
-
 const funcionarioSchema = `
 
 type Funcionario {
@@ -66,7 +63,7 @@ type Funcionario {
   codigoFuncionario: Int!
   correo: String!
   password: String!
-  perfil: Perfil
+  perfil: ID!
   valesDisponibles: Int!
   valesUtilizados: Int!
   valesNoUtilizados: Int!
@@ -78,7 +75,7 @@ input FuncionarioInput{
   codigoFuncionario: Int!
   correo: String!
   password: String!
-  perfil: String!
+  perfil: ID!
   valesDisponibles: Int!
   valesUtilizados: Int!
   valesNoUtilizados: Int!
@@ -110,7 +107,7 @@ const funcionarioResolvers = {
   },
   Mutation: {
     async addFuncionario(obj, {input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Funcionario({});
       let temp = new Funcionario(input);
 
       const password = await bcrypt.hash(input.password, 10);
@@ -120,7 +117,7 @@ const funcionarioResolvers = {
       return temp;
     },
     async updateFuncionario(obj, {id, input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Funcionario({});
       return await Funcionario.findByIdAndUpdate(id, input);
     },
     async deleteFuncionario(obj, {id}, context, info){

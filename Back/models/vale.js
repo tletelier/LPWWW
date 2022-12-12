@@ -7,8 +7,8 @@ const valeSchema = new mongoose.Schema({
   funcionario: {type: mongoose.Schema.ObjectId, ref: 'Funcionario'},
   cajero: {type: mongoose.Schema.ObjectId, ref: 'Cajero'},
   sucursal: {type: mongoose.Schema.ObjectId, ref: 'Sucursal'},
-  perfilName: String,
-  servicioName: String
+  perfil: {type: mongoose.Schema.ObjectId, ref: 'Perfil'},
+  servicio: {type: mongoose.Schema.ObjectId, ref: 'Servicio'}
 });
 
 module.exports = mongoose.model('Vale', valeSchema);

@@ -13,11 +13,11 @@ type Vale {
   fecha: DateTime
   saldo: Int!
   estado: Int!
-  funcionario: Funcionario
-  cajero: Cajero
-  sucursal: Sucursal
-  perfilName: String!
-  servicioName: String!
+  funcionario: ID!
+  cajero: ID!
+  sucursal: ID!
+  perfil: ID!
+  servicio: ID!
 }
 
 input ValeInput {
@@ -26,8 +26,8 @@ input ValeInput {
   funcionario: ID!
   cajero: ID!
   sucursal: ID!
-  perfilName: String!
-  servicioName: String!
+  perfil: ID!
+  servicio: ID!
 }
 
 type Query{

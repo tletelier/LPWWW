@@ -1,6 +1,3 @@
-// Middleware
-const auth = require("../middleware/auth");
-
 // Models
 const Perfil = require('../models/perfil');
 
@@ -9,11 +6,12 @@ const perfilSchema = `
 type Perfil {
   id: ID!
   nombre: String!
-  servicios_array: [Servicio]
+  servicios: [ID]
 }
 
 input PerfilInput {
   nombre: String!
+  servicios: [ID]
 }
 
 type Query{
@@ -41,14 +39,17 @@ const perfilResolvers = {
   },
   Mutation: {
     async addPerfil(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return new Perfil({});
       const temp = new Perfil(input);
       await temp.save();
       return temp;
     },
     async updatePerfil(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return new Perfil({});
       return await Perfil.findByIdAndUpdate(id, input);
     },
     async deletePerfil(obj, {id}, context, info){
+      if (context.user === null || context.user.type !== "admin") return {message:"No permissions"};
       await Perfil.deleteOne({_id: id});
       return{
         message:"Perfil Eliminado" 

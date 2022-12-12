@@ -4,7 +4,7 @@ const informeSchema = new mongoose.Schema({
   fecha: Date,
   cantidadValesUsados: Number,
   cantidadValesNoUsados: Number,
-  admin: {type: mongoose.Schema.ObjectId, ref: 'Admin'},
+  autor: {type: mongoose.Schema.ObjectId, ref: 'Admin'},
   vale: [{type: mongoose.Schema.ObjectId, ref: 'Vale', default: []}],
 });
 

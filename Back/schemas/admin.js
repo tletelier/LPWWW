@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Middleware
-const auth = require("../middleware/auth");
-
 // Models
 const Admin = require('../models/admin');
 

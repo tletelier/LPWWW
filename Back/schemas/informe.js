@@ -1,6 +1,3 @@
-// Middleware
-const auth = require("../middleware/auth");
-
 // Models
 const Informe = require('../models/informe');
 
@@ -12,7 +9,7 @@ type Informe {
   cantidadValesUsados: Int!
   cantidadValesNoUsados: Int!
   autor: ID!
-  vale: [Vale]
+  vale: [ID]
 }
 
 input InformeInput {
@@ -20,6 +17,7 @@ input InformeInput {
   cantidadValesUsados: Int!
   cantidadValesNoUsados: Int!
   autor: ID!
+  vale: [ID]
 }
 
 type Query{
@@ -47,11 +45,13 @@ const informeResolvers = {
   },
   Mutation: {
     async addInforme(obj, {input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return new Informe({});
       const temp = new Informe(input);
       await temp.save();
       return temp;
     },
     async updateInforme(obj, {id, input}, context, info){
+      if (context.user === null || context.user.type !== "admin") return new Informe({});
       return await Informe.findByIdAndUpdate(id, input);
     },
     async deleteInforme(obj, {id}, context, info){

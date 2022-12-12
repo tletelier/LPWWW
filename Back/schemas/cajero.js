@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Middleware
-const auth = require("../middleware/auth");
-
 // Models
 const Cajero = require('../models/cajero');
 
@@ -50,7 +47,7 @@ const cajeroResolvers = {
   },
   Mutation: {
     async addCajero(obj, {input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Cajero({});
       let temp = new Cajero(input);
 
       const password = await bcrypt.hash(input.password, 10);
@@ -60,7 +57,7 @@ const cajeroResolvers = {
       return temp;
     },
     async updateCajero(obj, {id, input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Cajero({});
       return await Cajero.findByIdAndUpdate(id, input);
     },
     async deleteCajero(obj, {id}){
