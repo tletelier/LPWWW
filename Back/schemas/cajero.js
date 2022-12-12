@@ -16,11 +16,11 @@ type Cajero {
 }
 
 input CajeroInput {
-  nombres: String!
-  apellidos: String!
-  password: String!
-  codigoCajero: Int!
-  sucursal: ID!
+  nombres: String
+  apellidos: String
+  password: String
+  codigoCajero: Int
+  sucursal: ID
 }
 
 type Query{
@@ -39,10 +39,10 @@ type Mutation{
 const cajeroResolvers = {
   Query: {
     async getCajeros(obj, params, context, info){
-      return await Cajero.find().populate('sucursal');
+      return await Cajero.find();
     },
     async getCajero(obj, {id}, context, info){
-      return await Cajero.findById(id).populate('sucursal');
+      return await Cajero.findById(id);
     }
   },
   Mutation: {
@@ -60,7 +60,7 @@ const cajeroResolvers = {
       if (context.user === null || context.user.type !== "admin") return new Cajero({});
       return await Cajero.findByIdAndUpdate(id, input);
     },
-    async deleteCajero(obj, {id}){
+    async deleteCajero(obj, {id}, context, info){
       if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Cajero.deleteOne({_id: id});
       return{
