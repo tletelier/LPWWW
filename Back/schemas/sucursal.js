@@ -14,8 +14,8 @@ type Sucursal {
 }
 
 input SucursalInput {
-  direccion: String!
-  codigoSucursal: Int!
+  direccion: String
+  codigoSucursal: Int
   cajero: ID
 }
 

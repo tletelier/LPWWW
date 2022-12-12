@@ -16,11 +16,11 @@ type Cajero {
 }
 
 input CajeroInput {
-  nombres: String!
-  apellidos: String!
-  password: String!
-  codigoCajero: Int!
-  sucursal: ID!
+  nombres: String
+  apellidos: String
+  password: String
+  codigoCajero: Int
+  sucursal: ID
 }
 
 type Query{
@@ -39,10 +39,10 @@ type Mutation{
 const cajeroResolvers = {
   Query: {
     async getCajeros(obj, params, context, info){
-      return await Cajero.find().populate('sucursal');
+      return await Cajero.find();
     },
     async getCajero(obj, {id}, context, info){
-      return await Cajero.findById(id).populate('sucursal');
+      return await Cajero.findById(id);
     }
   },
   Mutation: {

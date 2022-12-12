@@ -19,10 +19,10 @@ const adminSchema = `
 }
 
 input AdminInput{
-  nombres: String!
-  apellidos: String!
-  codigoAdmin: Int!
-  password: String!
+  nombres: String
+  apellidos: String
+  codigoAdmin: Int
+  password: String
 }
 
 type Query{

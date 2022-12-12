@@ -70,15 +70,15 @@ type Funcionario {
 }
 
 input FuncionarioInput{
-  nombres: String!
-  apellidos: String!
-  codigoFuncionario: Int!
-  correo: String!
-  password: String!
-  perfil: ID!
-  valesDisponibles: Int!
-  valesUtilizados: Int!
-  valesNoUtilizados: Int!
+  nombres: String
+  apellidos: String
+  codigoFuncionario: Int
+  correo: String
+  password: String
+  perfil: ID
+  valesDisponibles: Int
+  valesUtilizados: Int
+  valesNoUtilizados: Int
 }
 
 type Query{
@@ -102,7 +102,7 @@ const funcionarioResolvers = {
       return funcionarios;
     },
     async getFuncionario(obj, {id}, context, info){
-      return await Funcionario.findById(id).populate('perfil');
+      return await Funcionario.findById(id);
     },
   },
   Mutation: {

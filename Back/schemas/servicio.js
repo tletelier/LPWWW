@@ -41,10 +41,12 @@ type Mutation{
 const servicioResolvers = {
   Query: {
     async getServicios(obj, params, context, info){
-      return await Servicio.find().populate('perfil');
+      return await Servicio.find();
     },
     async getServicio(obj, {id}, context, info){
-      return await Servicio.findById(id).populate('perfil');
+      const temp = Servicio.findById(id)
+      console.log(temp);
+      return await Servicio.findById(id)
     }
   },
   Mutation: {
