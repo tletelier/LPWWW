@@ -60,7 +60,7 @@ const cajeroResolvers = {
       if (context.user === null || context.user.type !== "admin") return new Cajero({});
       return await Cajero.findByIdAndUpdate(id, input);
     },
-    async deleteCajero(obj, {id}){
+    async deleteCajero(obj, {id}, context, info){
       if (context.user === null || context.user.type !== "admin") return {message: "No permissions"};
       await Cajero.deleteOne({_id: id});
       return{

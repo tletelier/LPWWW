@@ -30,11 +30,11 @@ const perfilResolvers = {
   Query: {
     async getPerfiles(obj, params, context, info){
       return await Perfil.find().populate(
-        { path: 'servicios_array', populate: { path: 'servicio' }});
+        { path: 'servicios', populate: { path: 'servicio' }});
     },
     async getPerfil(obj, {id}, context, info){
       return await Perfil.findById(id).populate(
-        { path: 'servicios_array', populate: { path: 'servicio' } });
+        { path: 'servicios', populate: { path: 'servicio' } });
     }
   },
   Mutation: {
