@@ -64,7 +64,7 @@ const ServiciosTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row.id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
