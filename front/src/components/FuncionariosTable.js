@@ -18,25 +18,25 @@ const PerfilesTable = ({ rows }) => {
   };
   const cols = [
     {
-      field: 'nombre',
+      field: 'nombres',
       headerName: 'Nombre',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'apellido',
+      field: 'apellidos',
       headerName: 'Apellido',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'codigo',
+      field: 'codigoFuncionario',
       headerName: 'Codigo',
       flex: 1,
       minWidth: 150
     },
     {
-      field: 'email',
+      field: 'correo',
       headerName: 'Correo',
       flex: 1,
       minWidth: 150
@@ -74,7 +74,7 @@ const PerfilesTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row.id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{ borderRadius: 5, paadingLeft: 2, paddingRight: 2 }}

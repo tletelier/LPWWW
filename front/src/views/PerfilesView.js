@@ -1,51 +1,19 @@
 import React from 'react';
+import * as Constants from '../constants';
 import { Box, Stack, Typography, Button } from '@mui/material';
 import PerfilesTable from '../components/PerfilesTable';
 import { useNavigate } from 'react-router-dom';
-
-const data = [
-  {
-    _id: 'sdfsd',
-    cantidad: 3,
-    nombre: 'Obrero',
-    funcionarios: [
-      {
-        _id: 'asdfasd',
-        nombre: 'Jen Jen'
-      },
-      {
-        _id: 'adfgsdfasd',
-        nombre: 'Giselle'
-      },
-      {
-        _id: 'asddfgfsdfasd',
-        nombre: 'Ning Ning'
-      }
-    ]
-  },
-  {
-    _id: 'sdfsdfsfd',
-    cantidad: 2,
-    nombre: 'Gerente',
-    funcionarios: [
-      {
-        _id: 'asdsdfsasd',
-        nombre: 'Chan Chan'
-      },
-      {
-        _id: 'adfgsdfasdfssd',
-        nombre: 'Lix Lix'
-      }
-    ]
-  }
-];
+import { useQuery } from '@apollo/client';
 
 const PerfilesView = () => {
   const navigate = useNavigate();
   const handleCrear = () => {
     navigate('/perfiles/crearPerfil');
   };
-  console.log(data);
+  const { loading, error, data } = useQuery(Constants.GET_PERFILES_QUERY);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
@@ -59,7 +27,7 @@ const PerfilesView = () => {
         </Button>
       </Stack>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
-        <PerfilesTable rows={data} />
+        <PerfilesTable rows={data.getPerfiles} />
       </Stack>
     </Stack>
   );
