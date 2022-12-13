@@ -13,21 +13,21 @@ type Vale {
   fecha: DateTime
   saldo: Int!
   estado: Int!
-  funcionario: Funcionario
-  cajero: Cajero
-  sucursal: Sucursal
-  perfilName: String!
-  servicioName: String!
+  funcionario: ID!
+  cajero: ID!
+  sucursal: ID!
+  perfil: ID!
+  servicio: ID!
 }
 
 input ValeInput {
   fecha: DateTime
-  saldo: Int!
-  funcionario: ID!
-  cajero: ID!
-  sucursal: ID!
-  perfilName: String!
-  servicioName: String!
+  saldo: Int
+  funcionario: ID
+  cajero: ID
+  sucursal: ID
+  perfil: ID
+  servicio: ID
 }
 
 type Query{
@@ -49,13 +49,13 @@ const valeResolvers = {
 
     async getVales(obj, {date}, context, info){
       if(date){
-        return await Vale.find({fecha: {$gt:date}}).populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
+        return await Vale.find({fecha: {$gt:date}});
       }else{
-        return await Vale.find().populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
+        return await Vale.find();
       }
     },
     async getVale(obj, {id}, context, info){
-      return await Vale.findById(id).populate({path: 'funcionario'}).populate({path: 'sucursal'}).populate({path: 'cajero'});
+      return await Vale.findById(id);
     }
   },
   Mutation: {

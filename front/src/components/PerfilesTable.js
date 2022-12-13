@@ -25,8 +25,8 @@ const style = {
 
 const PerfilesTable = ({ rows }) => {
   const navigate = useNavigate();
-  const handleVer = (nombre) => {
-    navigate(`/perfil/${nombre}`);
+  const handleVer = (id) => {
+    navigate(`/perfil/${id}`);
   };
   const cols = [
     {
@@ -47,7 +47,7 @@ const PerfilesTable = ({ rows }) => {
       flex: 1,
       renderCell: (params) => {
         const onVerClick = (e) => {
-          handleVer(params.row.nombre);
+          handleVer(params.row.id);
         };
         return (
           <div>
@@ -72,7 +72,7 @@ const PerfilesTable = ({ rows }) => {
       renderCell: (params) => {
         const [open, setOpen] = React.useState(false);
         const handleEditClick = () => {
-          navigate(`/perfiles/${params.row._id}/${params.row.nombre}`);
+          navigate(`/perfiles/${params.row.id}/${params.row.nombre}`);
         };
         const handleDeleteClick = () => setOpen(true);
         return (
@@ -145,7 +145,7 @@ const PerfilesTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row.id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{ borderRadius: 5, paadingLeft: 2, paddingRight: 2 }}

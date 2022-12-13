@@ -19,10 +19,12 @@ import axios from 'axios';
 import * as Constants from '../constants';
 import ServiciosTable from '../components/ServiciosTable';
 import logo from '../assets/logo2.png';
+import { useMutation } from '@apollo/client';
 
 const LoginView = () => {
   const navigate = useNavigate();
   const [codigo, setCodigo] = useState(null);
+  const [token, setToken] = useState(null);
   const [password, setPassword] = useState(null);
   const [tipo, setTipo] = useState('Funcionario');
   const [correct, setCorrect] = useState(false);
@@ -39,19 +41,36 @@ const LoginView = () => {
   const handleClick = async (event) => {
     event.preventDefault();
   };
+
+  const [loginAdmin, { loading, error2, data }] = useMutation(Constants.LOGIN_ADMIN_MUTATION);
+  if (loading) return 'Loading...';
+  if (error2) return `Error! ${error2.message}`;
+
   const handleLogin = () => {
     if (password !== null && codigo != null) {
-      console.log(tipo);
       switch (tipo) {
-        case 'Funcionario':
+        case 'Funcionario': {
           navigate('/funcionario');
           break;
-        case 'Cajero':
+        }
+        case 'Cajero': {
           navigate('/cajero');
           break;
-        case 'Administrador':
-          navigate('/vales');
+        }
+        case 'Administrador': {
+          console.log(codigo, password);
+          loginAdmin({
+            variables: {
+              codigoAdmin: codigo,
+              password: password
+            }
+          });
+          console.log(data);
+          if (data.loginAdmin.code == '200') {
+            navigate('/vales');
+          }
           break;
+        }
       }
     } else {
       //

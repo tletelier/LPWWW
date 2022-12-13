@@ -1,77 +1,29 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
+import * as Constants from '../constants';
 import { Box, Stack, Typography, Button } from '@mui/material';
 import FuncionariosTable from '../components/FuncionariosTable';
 import { useNavigate, useParams } from 'react-router-dom';
-
-const data = [
-  {
-    _id: 'sdfsd',
-    cantidad: 3,
-    nombre: 'Obrero',
-    funcionarios: [
-      {
-        _id: 'asdfasd',
-        nombre: 'Jen Jen',
-        apellido: 'Alvarado',
-        codigo: '1249',
-        email: 'jen.alvarado@dominio.kr'
-      },
-      {
-        _id: 'adfgsdfasd',
-        nombre: 'Giselle',
-        apellido: 'Skull',
-        codigo: '0782',
-        email: 'giselle.skull@dominio.kr'
-      },
-      {
-        _id: 'asddfgfsdfasd',
-        nombre: 'Ning Ning',
-        apellido: 'Vilu',
-        codigo: '1408',
-        email: 'ning.vilu@dominio.cl'
-      }
-    ]
-  },
-  {
-    _id: 'sdfsdfsfd',
-    cantidad: 2,
-    nombre: 'Gerente',
-    funcionarios: [
-      {
-        _id: 'asdsdfsasd',
-        nombre: 'Chan Chan',
-        apellido: 'Verek',
-        codigo: '2121',
-        email: 'chan.verek@dominio.eu'
-      },
-      {
-        _id: 'adfgsdfasdfssd',
-        nombre: 'Lix Lix',
-        apellido: 'Turing',
-        codigo: '0420',
-        email: 'lix.turing@dominio.eu'
-      }
-    ]
-  }
-];
+import { useQuery } from '@apollo/client';
 
 const PerfilesView = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { perfil } = params;
-
-  let funcionarios;
-
-  data.map((key) => {
-    if (key.nombre == perfil) {
-      funcionarios = key.funcionarios;
-    }
-  });
-
   const handleCancelarClick = () => {
     navigate('/perfiles');
   };
-  console.log(data);
+
+  const { loading, error, data } = useQuery(Constants.GET_FUNCIONARIOS_PERFIL_QUERY, {
+    variables: {
+      perfilId: perfil
+    }
+  });
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log(data.getFuncionariosPerfil);
+
   return (
     <Stack direction="column" spacing={2} sx={{ pb: 4 }}>
       <Box sx={{ px: 4, py: 2 }}>
@@ -80,7 +32,7 @@ const PerfilesView = () => {
         </Typography>
       </Box>
       <Stack sx={{ px: 4, py: 2, minWidth: 300 }}>
-        <FuncionariosTable rows={funcionarios} />
+        <FuncionariosTable rows={data.getFuncionariosPerfil} />
       </Stack>
       <Stack direction="row">
         <Button

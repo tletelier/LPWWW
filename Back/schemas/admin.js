@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Middleware
-const auth = require("../middleware/auth");
-
 // Models
 const Admin = require('../models/admin');
 
@@ -22,10 +19,10 @@ const adminSchema = `
 }
 
 input AdminInput{
-  nombres: String!
-  apellidos: String!
-  codigoAdmin: Int!
-  password: String!
+  nombres: String
+  apellidos: String
+  codigoAdmin: Int
+  password: String
 }
 
 type Query{

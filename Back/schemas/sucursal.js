@@ -10,13 +10,13 @@ type Sucursal {
   id: ID!
   direccion: String!
   codigoSucursal: Int!
-  cajero: Cajero
+  cajero: ID
 }
 
 input SucursalInput {
-  direccion: String!
-  codigoSucursal: Int!
-  cajero: String
+  direccion: String
+  codigoSucursal: Int
+  cajero: ID
 }
 
 type Query{
@@ -42,13 +42,13 @@ const sucursalResolvers = {
   },
   Mutation: {
     async addSucursal(obj, {input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Cajero({});
       const temp = new Sucursal(input);
       await temp.save();
       return temp;
     },
     async updateSucursal(obj, {id, input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Cajero({});
       return await Sucursal.findByIdAndUpdate(id, input);
     },
     async deleteSucursal(obj, {id}, context, info){

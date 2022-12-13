@@ -14,7 +14,7 @@ type Servicio {
   horarioFin: String!
   valor: Int!
   maxValesTurno: Int!
-  perfil: Perfil
+  perfil: ID!
 }
 
 input ServicioInput {
@@ -23,7 +23,7 @@ input ServicioInput {
   horarioFin: String
   valor: Int
   maxValesTurno: Int
-  perfil: String
+  perfil: ID
 }
 
 type Query{
@@ -41,15 +41,17 @@ type Mutation{
 const servicioResolvers = {
   Query: {
     async getServicios(obj, params, context, info){
-      return await Servicio.find().populate('perfil');
+      return await Servicio.find();
     },
     async getServicio(obj, {id}, context, info){
-      return await Servicio.findById(id).populate('perfil');
+      const temp = Servicio.findById(id)
+      console.log(temp);
+      return await Servicio.findById(id)
     }
   },
   Mutation: {
     async addServicio(obj, {input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Servicio({});
       let {nombre, horarioInicio, horarioFin, valor, maxValesTurno, perfil} = input
       let perfilBuscar = await Perfil.findById(perfil)
       if(perfilBuscar === null){
@@ -69,7 +71,7 @@ const servicioResolvers = {
       }
     },
     async updateServicio(obj, {id, input}, context, info){
-      if (context.user === null || context.user.type !== "admin") return [];
+      if (context.user === null || context.user.type !== "admin") return new Servicio({});
       return await Servicio.findByIdAndUpdate(id, input);
     },
     async deleteServicio(obj, {id}, context, info){

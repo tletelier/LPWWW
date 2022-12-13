@@ -38,7 +38,7 @@ const ServiciosTable = ({ rows }) => {
       renderCell: (params) => {
         const handleEditClick = () => {
           navigate(
-            `/servicios/${params.row._id}/${params.row.nombre}/${params.row.horarioInicio}/${params.row.horarioFin}`
+            `/servicios/${params.row.id}/${params.row.nombre}/${params.row.horarioInicio}/${params.row.horarioFin}`
           );
         };
         return (
@@ -64,7 +64,7 @@ const ServiciosTable = ({ rows }) => {
           autoHeight
           hideFooter
           columns={cols}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row.id}
           rows={Object.values(rows)}
           disableSelectionOnClick
           sx={{ borderRadius: 5, paddingLeft: 2, paddingRight: 2 }}
