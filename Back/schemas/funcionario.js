@@ -84,6 +84,7 @@ input FuncionarioInput{
 type Query{
   getFuncionarios: [Funcionario]
   getFuncionario(id: ID!): Funcionario
+  getFuncionariosPerfil(perfilId: ID!): [Funcionario]
 }
 
 type Mutation{
@@ -98,11 +99,22 @@ const funcionarioResolvers = {
   Query: {
     async getFuncionarios(obj, params, context, info){
       const funcionarios = await Funcionario.find();
-      // console.log(funcionarios);
       return funcionarios;
     },
     async getFuncionario(obj, {id}, context, info){
       return await Funcionario.findById(id);
+    },
+    async getFuncionariosPerfil(obj, {perfilId}, context, info){
+      const funcionarios = await Funcionario.find();
+      let response = [];
+
+      for (var i=0; i < funcionarios.length; i++) {
+        if(funcionarios[i].perfil == perfilId){
+          response.push(funcionarios[i]);
+        }
+      }
+
+      return response;
     },
   },
   Mutation: {

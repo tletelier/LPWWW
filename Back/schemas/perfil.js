@@ -17,6 +17,7 @@ input PerfilInput {
 type Query{
   getPerfiles: [Perfil]
   getPerfil(id: ID!): Perfil
+  getPerfilesServicio(servicioId: ID!) : [Perfil]
 }
 
 type Mutation{
@@ -34,7 +35,19 @@ const perfilResolvers = {
     },
     async getPerfil(obj, {id}, context, info){
       return await Perfil.findById(id);
-    }
+    },
+    async getPerfilesServicio(obj, {servicioId}, context, info){
+      const perfiles = await Perfil.find();
+      let response = [];
+
+      for (var i=0; i < perfiles.length; i++) {
+        if(perfiles[i].servicio == servicioId){
+          response.push(perfiles[i]);
+        }
+      }
+
+      return response;
+    },
   },
   Mutation: {
     async addPerfil(obj, {input}, context, info){
