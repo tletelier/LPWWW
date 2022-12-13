@@ -9,9 +9,9 @@ Tema: Caso 18
 * Fernanda Rubio
 * Bruno Vega
 
-## Entrega Front-End
+## Entrega Integración
 
-Desde el Login se puede acceder a las interfaces de los 3 tipos de usuarios, como no hay integracion de usuarios solo se deben llenar los campos, la redirección será en base al tipo seleccionado.
+La integración es parcial. Se puede acceder a una vista de administrador desde las credenciales código:1249 y password:admin seleccionando Administrador como tipo de cuenta.
 
 #### Figma con prototipos de vistas
 https://www.figma.com/file/BuALYn2y9zFXsBjzPB81d0/LPWWW?node-id=0%3A1
